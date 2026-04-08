@@ -1,0 +1,73 @@
+# Xcode
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcodeproj/xcshareddata/xcschemes/
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+!*.xcworkspace/xcshareddata/
+!*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+!*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.xcarchive
+
+# Swift Package Manager
+.build/
+.swiftpm/
+*.resolved
+
+# CocoaPods (not used, but just in case)
+Pods/
+Podfile.lock
+
+# Carthage (not used, but just in case)
+Carthage/Build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.TemporaryItems
+
+# Instruments
+*.trace
+
+# Playgrounds
+playground.xcworkspace
+
+# Simulator
+iOSDeviceSupport/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Environment / secrets
+*.env
+.env.local
+Secrets.swift
+APIKeys.swift
+
+# Editor
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.o
+*.a
+*.dylib
+*.dSYM/
