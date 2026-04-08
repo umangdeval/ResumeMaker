@@ -74,8 +74,7 @@ private struct DashboardTab: View {
 private struct CreateTab: View {
     var body: some View {
         NavigationStack {
-            PlaceholderTabView(title: "Create", icon: "plus.circle", description: "Resume creation workflow — coming soon.")
-                .navigationTitle("Create")
+            ResumeParserView()
         }
     }
 }
