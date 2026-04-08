@@ -151,7 +151,7 @@
 		CA57E0959B152E65AD43F185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D1D7A499E0859D2608587C74 /* GeminiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiService.swift; sourceTree = "<group>"; };
 		DFA827560CF98E1AEEA5B6A2 /* FileImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportService.swift; sourceTree = "<group>"; };
-		F405F6055EAACA65D6BB04A3 /* ResumeForge.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ResumeForge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F405F6055EAACA65D6BB04A3 /* ResumeForge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResumeForge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F9D2F8DA893CF23210A393 /* CoverLetterPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverLetterPlaceholder.swift; sourceTree = "<group>"; };
 		F86617C6B659636E38A12CCF /* CoverLetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverLetter.swift; sourceTree = "<group>"; };
 		F9FD3A776A990A6EBBD92387 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
@@ -453,7 +453,6 @@
 						ProvisioningStyle = Automatic;
 					};
 					97BCEA1904DFAF8B07864C50 = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -638,7 +637,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 37FGE98Z3R;
 				INFOPLIST_FILE = ResumeForge/App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -860,7 +859,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 37FGE98Z3R;
 				INFOPLIST_FILE = ResumeForge/App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (

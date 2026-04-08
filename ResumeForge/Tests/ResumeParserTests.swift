@@ -80,6 +80,24 @@ struct DateRangeParserTests {
         #expect(calendar.component(.year, from: result!.end!) == 2020)
     }
 
+    @Test("strips location suffix before parsing end date")
+    func stripsLocationFromEndDate() {
+        // Regression: "Apr 2025 | Guelph" was failing parseDate
+        let result = DateRangeParser.parse(from: "Sep 2023 – Apr 2025 | Guelph")
+        #expect(result != nil)
+        #expect(result?.isCurrent == false)
+        let calendar = Calendar.current
+        #expect(calendar.component(.year, from: result!.end!) == 2025)
+    }
+
+    @Test("parses date with remote location suffix")
+    func parsesDateWithRemoteSuffix() {
+        let result = DateRangeParser.parse(from: "May 2025 – Present | Singapore (Remote)")
+        #expect(result?.isCurrent == true)
+        let calendar = Calendar.current
+        #expect(calendar.component(.year, from: result!.start) == 2025)
+    }
+
     @Test("parses '2019–2022' year-only range")
     func parsesYearOnlyRange() {
         let result = DateRangeParser.parse(from: "2019–2022")

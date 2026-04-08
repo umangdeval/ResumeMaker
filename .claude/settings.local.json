@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xcodegen generate:*)",
+      "Bash(sudo xcodebuild:*)",
+      "Bash(xcodebuild -runFirstLaunch)",
+      "Bash(xcodebuild build:*)",
+      "Bash(tee /tmp/rf_build.log)",
+      "Bash(tee /tmp/rf_build_mac.log)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "Bash(git reset:*)"
+    ]
+  }
+}
