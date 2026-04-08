@@ -1,69 +1,119 @@
 import SwiftUI
+import SwiftData
 
-struct ContentView: View {
-    @Environment(AppRouter.self) private var router
+// MARK: - Root tab container
 
+struct RootTabView: View {
     var body: some View {
-        @Bindable var router = router
-        NavigationStack(path: $router.path) {
-            DashboardView()
-                .navigationDestination(for: AppDestination.self) { destination in
-                    destinationView(for: destination)
-                }
-        }
-    }
+        TabView {
+            DashboardTab()
+                .tabItem { Label("Dashboard", systemImage: "house") }
 
-    @ViewBuilder
-    private func destinationView(for destination: AppDestination) -> some View {
-        switch destination {
-        case .profile:
-            Text("Profile — coming soon")
-        case .resumeParser:
-            Text("Resume Parser — coming soon")
-        case .jobDescription:
-            Text("Job Description — coming soon")
-        case .aiCouncil:
-            Text("AI Council — coming soon")
-        case .resumeBuilder:
-            Text("Resume Builder — coming soon")
-        case .coverLetter:
-            Text("Cover Letter — coming soon")
-        case .export:
-            Text("Export — coming soon")
-        case .settings:
-            Text("Settings — coming soon")
+            CreateTab()
+                .tabItem { Label("Create", systemImage: "plus.circle") }
+
+            DocumentsTab()
+                .tabItem { Label("Documents", systemImage: "doc.text") }
+
+            SettingsTab()
+                .tabItem { Label("Settings", systemImage: "gear") }
         }
     }
 }
 
-// MARK: - Dashboard (temporary scaffold)
+// MARK: - Dashboard tab
 
-private struct DashboardView: View {
-    @Environment(AppRouter.self) private var router
+private struct DashboardTab: View {
+    @Query(sort: \GeneratedResume.createdAt, order: .reverse) private var resumes: [GeneratedResume]
 
     var body: some View {
-        List {
-            dashboardRow(title: "My Profile", subtitle: "Manage your base resume info", destination: .profile)
-            dashboardRow(title: "Parse Resume", subtitle: "Import PDF or LaTeX resume", destination: .resumeParser)
-            dashboardRow(title: "Job Description", subtitle: "Add a job to target", destination: .jobDescription)
-            dashboardRow(title: "Settings", subtitle: "API keys and preferences", destination: .settings)
+        NavigationStack {
+            List {
+                welcomeSection
+                if !resumes.isEmpty {
+                    recentSection
+                }
+            }
+            .navigationTitle("ResumeForge")
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.large)
+            #endif
         }
-        .navigationTitle("ResumeForge")
-        #if os(iOS)
-        .navigationBarTitleDisplayMode(.large)
-        #endif
     }
 
-    private func dashboardRow(title: String, subtitle: String, destination: AppDestination) -> some View {
-        Button {
-            router.push(destination)
-        } label: {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title).font(.headline)
-                Text(subtitle).font(.subheadline).foregroundStyle(.secondary)
+    private var welcomeSection: some View {
+        Section {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Welcome to ResumeForge")
+                    .font(.headline)
+                Text("Parse your resume, describe a job, and let your AI Council tailor the perfect application.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
             .padding(.vertical, 4)
         }
-        .buttonStyle(.plain)
+    }
+
+    private var recentSection: some View {
+        Section("Recent Resumes") {
+            ForEach(resumes) { resume in
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(resume.displayTitle).font(.headline)
+                    Text(resume.createdAt.formatted(date: .abbreviated, time: .omitted))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.vertical, 2)
+            }
+        }
+    }
+}
+
+// MARK: - Create tab
+
+private struct CreateTab: View {
+    var body: some View {
+        NavigationStack {
+            PlaceholderTabView(title: "Create", icon: "plus.circle", description: "Resume creation workflow — coming soon.")
+                .navigationTitle("Create")
+        }
+    }
+}
+
+// MARK: - Documents tab
+
+private struct DocumentsTab: View {
+    var body: some View {
+        NavigationStack {
+            PlaceholderTabView(title: "Documents", icon: "doc.text", description: "Saved resumes and cover letters — coming soon.")
+                .navigationTitle("Documents")
+        }
+    }
+}
+
+// MARK: - Settings tab
+
+private struct SettingsTab: View {
+    var body: some View {
+        NavigationStack {
+            PlaceholderTabView(title: "Settings", icon: "gear", description: "API key management and preferences — coming soon.")
+                .navigationTitle("Settings")
+        }
+    }
+}
+
+// MARK: - Shared placeholder
+
+private struct PlaceholderTabView: View {
+    let title: String
+    let icon: String
+    let description: String
+
+    var body: some View {
+        ContentUnavailableView {
+            Label(title, systemImage: icon)
+        } description: {
+            Text(description)
+        }
     }
 }

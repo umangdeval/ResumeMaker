@@ -1,3 +1,6 @@
+# Build output
+build/
+
 # Xcode
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj

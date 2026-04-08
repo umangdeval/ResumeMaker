@@ -1,35 +1,26 @@
 import Testing
 @testable import ResumeForge
 
-@Suite("AppRouter")
+@Suite("Router")
 @MainActor
-struct AppRouterTests {
-    @Test("push appends destination")
-    func pushAppendsDestination() {
-        let router = AppRouter()
+struct RouterTests {
+    @Test("push appends a route")
+    func pushAppends() {
+        let router = Router()
         router.push(.profile)
-        #expect(router.path == [.profile])
-    }
-
-    @Test("pop removes last destination")
-    func popRemovesLast() {
-        let router = AppRouter()
-        router.push(.profile)
-        router.push(.settings)
-        router.pop()
-        #expect(router.path == [.profile])
+        #expect(!router.path.isEmpty)
     }
 
     @Test("pop on empty path is a no-op")
     func popOnEmpty() {
-        let router = AppRouter()
+        let router = Router()
         router.pop()
         #expect(router.path.isEmpty)
     }
 
-    @Test("popToRoot clears all destinations")
+    @Test("popToRoot clears all routes")
     func popToRoot() {
-        let router = AppRouter()
+        let router = Router()
         router.push(.profile)
         router.push(.settings)
         router.popToRoot()

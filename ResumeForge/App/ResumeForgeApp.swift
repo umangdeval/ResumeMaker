@@ -8,7 +8,11 @@ struct ResumeForgeApp: App {
     init() {
         do {
             modelContainer = try ModelContainer(
-                for: Resume.self, UserProfile.self, JobDescriptionEntry.self, CoverLetter.self,
+                for: UserProfile.self,
+                     Experience.self,
+                     Education.self,
+                     GeneratedResume.self,
+                     CoverLetter.self,
                 configurations: ModelConfiguration(isStoredInMemoryOnly: false)
             )
         } catch {
@@ -18,8 +22,8 @@ struct ResumeForgeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(AppRouter())
+            RootTabView()
+                .environment(Router())
         }
         .modelContainer(modelContainer)
         #if os(macOS)

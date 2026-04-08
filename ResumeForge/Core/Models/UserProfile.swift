@@ -7,29 +7,26 @@ final class UserProfile {
     var fullName: String
     var email: String
     var phone: String
-    var location: String
-    var linkedInURL: String
-    var githubURL: String
-    var websiteURL: String
+    var linkedIn: String?
+    var github: String?
+    var website: String?
     var summary: String
-    var workExperiences: [WorkExperience]
-    var educations: [Education]
     var skills: [String]
     var createdAt: Date
     var updatedAt: Date
+
+    @Relationship(deleteRule: .cascade) var experiences: [Experience]
+    @Relationship(deleteRule: .cascade) var education: [Education]
 
     init(
         id: UUID = UUID(),
         fullName: String = "",
         email: String = "",
         phone: String = "",
-        location: String = "",
-        linkedInURL: String = "",
-        githubURL: String = "",
-        websiteURL: String = "",
+        linkedIn: String? = nil,
+        github: String? = nil,
+        website: String? = nil,
         summary: String = "",
-        workExperiences: [WorkExperience] = [],
-        educations: [Education] = [],
         skills: [String] = [],
         createdAt: Date = .now,
         updatedAt: Date = .now
@@ -38,38 +35,14 @@ final class UserProfile {
         self.fullName = fullName
         self.email = email
         self.phone = phone
-        self.location = location
-        self.linkedInURL = linkedInURL
-        self.githubURL = githubURL
-        self.websiteURL = websiteURL
+        self.linkedIn = linkedIn
+        self.github = github
+        self.website = website
         self.summary = summary
-        self.workExperiences = workExperiences
-        self.educations = educations
         self.skills = skills
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.experiences = []
+        self.education = []
     }
-}
-
-// MARK: - Embedded value types (stored as Codable blobs by SwiftData)
-
-struct WorkExperience: Codable, Hashable, Identifiable {
-    var id: UUID = UUID()
-    var company: String
-    var title: String
-    var location: String
-    var startDate: Date
-    var endDate: Date?
-    var isCurrent: Bool
-    var bullets: [String]
-}
-
-struct Education: Codable, Hashable, Identifiable {
-    var id: UUID = UUID()
-    var institution: String
-    var degree: String
-    var field: String
-    var startDate: Date
-    var endDate: Date?
-    var gpa: String
 }
