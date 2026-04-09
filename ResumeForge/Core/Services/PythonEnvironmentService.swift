@@ -29,6 +29,13 @@ enum PythonEnvironmentError: Error, LocalizedError {
     }
 }
 
+// MARK: - Constants
+
+/// Path to the dedicated venv where docling-parse is installed.
+/// Created once by running: python3.11 -m venv ~/.resumeforge-venv && pip install docling-parse
+private let venvPath = (("~/.resumeforge-venv" as NSString).expandingTildeInPath)
+private let venvPython = venvPath + "/bin/python3"
+
 // MARK: - Service
 
 enum PythonEnvironmentService {
@@ -42,24 +49,54 @@ enum PythonEnvironmentService {
 
     /// Returns `.ready` if docling_parse can be imported, otherwise explains what's missing.
     static func checkDocling() -> PythonEnvironmentStatus {
-        guard (try? Python.attemptImport("sys")) != nil else {
+        guard let sys = try? Python.attemptImport("sys") else {
             return .pythonNotFound
         }
+        // Inject venv site-packages into sys.path so imports resolve correctly
+        injectVenvSitePaths(into: sys)
         guard (try? Python.attemptImport("docling_parse")) != nil else {
             return .doclingNotInstalled
         }
         return .ready
     }
 
+    /// Adds the venv's site-packages to Python's sys.path if not already present.
+    static func injectVenvSitePaths(into sys: PythonObject) {
+        guard FileManager.default.fileExists(atPath: venvPython) else { return }
+        // Ask the venv interpreter for its site-packages paths
+        let script = """
+import sys, site
+print('\\n'.join(sys.path))
+"""
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: venvPython)
+        task.arguments = ["-c", script]
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = Pipe()
+        guard (try? task.run()) != nil else { return }
+        task.waitUntilExit()
+
+        let output = String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+        let venvPaths = output.components(separatedBy: .newlines).filter { !$0.isEmpty }
+
+        let currentPaths = Array(sys.path) ?? []
+        let existing = Set(currentPaths.compactMap { String($0) })
+        for path in venvPaths where !existing.contains(path) {
+            sys.path.append(path)
+        }
+    }
+
     // MARK: - Dylib discovery
 
-    /// Searches known Homebrew and system locations for a loadable Python 3 `.dylib`.
+    /// Checks the dedicated venv first, then falls back to Homebrew Python.
     private static func findPythonDylib() throws(PythonEnvironmentError) -> String {
-        // Prefer Homebrew arm64 Python, then Intel Homebrew, then system.
-        // For each, try to ask the interpreter directly for its library path first.
+        // Priority 1: the app's dedicated venv (Python 3.11, has docling-parse)
         let interpreters = [
-            "/opt/homebrew/bin/python3",       // Homebrew Apple Silicon
-            "/usr/local/bin/python3",           // Homebrew Intel
+            venvPython,                         // ~/.resumeforge-venv
+            "/opt/homebrew/bin/python3.11",     // Homebrew 3.11 directly
+            "/opt/homebrew/bin/python3",        // Homebrew default
+            "/usr/local/bin/python3",           // Intel Homebrew
         ]
 
         for interp in interpreters where FileManager.default.isExecutableFile(atPath: interp) {
@@ -68,15 +105,16 @@ enum PythonEnvironmentService {
             }
         }
 
-        // Fallback: glob known Homebrew framework paths directly
+        // Fallback: glob known Homebrew framework paths for any 3.x dylib
         let globs = [
+            "/opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/lib/libpython3.11.dylib",
             "/opt/homebrew/opt/python@3.*/Frameworks/Python.framework/Versions/3.*/lib/libpython3.*.dylib",
             "/usr/local/opt/python@3.*/Frameworks/Python.framework/Versions/3.*/lib/libpython3.*.dylib",
         ]
         for pattern in globs {
-            if let found = glob(pattern: pattern).first {
-                return found
-            }
+            // Direct path check first (no glob needed for the 3.11 exact path)
+            if FileManager.default.fileExists(atPath: pattern) { return pattern }
+            if let found = globSearch(pattern: pattern).first { return found }
         }
 
         throw .pythonNotFound
@@ -107,7 +145,7 @@ if hits:
     }
 
     /// Minimal glob expansion for `*` wildcards using FileManager.
-    private static func glob(pattern: String) -> [String] {
+    private static func globSearch(pattern: String) -> [String] {
         // Split on first * to get a searchable base directory
         let parts = pattern.components(separatedBy: "*")
         guard parts.count > 1 else {
