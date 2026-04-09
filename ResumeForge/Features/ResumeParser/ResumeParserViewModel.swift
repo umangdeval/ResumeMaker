@@ -69,13 +69,30 @@ final class ResumeParserViewModel {
     // MARK: - Private helpers
 
     private func extractText(from file: ImportedFile) async throws -> String {
-        // Run CPU-bound extraction off the main actor
-        try await Task.detached(priority: .userInitiated) {
-            switch file.fileType {
-            case .pdf:   return try PDFTextExtractor.extract(from: file.data)
-            case .latex: return try LaTeXTextExtractor.extract(from: file.data)
+        switch file.fileType {
+        case .latex:
+            return try await Task.detached(priority: .userInitiated) {
+                try LaTeXTextExtractor.extract(from: file.data)
+            }.value
+
+        case .pdf:
+            // Write data to a temp file so Docling (which needs a file path) can access it
+            let tmpURL = FileManager.default.temporaryDirectory
+                .appendingPathComponent(UUID().uuidString + ".pdf")
+            try file.data.write(to: tmpURL)
+            defer { try? FileManager.default.removeItem(at: tmpURL) }
+
+            do {
+                // Try Docling first — richer, layout-aware extraction
+                return try await DoclingPDFExtractor.extract(from: tmpURL)
+            } catch DoclingExtractionError.moduleNotAvailable {
+                // Docling not installed — fall back silently to PDFKit
+                return try await Task.detached(priority: .userInitiated) {
+                    try PDFTextExtractor.extract(from: file.data)
+                }.value
             }
-        }.value
+            // Other Docling errors (parse failure, empty) propagate to the caller
+        }
     }
 
     private func fetchOrCreateProfile(context: ModelContext) throws -> UserProfile {

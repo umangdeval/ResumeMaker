@@ -44,9 +44,6 @@ struct ResumeParserView: View {
         }
         .errorBanner(viewModel.error)
         .navigationTitle("Import Resume")
-        #if os(iOS)
-        .navigationBarTitleDisplayMode(.inline)
-        #endif
     }
 }
 
@@ -63,12 +60,10 @@ private struct ImportPromptView: View {
             Spacer()
         }
         .padding()
-        #if os(macOS)
         .onDrop(of: ResumeFileType.supportedUTTypes, isTargeted: nil) { providers in
             Task { await handleDrop(providers) }
             return true
         }
-        #endif
     }
 
     private var dropZoneContent: some View {
@@ -82,11 +77,9 @@ private struct ImportPromptView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-            #if os(macOS)
             Text("Drop a file here or click Import")
                 .font(.caption)
                 .foregroundStyle(.tertiary)
-            #endif
         }
     }
 
@@ -99,7 +92,6 @@ private struct ImportPromptView: View {
         .controlSize(.large)
     }
 
-    #if os(macOS)
     private func handleDrop(_ providers: [NSItemProvider]) async {
         for provider in providers {
             for type in ResumeFileType.supportedUTTypes {
@@ -115,7 +107,6 @@ private struct ImportPromptView: View {
             }
         }
     }
-    #endif
 }
 
 // MARK: - Review view
@@ -275,11 +266,7 @@ private struct ExtractedTextView: View {
                 .padding()
                 .textSelection(.enabled)
         }
-        #if os(iOS)
-        .background(Color(UIColor.secondarySystemBackground))
-        #else
         .background(Color(NSColor.windowBackgroundColor))
-        #endif
     }
 }
 

@@ -4,6 +4,8 @@ import SwiftData
 // MARK: - Root tab container
 
 struct RootTabView: View {
+    let pythonStatus: PythonEnvironmentStatus
+
     var body: some View {
         TabView {
             DashboardTab()
@@ -15,7 +17,7 @@ struct RootTabView: View {
             DocumentsTab()
                 .tabItem { Label("Documents", systemImage: "doc.text") }
 
-            SettingsTab()
+            SettingsTab(pythonStatus: pythonStatus)
                 .tabItem { Label("Settings", systemImage: "gear") }
         }
     }
@@ -35,9 +37,6 @@ private struct DashboardTab: View {
                 }
             }
             .navigationTitle("ResumeForge")
-            #if os(iOS)
-            .navigationBarTitleDisplayMode(.large)
-            #endif
         }
     }
 
@@ -93,10 +92,32 @@ private struct DocumentsTab: View {
 // MARK: - Settings tab
 
 private struct SettingsTab: View {
+    let pythonStatus: PythonEnvironmentStatus
+    @State private var currentStatus: PythonEnvironmentStatus = .ready
+
     var body: some View {
         NavigationStack {
-            PlaceholderTabView(title: "Settings", icon: "gear", description: "API key management and preferences — coming soon.")
-                .navigationTitle("Settings")
+            Form {
+                if currentStatus != .ready {
+                    Section("Python / Docling Setup") {
+                        PythonSetupView(status: currentStatus) {
+                            currentStatus = PythonEnvironmentService.checkDocling()
+                        }
+                    }
+                } else {
+                    Section("Python / Docling") {
+                        Label("docling-parse is installed and ready.", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                    }
+                }
+                Section("API Keys") {
+                    Text("API key management — coming soon.")
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .formStyle(.grouped)
+            .navigationTitle("Settings")
+            .onAppear { currentStatus = pythonStatus }
         }
     }
 }
