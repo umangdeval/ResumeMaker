@@ -127,15 +127,21 @@ def _clean_latex(source: str) -> str:
     Strips commands, environments, and common formatting macros.
     """
     # Remove comments
-    text = re.sub(r"%.*", "", source)
+    text = re.sub(r"%[^\n]*", "", source)
     # Unwrap common text commands: \textbf{foo} → foo
+    # Limit argument length to prevent catastrophic backtracking.
     for cmd in ("textbf", "textit", "emph", "underline", "texttt",
                 "textsc", "textrm", "textsf", "text"):
-        text = re.sub(rf"\\{cmd}\{{([^}}]*)\}}", r"\1", text)
-    # Remove \begin / \end blocks for document, resume, center, etc.
-    text = re.sub(r"\\(begin|end)\{[^}]*\}", "", text)
-    # Strip remaining backslash commands and their optional/mandatory args
-    text = re.sub(r"\\[a-zA-Z]+\*?(\[[^\]]*\])?(\{[^}]*\})*", " ", text)
+        text = re.sub(rf"\\{cmd}\{{([^}}]{{0,500}})\}}", r"\1", text)
+    # Remove \begin / \end blocks – cap argument at 100 chars to avoid ReDoS.
+    text = re.sub(r"\\(?:begin|end)\{[^}]{0,100}\}", "", text)
+    # Strip remaining backslash commands and their optional/mandatory args.
+    # Caps on argument lengths prevent polynomial backtracking.
+    text = re.sub(
+        r"\\[a-zA-Z]+\*?(?:\[[^\]]{0,200}\])?(?:\{[^}]{0,500}\}){0,5}",
+        " ",
+        text,
+    )
     # Remove leftover braces
     text = re.sub(r"[{}]", "", text)
     # Normalise whitespace

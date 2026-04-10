@@ -1,6 +1,9 @@
 """
-Thin wrapper around docling so Swift/PythonKit only needs to make simple calls
-with string arguments — no Python enum or dict construction on the Swift side.
+Legacy helper originally used by DoclingPDFExtractor via PythonKit.
+
+PythonKit has been removed from the project. PDF parsing is now handled
+by the standalone Python backend (backend/app.py). This file is kept for
+reference only and is no longer imported at runtime.
 """
 
 def create_converter(models_path: str):
