@@ -74,3 +74,7 @@ APIKeys.swift
 *.a
 *.dylib
 *.dSYM/
+
+# AI models — large binary files, not tracked in git
+# Re-download with: python3 download_models.py
+Models/

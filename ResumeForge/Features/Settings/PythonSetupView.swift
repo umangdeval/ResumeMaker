@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Shown when docling-parse is not installed or Python is not found.
+/// Shown when docling is not installed or Python is not found.
 struct PythonSetupView: View {
     let status: PythonEnvironmentStatus
     var onDismiss: (() -> Void)?
@@ -44,11 +44,11 @@ struct PythonSetupView: View {
             if case .pythonNotFound = status {
                 SetupStep(number: "1", text: "Install Python 3 from **python.org** or via Homebrew:")
                 CodeBlock(code: "brew install python")
-                SetupStep(number: "2", text: "Install docling-parse:")
-                CodeBlock(code: "pip install docling-parse")
+                SetupStep(number: "2", text: "Install docling:")
+                CodeBlock(code: "pip install docling")
             } else {
                 SetupStep(number: "1", text: "Open Terminal and run:")
-                CodeBlock(code: "pip install docling-parse")
+                CodeBlock(code: "pip install docling")
                 SetupStep(number: "2", text: "Restart ResumeForge after installation.")
             }
         }
@@ -60,8 +60,8 @@ struct PythonSetupView: View {
     private var copyButton: some View {
         Button {
             let cmd = (status == .pythonNotFound)
-                ? "brew install python && pip install docling-parse"
-                : "pip install docling-parse"
+                ? "brew install python && pip install docling"
+                : "pip install docling"
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(cmd, forType: .string)
         } label: {
@@ -75,7 +75,7 @@ struct PythonSetupView: View {
     private var title: String {
         switch status {
         case .pythonNotFound:    return "Python 3 not found"
-        case .doclingNotInstalled: return "docling-parse not installed"
+        case .doclingNotInstalled: return "docling not installed"
         default:                 return "Python setup required"
         }
     }
@@ -83,9 +83,9 @@ struct PythonSetupView: View {
     private var subtitle: String {
         switch status {
         case .pythonNotFound:
-            return "ResumeForge uses docling-parse for high-quality PDF text extraction, which requires Python 3."
+            return "ResumeForge uses docling for high-quality PDF text extraction, which requires Python 3."
         case .doclingNotInstalled:
-            return "Python was found but docling-parse is not installed. One command will fix this."
+            return "Python was found but docling is not installed. One command will fix this."
         default:
             return "A Python dependency is required for PDF parsing."
         }

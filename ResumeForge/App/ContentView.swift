@@ -14,6 +14,9 @@ struct RootTabView: View {
             CreateTab()
                 .tabItem { Label("Create", systemImage: "plus.circle") }
 
+            ProfileView()
+                .tabItem { Label("Profile", systemImage: "person.crop.circle") }
+
             DocumentsTab()
                 .tabItem { Label("Documents", systemImage: "doc.text") }
 

@@ -47,43 +47,39 @@ enum PythonEnvironmentService {
         PythonLibrary.useLibrary(at: dylib)
     }
 
-    /// Returns `.ready` if docling_parse can be imported, otherwise explains what's missing.
+    /// Returns `.ready` if docling can be imported, otherwise explains what's missing.
     static func checkDocling() -> PythonEnvironmentStatus {
         guard let sys = try? Python.attemptImport("sys") else {
             return .pythonNotFound
         }
         // Inject venv site-packages into sys.path so imports resolve correctly
         injectVenvSitePaths(into: sys)
-        guard (try? Python.attemptImport("docling_parse")) != nil else {
+        guard (try? Python.attemptImport("docling.document_converter")) != nil else {
             return .doclingNotInstalled
         }
         return .ready
     }
 
     /// Adds the venv's site-packages to Python's sys.path if not already present.
+    /// Resolves paths from the venv directory structure directly — no subprocess needed.
     static func injectVenvSitePaths(into sys: PythonObject) {
-        guard FileManager.default.fileExists(atPath: venvPython) else { return }
-        // Ask the venv interpreter for its site-packages paths
-        let script = """
-import sys, site
-print('\\n'.join(sys.path))
-"""
-        let task = Process()
-        task.executableURL = URL(fileURLWithPath: venvPython)
-        task.arguments = ["-c", script]
-        let pipe = Pipe()
-        task.standardOutput = pipe
-        task.standardError = Pipe()
-        guard (try? task.run()) != nil else { return }
-        task.waitUntilExit()
+        let libURL = URL(fileURLWithPath: venvPath).appendingPathComponent("lib")
+        guard let contents = try? FileManager.default.contentsOfDirectory(atPath: libURL.path) else { return }
 
-        let output = String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
-        let venvPaths = output.components(separatedBy: .newlines).filter { !$0.isEmpty }
+        var pathsToAdd: [String] = []
+        for dir in contents where dir.hasPrefix("python3") {
+            let base = libURL.path + "/" + dir
+            let sitePackages = base + "/site-packages"
+            if FileManager.default.fileExists(atPath: sitePackages) {
+                pathsToAdd.append(sitePackages)
+            }
+        }
+        guard !pathsToAdd.isEmpty else { return }
 
         let currentPaths = Array(sys.path) ?? []
         let existing = Set(currentPaths.compactMap { String($0) })
-        for path in venvPaths where !existing.contains(path) {
-            sys.path.append(path)
+        for path in pathsToAdd where !existing.contains(path) {
+            sys.path.insert(0, PythonObject(path))
         }
     }
 

@@ -33,15 +33,23 @@ final class ResumeParserViewModel {
     }
 
     func handlePickedURL(_ url: URL) async {
+        print("[ResumeParser] 📂 File picked: \(url.path)")
         parserState = .parsing
         error = nil
         do {
+            print("[ResumeParser] ⏳ Loading file data…")
             let file = try FileImportService.load(from: url)
             fileName = file.fileName
+            print("[ResumeParser] ✅ File loaded: \(file.fileName) (\(file.fileType)) — \(file.data.count) bytes")
+            print("[ResumeParser] ⏳ Starting text extraction…")
             extractedText = try await extractText(from: file)
+            print("[ResumeParser] ✅ Extraction done — \(extractedText.count) chars")
+            print("[ResumeParser] ⏳ Parsing content…")
             parsedData = ResumeContentParser.parse(extractedText)
+            print("[ResumeParser] ✅ Parsing done")
             parserState = .review
         } catch {
+            print("[ResumeParser] ❌ Error: \(error)")
             self.error = error
             parserState = .idle
         }
@@ -83,10 +91,12 @@ final class ResumeParserViewModel {
             defer { try? FileManager.default.removeItem(at: tmpURL) }
 
             do {
-                // Try Docling first — richer, layout-aware extraction
-                return try await DoclingPDFExtractor.extract(from: tmpURL)
+                print("[ResumeParser] 🐍 Trying Docling extractor…")
+                let text = try await DoclingPDFExtractor.extract(from: tmpURL)
+                print("[ResumeParser] ✅ Docling extraction succeeded")
+                return text
             } catch DoclingExtractionError.moduleNotAvailable {
-                // Docling not installed — fall back silently to PDFKit
+                print("[ResumeParser] ⚠️  Docling unavailable — using PDFKit fallback")
                 return try await Task.detached(priority: .userInitiated) {
                     try PDFTextExtractor.extract(from: file.data)
                 }.value

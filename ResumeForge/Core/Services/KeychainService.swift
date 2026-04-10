@@ -60,7 +60,7 @@ enum KeychainKey: String {
     case geminiAPIKey  = "com.resumeforge.apikey.gemini"
 }
 
-enum KeychainError: Error, LocalizedError {
+enum KeychainError: Error, LocalizedError, Equatable {
     case encodingFailed
     case notFound
     case underlyingError(OSStatus)

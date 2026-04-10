@@ -37,6 +37,7 @@ enum ResumeContentParser {
             }
         }
 
+        ResumeParseDebugger.dump(text: text, sections: sections.map { ($0.name, $0.body) }, data: data)
         return data
     }
 
@@ -403,6 +404,77 @@ enum DateRangeParser {
             if let date = f.date(from: cleaned) { return date }
         }
         return nil
+    }
+}
+
+// MARK: - Debug logging
+
+enum ResumeParseDebugger {
+    static func dump(
+        text: String,
+        sections: [(name: String, body: [String])],
+        data: ParsedResumeData
+    ) {
+        let sep = String(repeating: "─", count: 60)
+        var out = "\n\(sep)\n[ResumeParser] PARSE RESULTS\n\(sep)\n"
+
+        // Raw extracted text
+        out += "\n── RAW TEXT (\(text.components(separatedBy: .newlines).count) lines) ──\n"
+        out += text + "\n"
+
+        // Detected sections
+        out += "\n── SECTIONS DETECTED ──\n"
+        for s in sections {
+            out += "  [\(s.name)] → \(s.body.count) lines\n"
+            for line in s.body {
+                out += "    \(line)\n"
+            }
+        }
+
+        // Parsed fields
+        out += "\n── PARSED FIELDS ──\n"
+        out += "  name      : \(q(data.name))\n"
+        out += "  email     : \(q(data.email))\n"
+        out += "  phone     : \(q(data.phone))\n"
+        out += "  linkedIn  : \(q(data.linkedIn))\n"
+        out += "  github    : \(q(data.github))\n"
+        out += "  website   : \(q(data.website))\n"
+        out += "  summary   : \(q(String(data.summary.prefix(120))))\(data.summary.count > 120 ? "…" : "")\n"
+
+        out += "\n── EXPERIENCES (\(data.experiences.count)) ──\n"
+        let df = DateFormatter()
+        df.dateFormat = "MMM yyyy"
+        for (i, exp) in data.experiences.enumerated() {
+            let start = exp.startDate.map { df.string(from: $0) } ?? "?"
+            let end = exp.isCurrent ? "Present" : exp.endDate.map { df.string(from: $0) } ?? "?"
+            out += "  [\(i + 1)] \(q(exp.company)) | \(q(exp.title))\n"
+            out += "       \(start) – \(end)\n"
+            for b in exp.bulletPoints { out += "       • \(b)\n" }
+        }
+
+        out += "\n── EDUCATION (\(data.education.count)) ──\n"
+        for (i, edu) in data.education.enumerated() {
+            let grad = edu.graduationDate.map { df.string(from: $0) } ?? "?"
+            let gpaStr = edu.gpa.isEmpty ? "" : " | GPA: \(edu.gpa)"
+            out += "  [\(i + 1)] \(q(edu.institution))\n"
+            out += "       \(q(edu.degree)) in \(q(edu.field)) | grad: \(grad)\(gpaStr)\n"
+        }
+
+        out += "\n── SKILLS (\(data.skills.count)) ──\n"
+        for chunk in data.skills.chunked(by: 8) {
+            out += "  " + chunk.joined(separator: ", ") + "\n"
+        }
+
+        out += "\n\(sep)\n"
+        print(out)
+    }
+
+    private static func q(_ s: String) -> String { s.isEmpty ? "(empty)" : s }
+}
+
+private extension Array {
+    func chunked(by size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map { Array(self[$0..<Swift.min($0 + size, count)]) }
     }
 }
 

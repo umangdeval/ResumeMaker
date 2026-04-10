@@ -5,28 +5,24 @@ import PythonKit
 
 enum DoclingExtractionError: Error, LocalizedError {
     case moduleNotAvailable
-    case parseFailure(String)
+    case loadFailed
     case emptyResult
 
     var errorDescription: String? {
         switch self {
-        case .moduleNotAvailable:
-            return "docling-parse is not available. Check Python environment in Settings."
-        case .parseFailure(let msg):
-            return "Docling failed to parse the PDF: \(msg)"
-        case .emptyResult:
-            return "Docling extracted no text from this PDF."
+        case .moduleNotAvailable: return "docling is not available. Check Python environment in Settings."
+        case .loadFailed:         return "docling could not convert this PDF."
+        case .emptyResult:        return "docling extracted no text from this PDF."
         }
     }
 }
 
 // MARK: - Extractor
 
-/// Uses docling-parse (via PythonKit) to extract rich structured text from a PDF.
-/// Falls back gracefully — callers should catch and use PDFTextExtractor on failure.
+/// Uses docling (via PythonKit) for ML-powered, layout-aware PDF conversion.
+/// All complex Python setup is delegated to docling_helper.py sitting next to this file.
 enum DoclingPDFExtractor {
-    /// Extracts text from a PDF file at `url`.
-    /// Runs on a detached task to keep the Python call off the main thread.
+
     static func extract(from url: URL) async throws -> String {
         try await Task.detached(priority: .userInitiated) {
             try extractSync(from: url)
@@ -36,43 +32,59 @@ enum DoclingPDFExtractor {
     // MARK: - Synchronous extraction (runs on worker thread)
 
     private static func extractSync(from url: URL) throws -> String {
-        guard let doclingParse = try? Python.attemptImport("docling_parse") else {
+        print("[Docling] 🐍 Worker thread started for: \(url.lastPathComponent)")
+
+        guard let sys = try? Python.attemptImport("sys") else {
+            print("[Docling] ❌ Could not import sys")
             throw DoclingExtractionError.moduleNotAvailable
         }
 
-        let parser = doclingParse.DoclingParser()
-        let result = parser.convert(url.path)
+        // Inject venv site-packages
+        print("[Docling] 🔍 Injecting venv paths…")
+        PythonEnvironmentService.injectVenvSitePaths(into: sys)
+        print("[Docling] ✅ sys.path injected")
 
-        // docling_parse returns a dict: {"pages": [{"text": "...", "cells": [...]}, ...]}
-        guard result != Python.None else {
-            throw DoclingExtractionError.parseFailure("Parser returned None")
+        // Add the Services/ directory to sys.path so docling_helper.py can be imported
+        let helperDir = URL(fileURLWithPath: #file).deletingLastPathComponent().path
+        if (Array(sys.path) ?? []).compactMap({ String($0) }).contains(helperDir) == false {
+            sys.path.insert(0, PythonObject(helperDir))
         }
+        print("[Docling] 🔍 Helper dir on path: \(helperDir)")
 
-        let pages = result["pages"]
-        guard pages != Python.None else {
+        // Import the thin helper — all complex Python lives there
+        print("[Docling] 🔍 Importing docling_helper…")
+        guard let helper = try? Python.attemptImport("docling_helper") else {
+            print("[Docling] ❌ docling_helper not importable (docling may not be installed)")
+            throw DoclingExtractionError.moduleNotAvailable
+        }
+        print("[Docling] ✅ Helper imported")
+
+        // Resolve local models path (project root / Models/)
+        let modelsPath = URL(fileURLWithPath: #file)
+            .deletingLastPathComponent() // Services/
+            .deletingLastPathComponent() // ResumeParser/
+            .deletingLastPathComponent() // Features/
+            .deletingLastPathComponent() // ResumeForge/
+            .deletingLastPathComponent() // project root
+            .appendingPathComponent("Models")
+            .path
+        print("[Docling] 🔍 Models path: \(modelsPath)")
+
+        // Create converter via helper (avoids Python enum/dict construction in Swift)
+        print("[Docling] 🔍 Creating converter…")
+        let converter = helper.create_converter(modelsPath)
+        print("[Docling] ✅ Converter ready")
+
+        // Convert PDF → Markdown
+        print("[Docling] 🔍 Converting document…")
+        guard let markdown = String(helper.convert_to_markdown(converter, url.path)),
+              !markdown.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            print("[Docling] ❌ Conversion returned empty")
             throw DoclingExtractionError.emptyResult
         }
 
-        var textParts: [String] = []
-        for page in pages {
-            // Prefer structured cell text for accuracy
-            let cells = page["cells"]
-            if cells != Python.None {
-                for cell in cells {
-                    let cellText = String(cell["text"]) ?? ""
-                    if !cellText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        textParts.append(cellText)
-                    }
-                }
-            } else if let pageText = String(page["text"]), !pageText.isEmpty {
-                textParts.append(pageText)
-            }
-        }
-
-        let fullText = textParts.joined(separator: "\n")
-        guard !fullText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            throw DoclingExtractionError.emptyResult
-        }
-        return fullText
+        let lineCount = markdown.components(separatedBy: .newlines).count
+        print("[Docling] ✅ Done — \(lineCount) lines, \(markdown.count) chars")
+        return markdown
     }
 }

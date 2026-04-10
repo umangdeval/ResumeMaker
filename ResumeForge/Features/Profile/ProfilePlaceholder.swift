@@ -1,1 +1,1 @@
-// Placeholder — implementation coming in a future prompt.
+// Profile feature is implemented in ProfileView.swift

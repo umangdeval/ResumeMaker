@@ -9,7 +9,14 @@
       "Bash(tee /tmp/rf_build_mac.log)",
       "Bash(git commit:*)",
       "Bash(git add:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(/opt/homebrew/bin/python3 -c \"import docling_parse; print\\('docling_parse OK:', docling_parse.__file__\\)\")",
+      "Bash(/opt/homebrew/bin/pip3 show:*)",
+      "Bash(/opt/homebrew/bin/python3.13 -c \"import docling_parse; print\\('3.13 OK'\\)\")",
+      "Bash('~/.resumeforge-venv/bin/python3' -c ':*)",
+      "Bash(~/.resumeforge-venv/bin/python3)",
+      "Bash(xcodebuild -project ResumeForge.xcodeproj -scheme ResumeForge -destination 'platform=macOS' build)",
+      "Bash(du -sh ~/.resumeforge-models/*)"
     ]
   }
 }

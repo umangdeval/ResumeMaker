@@ -10,9 +10,12 @@
 		02AF918D43AD1460D687EC17 /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = D7BB49D5AFE036A38D0B831A /* PythonKit */; };
 		044CD8D5AEA3484AA9543630 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52F826C92D4EC19F872EA66 /* Education.swift */; };
 		0A6334DF59451093635E2586 /* JobDescriptionPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605D981D93B192DF34A072E3 /* JobDescriptionPlaceholder.swift */; };
+		0BD8A19ED6D0F14B38D03168 /* EducationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5350CC12A7477E8A9C8E0 /* EducationEditView.swift */; };
 		0E2C2C7ADB66C91D76DE4DA7 /* ProfilePlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A78C3E8D496DB0D71475E /* ProfilePlaceholder.swift */; };
 		10B87876542D3D0A41B23F25 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6C51D69919BAD5E7EBCFB /* UserProfile.swift */; };
+		126C7D3AEDB236A762862CE5 /* docling_helper.py in Resources */ = {isa = PBXBuildFile; fileRef = 3D495E15F8C7C642EBE9A9C9 /* docling_helper.py */; };
 		13EC65A7DCF794342CF83D50 /* AIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845FF80C7384A354DFEA545 /* AIServiceProtocol.swift */; };
+		1D0DBFCBE90A955A153C22DA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3F59D5D19B89D855EE2FFC /* ProfileView.swift */; };
 		2AD12755169DF48F143ECFF2 /* PDFTextExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */; };
 		33CC0955C9634F6C861202CA /* AppRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03423074FE0ABC87FFF503DC /* AppRouterTests.swift */; };
 		341D4F362C7A3F19014935B2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BCB741DB891206C591361B /* LoadingView.swift */; };
@@ -28,6 +31,7 @@
 		56B5D2CDC6AAA0808DAFAFE7 /* ResumeForgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2B0E1CBA98CE1866A6CCCC /* ResumeForgeApp.swift */; };
 		57AA3D451083101C5602B1A3 /* TokenEstimateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212634FDCCD2D5BBDF9D4FA4 /* TokenEstimateView.swift */; };
 		5A656F26A2194A6B15AB5B2A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE6DA46FD6632968B07E07A /* ContentView.swift */; };
+		6B4778EF5A267FC8F7C5707A /* ExperienceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1FDCF8861977F33FCE70EC /* ExperienceEditView.swift */; };
 		6DAB47CB47F852D898B41B07 /* ResumeParserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550E13066F204602DD39953D /* ResumeParserViewModel.swift */; };
 		7B0AA15702AC54AE3113BA06 /* Experience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C7F30E04975AF2839082AA /* Experience.swift */; };
 		7CD2030924EE30760D69F9CB /* AICouncilPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7139A98EC6A1A8633EF0DB75 /* AICouncilPlaceholder.swift */; };
@@ -46,6 +50,7 @@
 		DE30FD1915246113E7972E7D /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992627A9918F92E55D95F893 /* KeychainService.swift */; };
 		E7533682A227DBA5DE76BC5C /* CoverLetterPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F9D2F8DA893CF23210A393 /* CoverLetterPlaceholder.swift */; };
 		E7EB8BE873FA9F10A833E3FD /* ResumeBuilderPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC1B5FB1ADEF7343DD724B4 /* ResumeBuilderPlaceholder.swift */; };
+		EF5BCF8340165B2E69579D76 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CE74E8B791B2A5E6ACD37A /* ProfileViewModel.swift */; };
 		F0C762161C3FC5A1B300127E /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABC08A9FE182CBD0AEE55CE /* View+Extensions.swift */; };
 		FBA83EA7AF6186330B02DAC7 /* ResumeContentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08FE135728E1B77AB45F3DF /* ResumeContentParser.swift */; };
 /* End PBXBuildFile section */
@@ -63,10 +68,12 @@
 /* Begin PBXFileReference section */
 		03423074FE0ABC87FFF503DC /* AppRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterTests.swift; sourceTree = "<group>"; };
 		100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTextExtractor.swift; sourceTree = "<group>"; };
+		10CE74E8B791B2A5E6ACD37A /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		18C1C4EE86A696223EE749D3 /* ParsedResumeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedResumeData.swift; sourceTree = "<group>"; };
 		1ABC08A9FE182CBD0AEE55CE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1B4303940C464D62C04FC88D /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
 		1CC1B5FB1ADEF7343DD724B4 /* ResumeBuilderPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeBuilderPlaceholder.swift; sourceTree = "<group>"; };
+		1D1FDCF8861977F33FCE70EC /* ExperienceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceEditView.swift; sourceTree = "<group>"; };
 		1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaTeXTextExtractor.swift; sourceTree = "<group>"; };
 		20BCB741DB891206C591361B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		212634FDCCD2D5BBDF9D4FA4 /* TokenEstimateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenEstimateView.swift; sourceTree = "<group>"; };
@@ -75,6 +82,7 @@
 		25C60E8B511925CC6C03E300 /* ResumeParserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeParserView.swift; sourceTree = "<group>"; };
 		2636FF17E110DCDF4E5208BF /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		2CA6C51D69919BAD5E7EBCFB /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		3D495E15F8C7C642EBE9A9C9 /* docling_helper.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = docling_helper.py; sourceTree = "<group>"; };
 		411A3BA8734B81ED7CFABF1D /* AnthropicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthropicService.swift; sourceTree = "<group>"; };
 		435DB7C8580B58542701D2DF /* PythonEnvironmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonEnvironmentService.swift; sourceTree = "<group>"; };
 		550E13066F204602DD39953D /* ResumeParserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeParserViewModel.swift; sourceTree = "<group>"; };
@@ -82,6 +90,7 @@
 		605D981D93B192DF34A072E3 /* JobDescriptionPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDescriptionPlaceholder.swift; sourceTree = "<group>"; };
 		6845FF80C7384A354DFEA545 /* AIServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceProtocol.swift; sourceTree = "<group>"; };
 		686AAA7865A2B19504028AAF /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		6CF5350CC12A7477E8A9C8E0 /* EducationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationEditView.swift; sourceTree = "<group>"; };
 		7139A98EC6A1A8633EF0DB75 /* AICouncilPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AICouncilPlaceholder.swift; sourceTree = "<group>"; };
 		71C1ED32A9A57407FB36D3A7 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		778FD35A6CA5AC3186CF1CEC /* SettingsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPlaceholder.swift; sourceTree = "<group>"; };
@@ -89,6 +98,7 @@
 		8FCCB00C6B80E077F43F186D /* PythonSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonSetupView.swift; sourceTree = "<group>"; };
 		901970D143AB2AB310FD5703 /* ExportPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaceholder.swift; sourceTree = "<group>"; };
 		992627A9918F92E55D95F893 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		9D3F59D5D19B89D855EE2FFC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A08FE135728E1B77AB45F3DF /* ResumeContentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeContentParser.swift; sourceTree = "<group>"; };
 		A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoclingPDFExtractor.swift; sourceTree = "<group>"; };
 		AA2B0E1CBA98CE1866A6CCCC /* ResumeForgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeForgeApp.swift; sourceTree = "<group>"; };
@@ -163,6 +173,7 @@
 		5A40CB8CC54281A63FB8CE2E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3D495E15F8C7C642EBE9A9C9 /* docling_helper.py */,
 				A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */,
 				1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */,
 				100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */,
@@ -238,7 +249,11 @@
 		98522657D7B0E51B505E8AA6 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				6CF5350CC12A7477E8A9C8E0 /* EducationEditView.swift */,
+				1D1FDCF8861977F33FCE70EC /* ExperienceEditView.swift */,
 				BE5A78C3E8D496DB0D71475E /* ProfilePlaceholder.swift */,
+				9D3F59D5D19B89D855EE2FFC /* ProfileView.swift */,
+				10CE74E8B791B2A5E6ACD37A /* ProfileViewModel.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -349,6 +364,7 @@
 			buildConfigurationList = 09F1D2DC20642CF419EEF9EC /* Build configuration list for PBXNativeTarget "ResumeForge" */;
 			buildPhases = (
 				8F0C606F8604F015B3D02D1A /* Sources */,
+				6C1A1D32EF6DBAF84129F5D9 /* Resources */,
 				291D294863451F12C3030447 /* Frameworks */,
 			);
 			buildRules = (
@@ -401,6 +417,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		6C1A1D32EF6DBAF84129F5D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				126C7D3AEDB236A762862CE5 /* docling_helper.py in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8F0C606F8604F015B3D02D1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -415,8 +442,10 @@
 				80988C2FC24022BEFBE2CCEE /* Date+Extensions.swift in Sources */,
 				ADC8AB1EF75F3725778832A6 /* DoclingPDFExtractor.swift in Sources */,
 				044CD8D5AEA3484AA9543630 /* Education.swift in Sources */,
+				0BD8A19ED6D0F14B38D03168 /* EducationEditView.swift in Sources */,
 				8F34F41C52E449A9AD3BC3F6 /* ErrorView.swift in Sources */,
 				7B0AA15702AC54AE3113BA06 /* Experience.swift in Sources */,
+				6B4778EF5A267FC8F7C5707A /* ExperienceEditView.swift in Sources */,
 				52EFE750B7E6C5E741910545 /* ExportPlaceholder.swift in Sources */,
 				D42335330373E1A187CC0FA8 /* FileImportService.swift in Sources */,
 				D3599A8DBEFBBAC6CEB332E7 /* GeminiService.swift in Sources */,
@@ -429,6 +458,8 @@
 				2AD12755169DF48F143ECFF2 /* PDFTextExtractor.swift in Sources */,
 				4F27B849517EEE087DBB8AED /* ParsedResumeData.swift in Sources */,
 				0E2C2C7ADB66C91D76DE4DA7 /* ProfilePlaceholder.swift in Sources */,
+				1D0DBFCBE90A955A153C22DA /* ProfileView.swift in Sources */,
+				EF5BCF8340165B2E69579D76 /* ProfileViewModel.swift in Sources */,
 				D74AA8A17D2077BF65353C69 /* PythonEnvironmentService.swift in Sources */,
 				4B7C735406A97AC7F154EEC5 /* PythonSetupView.swift in Sources */,
 				E7EB8BE873FA9F10A833E3FD /* ResumeBuilderPlaceholder.swift in Sources */,
@@ -472,6 +503,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -589,6 +621,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
