@@ -39,7 +39,7 @@ final class ResumeParserViewModel {
             let file = try FileImportService.load(from: url)
             fileName = file.fileName
             extractedText = try await extractText(from: file)
-            parsedData = ResumeContentParser.parse(extractedText)
+            parsedData = ResumeResultParser.parse(extractedText)
             parserState = .review
         } catch {
             self.error = error

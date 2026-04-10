@@ -164,3 +164,86 @@ struct ResumeContentParserContactTests {
         #expect(ResumeContentParser.extractPhone(from: lines) == "")
     }
 }
+
+// MARK: - 4. Structured result parsing
+
+@Suite("ResumeResultParser")
+struct ResumeResultParserTests {
+        @Test("parses direct JSON payload to ParsedResumeData")
+        func parsesDirectJSON() {
+                let payload = #"""
+                {
+                    "name": "Jane Doe",
+                    "email": "jane@acme.io",
+                    "summary": "Senior iOS Engineer",
+                    "skills": ["Swift", "SwiftUI", "XCTest"],
+                    "experiences": [
+                        {
+                            "company": "Acme",
+                            "title": "iOS Engineer",
+                            "dateRange": "Jan 2022 - Present",
+                            "bulletPoints": ["Built ResumeForge", "Improved parsing quality"]
+                        }
+                    ]
+                }
+                """#
+
+                let parsed = ResumeResultParser.parse(payload)
+                #expect(parsed.name == "Jane Doe")
+                #expect(parsed.email == "jane@acme.io")
+                #expect(parsed.skills.contains("SwiftUI"))
+                #expect(parsed.experiences.count == 1)
+                #expect(parsed.experiences[0].company == "Acme")
+                #expect(parsed.experiences[0].isCurrent == true)
+        }
+
+        @Test("parses markdown fenced JSON from nested result container")
+        func parsesFencedJSONContainer() {
+                let payload = #"""
+                Here is your structured result:
+                ```json
+                {
+                    "result": {
+                        "full_name": "Alex Johnson",
+                        "links": {
+                            "linkedin": "linkedin.com/in/alexjohnson",
+                            "github": "github.com/alexj"
+                        },
+                        "education": [
+                            {
+                                "institution": "University of Waterloo",
+                                "degree": "Bachelor of Applied Science",
+                                "field": "Computer Engineering",
+                                "graduationDate": "2024"
+                            }
+                        ]
+                    }
+                }
+                ```
+                """#
+
+                let parsed = ResumeResultParser.parse(payload)
+                #expect(parsed.name == "Alex Johnson")
+                #expect(parsed.linkedIn.contains("linkedin"))
+                #expect(parsed.github.contains("github"))
+                #expect(parsed.education.count == 1)
+                #expect(parsed.education[0].institution.contains("Waterloo"))
+        }
+
+        @Test("falls back to heuristic parser for plain text")
+        func fallsBackToPlainText() {
+                let text = """
+                John Smith
+                john.smith@example.com
+                +1 (555) 222-3333
+
+                Skills
+                Swift, SwiftUI, Python
+                """
+
+                let parsed = ResumeResultParser.parse(text)
+                #expect(parsed.name == "John Smith")
+                #expect(parsed.email == "john.smith@example.com")
+                #expect(parsed.skills.contains("Swift"))
+        }
+}

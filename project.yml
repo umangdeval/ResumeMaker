@@ -30,6 +30,7 @@ targets:
       - path: ResumeForge
         excludes:
           - Tests/**
+          - graphify-out/**
     dependencies:
       - package: PythonKit
     settings:

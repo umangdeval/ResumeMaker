@@ -142,6 +142,13 @@ enum ResumeContentParser {
         }.first ?? ""
     }
 
+    private static func isLocationLine(_ line: String) -> Bool {
+        guard !line.hasPrefix("•"), !line.hasPrefix("-"),
+              DateRangeParser.parse(from: line) == nil else { return false }
+        let words = line.split(separator: " ")
+        return words.count <= 4 && (line == "Remote" || line.contains(","))
+    }
+
     private static func extractLinks(from lines: [String]) -> [String] {
         let p = #"(?:https?://)?(?:www\.)?(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}(?:/[^\s,;|•)(<>\[\]]*)?"#
         var links: [String] = []; var seen = Set<String>()
