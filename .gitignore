@@ -81,3 +81,8 @@ vendor/
 node_modules/
 dist/
 *.generated.py
+
+# Graphify outputs and cache
+graphify-out/
+**/graphify-out/
+**/.graphify_*
