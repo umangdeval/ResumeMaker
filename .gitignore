@@ -75,3 +75,9 @@ APIKeys.swift
 *.a
 *.dylib
 *.dSYM/
+
+# .graphifyignore
+vendor/
+node_modules/
+dist/
+*.generated.py
