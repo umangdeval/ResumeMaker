@@ -283,12 +283,18 @@ private struct ExtractedTextView: View {
         ScrollView {
             Text(text)
                 .font(.system(.caption, design: .monospaced))
+                .foregroundStyle(AppTheme.text)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .textSelection(.enabled)
         }
-        .background(.white, in: RoundedRectangle(cornerRadius: 10))
-        .padding()
+        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 10))
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(AppTheme.text.opacity(0.08), lineWidth: 1)
+        )
+        .padding(.horizontal)
+        .padding(.bottom, 8)
     }
 }
 
