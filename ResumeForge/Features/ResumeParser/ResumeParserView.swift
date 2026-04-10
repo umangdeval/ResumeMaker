@@ -9,20 +9,23 @@ struct ResumeParserView: View {
     @State private var viewModel = ResumeParserViewModel()
 
     var body: some View {
-        Group {
-            switch viewModel.parserState {
-            case .idle:
-                ImportPromptView(viewModel: viewModel)
-            case .importing:
-                LoadingView(message: "Opening file picker…")
-            case .parsing:
-                LoadingView(message: "Extracting text from \(viewModel.fileName)…")
-            case .review:
-                ParsedReviewView(viewModel: viewModel)
-            case .saving:
-                LoadingView(message: "Saving to your profile…")
-            case .saved:
-                SavedConfirmationView { viewModel.parserState = .idle }
+        ZStack {
+            AppTheme.bg.ignoresSafeArea()
+            Group {
+                switch viewModel.parserState {
+                case .idle:
+                    ImportPromptView(viewModel: viewModel)
+                case .importing:
+                    LoadingView(message: "Opening file picker…")
+                case .parsing:
+                    LoadingView(message: "Extracting text from \(viewModel.fileName)…")
+                case .review:
+                    ParsedReviewView(viewModel: viewModel)
+                case .saving:
+                    LoadingView(message: "Saving to your profile…")
+                case .saved:
+                    SavedConfirmationView { viewModel.parserState = .idle }
+                }
             }
         }
         .fileImporter(
@@ -44,6 +47,7 @@ struct ResumeParserView: View {
         }
         .errorBanner(viewModel.error)
         .navigationTitle("Import Resume")
+        .tint(AppTheme.blue)
     }
 }
 
@@ -60,6 +64,7 @@ private struct ImportPromptView: View {
             Spacer()
         }
         .padding()
+        .appScreenBackground()
         .onDrop(of: ResumeFileType.supportedUTTypes, isTargeted: nil) { providers in
             Task { await handleDrop(providers) }
             return true
@@ -70,17 +75,20 @@ private struct ImportPromptView: View {
         VStack(spacing: 16) {
             Image(systemName: "doc.badge.plus")
                 .font(.system(size: 64))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.white)
             Text("Import your existing resume")
-                .font(.title2.bold())
+                .font(AppTheme.heroTitle)
+                .foregroundStyle(.white)
             Text("Supports PDF and LaTeX (.tex) files.\nWe'll extract your information so you can review and refine it.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.84))
                 .multilineTextAlignment(.center)
             Text("Drop a file here or click Import")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
+                .font(AppTheme.caption)
+                .foregroundStyle(.white.opacity(0.72))
         }
+        .padding(20)
+        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
     }
 
     private var importButton: some View {
@@ -89,6 +97,7 @@ private struct ImportPromptView: View {
                 .frame(maxWidth: 280)
         }
         .buttonStyle(.borderedProminent)
+        .tint(AppTheme.blue)
         .controlSize(.large)
     }
 
@@ -133,6 +142,7 @@ private struct ParsedReviewView: View {
 
             saveBar
         }
+        .appScreenBackground()
     }
 
     private var saveBar: some View {
@@ -147,6 +157,7 @@ private struct ParsedReviewView: View {
                     Task { await viewModel.saveToProfile(context: modelContext) }
                 }
                 .buttonStyle(.borderedProminent)
+                .tint(AppTheme.blue)
             }
             .padding()
         }
@@ -168,6 +179,8 @@ private struct ParsedDataFormView: View {
             skillsSection
         }
         .formStyle(.grouped)
+        .scrollContentBackground(.hidden)
+        .background(AppTheme.bg)
     }
 
     private var contactSection: some View {
@@ -274,7 +287,8 @@ private struct ExtractedTextView: View {
                 .padding()
                 .textSelection(.enabled)
         }
-        .background(Color(NSColor.windowBackgroundColor))
+        .background(.white, in: RoundedRectangle(cornerRadius: 10))
+        .padding()
     }
 }
 
@@ -284,14 +298,22 @@ private struct SavedConfirmationView: View {
     let onDismiss: () -> Void
 
     var body: some View {
-        ContentUnavailableView {
-            Label("Saved!", systemImage: "checkmark.circle.fill")
-                .symbolRenderingMode(.multicolor)
-        } description: {
+        VStack(spacing: 12) {
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 42))
+                .foregroundStyle(.white)
+            Text("Saved!")
+                .font(AppTheme.heroTitle)
+                .foregroundStyle(.white)
             Text("Your resume data has been saved to your profile.\nYou can edit it further in the Profile tab.")
-        } actions: {
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.84))
+                .multilineTextAlignment(.center)
             Button("Import Another", action: onDismiss)
                 .buttonStyle(.borderedProminent)
+                .tint(AppTheme.blue)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .appScreenBackground()
     }
 }

@@ -39,6 +39,7 @@ struct EducationEditView: View {
             }
             .formStyle(.grouped)
             .navigationTitle(isNew ? "Add Education" : "Edit Education")
+            .tint(AppTheme.blue)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }

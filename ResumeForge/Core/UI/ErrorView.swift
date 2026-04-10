@@ -6,16 +6,26 @@ struct ErrorView: View {
     var retryAction: (() -> Void)?
 
     var body: some View {
-        ContentUnavailableView {
-            Label("Something went wrong", systemImage: "exclamationmark.triangle")
-        } description: {
+        VStack(spacing: 12) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 42))
+                .foregroundStyle(.white)
+            Text("Something went wrong")
+                .font(.system(size: 28, weight: .semibold))
+                .foregroundStyle(.white)
             Text(error.localizedDescription)
-        } actions: {
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.84))
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: 520)
             if let retryAction {
                 Button("Try Again", action: retryAction)
                     .buttonStyle(.borderedProminent)
+                    .tint(AppTheme.blue)
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .appScreenBackground()
     }
 }
 

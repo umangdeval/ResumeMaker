@@ -23,6 +23,7 @@ struct RootTabView: View {
             SettingsTab(pythonStatus: pythonStatus)
                 .tabItem { Label("Settings", systemImage: "gear") }
         }
+        .tint(AppTheme.blue)
     }
 }
 
@@ -33,41 +34,53 @@ private struct DashboardTab: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                welcomeSection
-                if !resumes.isEmpty {
-                    recentSection
+            ScrollView {
+                VStack(spacing: 16) {
+                    welcomeSection
+                    if !resumes.isEmpty {
+                        recentSection
+                    }
                 }
+                .padding(20)
             }
+            .appScreenBackground()
             .navigationTitle("ResumeForge")
         }
     }
 
     private var welcomeSection: some View {
-        Section {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Welcome to ResumeForge")
-                    .font(.headline)
-                Text("Parse your resume, describe a job, and let your AI Council tailor the perfect application.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-            .padding(.vertical, 4)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Welcome to ResumeForge")
+                .font(AppTheme.heroTitle)
+                .foregroundStyle(.white)
+            Text("Parse your resume, describe a job, and let your AI Council tailor the perfect application.")
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.86))
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(24)
+        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
     }
 
     private var recentSection: some View {
-        Section("Recent Resumes") {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Recent Resumes")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             ForEach(resumes) { resume in
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(resume.displayTitle).font(.headline)
+                    Text(resume.displayTitle)
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(AppTheme.text)
                     Text(resume.createdAt.formatted(date: .abbreviated, time: .omitted))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(AppTheme.caption)
+                        .foregroundStyle(AppTheme.textSecondary)
                 }
-                .padding(.vertical, 2)
+                .padding(.vertical, 3)
             }
         }
+        .padding(18)
+        .appCard()
     }
 }
 
@@ -116,10 +129,20 @@ private struct PlaceholderTabView: View {
     let description: String
 
     var body: some View {
-        ContentUnavailableView {
-            Label(title, systemImage: icon)
-        } description: {
+        VStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 44))
+                .foregroundStyle(.white)
+            Text(title)
+                .font(.system(size: 28, weight: .semibold))
+                .foregroundStyle(.white)
             Text(description)
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.82))
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: 560)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .appScreenBackground()
     }
 }

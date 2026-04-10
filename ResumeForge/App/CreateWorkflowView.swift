@@ -7,44 +7,82 @@ struct CreateWorkflowView: View {
     @Query(sort: \JobDescription.updatedAt, order: .reverse) private var jobs: [JobDescription]
 
     var body: some View {
-        List {
-            Section("Step 1") {
-                NavigationLink {
+        ScrollView {
+            VStack(spacing: 18) {
+                header
+                stepCard(title: "Step 1", name: "Import / Parse Resume", subtitle: "Extract and normalize your resume data.", icon: "doc.text.viewfinder") {
                     ResumeParserView()
-                } label: {
-                    Label("Import / Parse Resume", systemImage: "doc.text.viewfinder")
                 }
-            }
 
-            Section("Step 2") {
-                NavigationLink {
+                stepCard(title: "Step 2", name: "Add Job Description", subtitle: "Define the exact role you are targeting.", icon: "doc.plaintext") {
                     JobDescriptionView()
-                } label: {
-                    Label("Add Job Description", systemImage: "doc.plaintext")
                 }
-            }
 
-            Section("Step 3") {
                 if let profile = profiles.first, let job = jobs.first {
-                    NavigationLink {
+                    stepCard(title: "Step 3", name: "AI Council", subtitle: "Run parallel model analysis and synthesis.", icon: "person.3.sequence") {
                         AICouncilView(profile: profile, jobDescription: job) {
                             router.push(.resumeBuilder)
                         }
-                    } label: {
-                        Label("AI Council", systemImage: "person.3.sequence")
                     }
                 } else {
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Step 3")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(AppTheme.textSecondary)
                         Text("AI Council")
-                            .font(.headline)
+                            .font(AppTheme.sectionTitle)
+                            .foregroundStyle(AppTheme.text)
                         Text("Complete Step 1 and Step 2 first. AI Council requires a saved profile and job description.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .font(.system(size: 14, weight: .regular))
+                            .foregroundStyle(AppTheme.textSecondary)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(18)
+                    .appCard()
                 }
             }
+            .padding(20)
         }
+        .appScreenBackground()
         .navigationTitle("Create")
+    }
+
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Create Tailored Applications")
+                .font(AppTheme.heroTitle)
+                .foregroundStyle(.white)
+            Text("Follow the three-step flow to parse your resume, set your target job, and run AI Council.")
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.84))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(24)
+        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
+    }
+
+    private func stepCard<Destination: View>(title: String, name: String, subtitle: String, icon: String, @ViewBuilder destination: () -> Destination) -> some View {
+        NavigationLink(destination: destination()) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(title)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(AppTheme.textSecondary)
+                HStack(spacing: 10) {
+                    Image(systemName: icon)
+                        .foregroundStyle(AppTheme.blue)
+                    Text(name)
+                        .font(AppTheme.sectionTitle)
+                        .foregroundStyle(AppTheme.text)
+                }
+                Text(subtitle)
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundStyle(AppTheme.textSecondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(18)
+            .appCard()
+        }
+        .buttonStyle(.plain)
     }
 }
 

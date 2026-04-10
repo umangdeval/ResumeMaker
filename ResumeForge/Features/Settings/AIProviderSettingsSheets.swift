@@ -53,9 +53,14 @@ struct ProviderEditorSheet: View {
                     Button("Open Ollama Setup") {
                         onOpenOllamaHelp(draft.model)
                     }
+                    .buttonStyle(.borderedProminent)
+                    .tint(AppTheme.blue)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(AppTheme.bg)
             .navigationTitle(title)
+            .tint(AppTheme.blue)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
@@ -65,6 +70,7 @@ struct ProviderEditorSheet: View {
                         onSave(draft)
                         dismiss()
                     }
+                    .tint(AppTheme.blue)
                 }
             }
         }
@@ -81,28 +87,35 @@ struct EditableOllamaCommandSheet: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Terminal will open, but nothing runs automatically.")
-                        .font(.headline)
+                        .font(AppTheme.sectionTitle)
+                        .foregroundStyle(.white)
                     Text("Commands")
-                        .font(.subheadline.weight(.semibold))
+                        .font(AppTheme.body.weight(.semibold))
+                        .foregroundStyle(.white.opacity(0.9))
                     Text(commandText)
                         .font(.system(.body, design: .monospaced))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                        .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 12))
+                        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 12))
+                        .foregroundStyle(AppTheme.text)
                         .textSelection(.enabled)
                     Text("Tip: copy the commands or paste them into the Terminal window that opened for you.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(AppTheme.caption)
+                        .foregroundStyle(.white.opacity(0.8))
                 }
                 .padding()
             }
+            .appScreenBackground()
             .navigationTitle("Ollama Commands")
+            .tint(AppTheme.blue)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button("Copy") {
                         NSPasteboard.general.clearContents()
                         NSPasteboard.general.setString(commandText, forType: .string)
                     }
+                    .buttonStyle(.borderedProminent)
+                    .tint(AppTheme.blue)
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Done") { dismiss() }

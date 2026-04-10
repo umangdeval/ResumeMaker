@@ -10,35 +10,72 @@ struct JobDescriptionView: View {
     @State private var rawText = ""
 
     var body: some View {
-        Form {
-            Section("Current Job Description") {
-                TextField("Role title", text: $title)
-                TextField("Company", text: $company)
-                TextEditor(text: $rawText)
-                    .frame(minHeight: 180)
-                Button("Save Job Description", action: save)
-                    .buttonStyle(.borderedProminent)
-                    .disabled(rawText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        ScrollView {
+            VStack(spacing: 16) {
+                inputCard
+                savedCard
             }
+            .padding(20)
+        }
+        .appScreenBackground()
+        .navigationTitle("Job Description")
+        .tint(AppTheme.blue)
+    }
 
-            Section("Saved") {
-                if savedJobs.isEmpty {
-                    Text("No saved job descriptions yet.")
-                        .foregroundStyle(.secondary)
-                } else {
-                    ForEach(savedJobs) { job in
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(job.displayTitle)
-                                .font(.headline)
-                            Text(job.updatedAt.formatted(date: .abbreviated, time: .shortened))
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
+    private var inputCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Current Job Description")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
+
+            TextField("Role title", text: $title)
+                .textFieldStyle(.plain)
+                .padding(12)
+                .background(.white, in: RoundedRectangle(cornerRadius: 8))
+            TextField("Company", text: $company)
+                .textFieldStyle(.plain)
+                .padding(12)
+                .background(.white, in: RoundedRectangle(cornerRadius: 8))
+            TextEditor(text: $rawText)
+                .frame(minHeight: 190)
+                .padding(8)
+                .background(.white, in: RoundedRectangle(cornerRadius: 8))
+
+            Button("Save Job Description", action: save)
+                .buttonStyle(.borderedProminent)
+                .tint(AppTheme.blue)
+                .disabled(rawText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        }
+        .padding(18)
+        .appCard()
+    }
+
+    private var savedCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Saved")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
+
+            if savedJobs.isEmpty {
+                Text("No saved job descriptions yet.")
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundStyle(AppTheme.textSecondary)
+            } else {
+                ForEach(savedJobs) { job in
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(job.displayTitle)
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundStyle(AppTheme.text)
+                        Text(job.updatedAt.formatted(date: .abbreviated, time: .shortened))
+                            .font(AppTheme.caption)
+                            .foregroundStyle(AppTheme.textSecondary)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
-        .navigationTitle("Job Description")
+        .padding(18)
+        .appCard()
     }
 
     private func save() {

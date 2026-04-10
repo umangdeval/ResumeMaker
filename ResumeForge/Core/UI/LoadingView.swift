@@ -9,12 +9,13 @@ struct LoadingView: View {
             ProgressView()
                 .progressViewStyle(.circular)
                 .scaleEffect(1.4)
+                .tint(.white)
             Text(message)
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.white.opacity(0.85))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.ultraThinMaterial)
+        .appScreenBackground()
     }
 }
 
@@ -25,9 +26,10 @@ struct InlineLoadingRow: View {
     var body: some View {
         HStack(spacing: 10) {
             ProgressView().progressViewStyle(.circular)
+                .tint(AppTheme.blue)
             Text(message)
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppTheme.textSecondary)
         }
     }
 }

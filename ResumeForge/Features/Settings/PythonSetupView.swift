@@ -14,10 +14,12 @@ struct PythonSetupView: View {
             if let onDismiss {
                 Button("I've installed it — retry", action: onDismiss)
                     .buttonStyle(.borderedProminent)
+                    .tint(AppTheme.blue)
             }
         }
         .padding(32)
         .frame(maxWidth: 520)
+        .appCard()
     }
 
     // MARK: - Subviews
@@ -25,16 +27,17 @@ struct PythonSetupView: View {
     private var icon: some View {
         Image(systemName: "puzzlepiece.extension")
             .font(.system(size: 52))
-            .foregroundStyle(.orange)
+            .foregroundStyle(AppTheme.blue)
     }
 
     private var titleText: some View {
         VStack(spacing: 8) {
             Text(title)
-                .font(.title2.bold())
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             Text(subtitle)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(AppTheme.body)
+                .foregroundStyle(AppTheme.textSecondary)
                 .multilineTextAlignment(.center)
         }
     }
@@ -56,7 +59,7 @@ struct PythonSetupView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(.quaternary, in: RoundedRectangle(cornerRadius: 10))
+        .background(AppTheme.surface.opacity(0.85), in: RoundedRectangle(cornerRadius: 10))
     }
 
     private var copyButton: some View {
@@ -70,6 +73,7 @@ struct PythonSetupView: View {
             Label("Copy install command", systemImage: "doc.on.doc")
         }
         .buttonStyle(.bordered)
+        .tint(AppTheme.blue)
     }
 
     // MARK: - Computed text
@@ -104,10 +108,11 @@ private struct SetupStep: View {
         HStack(alignment: .top, spacing: 10) {
             Text(number)
                 .font(.headline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppTheme.textSecondary)
                 .frame(width: 20)
             Text(text)
-                .font(.subheadline)
+                .font(AppTheme.body)
+                .foregroundStyle(AppTheme.text)
         }
     }
 }
@@ -120,7 +125,8 @@ private struct CodeBlock: View {
             .font(.system(.caption, design: .monospaced))
             .padding(8)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(NSColor.textBackgroundColor), in: RoundedRectangle(cornerRadius: 6))
+            .background(.white, in: RoundedRectangle(cornerRadius: 6))
+            .foregroundStyle(AppTheme.text)
     }
 }
 

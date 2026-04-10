@@ -51,6 +51,7 @@ struct ExperienceEditView: View {
             }
             .formStyle(.grouped)
             .navigationTitle(isNew ? "Add Experience" : "Edit Experience")
+            .tint(AppTheme.blue)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }

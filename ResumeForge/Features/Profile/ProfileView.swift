@@ -12,9 +12,13 @@ struct ProfileView: View {
                     profileForm(profile)
                 } else {
                     ProgressView("Loading profile…")
+                        .tint(.white)
+                        .foregroundStyle(.white)
                 }
             }
+            .appScreenBackground()
             .navigationTitle("Profile")
+            .tint(AppTheme.blue)
             .onAppear { viewModel.load(context: modelContext) }
             .sheet(isPresented: $viewModel.isAddingExperience) {
                 ExperienceEditView(experience: Experience(), isNew: true) { exp in
@@ -48,6 +52,8 @@ struct ProfileView: View {
             educationSection(profile)
         }
         .formStyle(.grouped)
+        .scrollContentBackground(.hidden)
+        .background(AppTheme.bg)
     }
 }
 
@@ -116,6 +122,8 @@ private extension ProfileView {
             Button { viewModel.isAddingExperience = true } label: {
                 Label("Add Experience", systemImage: "plus")
             }
+            .buttonStyle(.borderedProminent)
+            .tint(AppTheme.blue)
         }
     }
 
@@ -134,6 +142,8 @@ private extension ProfileView {
             Button { viewModel.isAddingEducation = true } label: {
                 Label("Add Education", systemImage: "plus")
             }
+            .buttonStyle(.borderedProminent)
+            .tint(AppTheme.blue)
         }
     }
 }

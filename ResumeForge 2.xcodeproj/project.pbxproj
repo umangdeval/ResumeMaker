@@ -26,7 +26,6 @@
 		438C6821646458AC34DB10EC /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FD3A776A990A6EBBD92387 /* OpenAIService.swift */; };
 		4528CB9B2A47170D2A855B56 /* AICouncilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07CF7FCBB1218A4B343D63 /* AICouncilView.swift */; };
 		47A817AAE4E4DEBC79BD05E7 /* ParseConfidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071F1EE233FF300BD7FFC74C /* ParseConfidence.swift */; };
-		484ACAB6CE7B2FC0290EFC93 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DBDD348A9876B175608CB /* AppTheme.swift */; };
 		4B222622BDA4A2419790E776 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8699EC9CDE0A9AA2B6F4ADB2 /* StringExtensionTests.swift */; };
 		4B7C735406A97AC7F154EEC5 /* PythonSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCCB00C6B80E077F43F186D /* PythonSetupView.swift */; };
 		4F27B849517EEE087DBB8AED /* ParsedResumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1C4EE86A696223EE749D3 /* ParsedResumeData.swift */; };
@@ -144,7 +143,6 @@
 		CF3EEEB1DC0CADC15345E4EA /* CreateWorkflowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkflowView.swift; sourceTree = "<group>"; };
 		D1D7A499E0859D2608587C74 /* GeminiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiService.swift; sourceTree = "<group>"; };
 		D68C140CB44F8CA68D1E58DF /* GoogleGeminiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeminiService.swift; sourceTree = "<group>"; };
-		D81DBDD348A9876B175608CB /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		D89FAE1D8B1361DF2F9EFBF6 /* JobDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobDescriptionView.swift; sourceTree = "<group>"; };
 		DFA827560CF98E1AEEA5B6A2 /* FileImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportService.swift; sourceTree = "<group>"; };
 		F4ADBF899595BCADA9704827 /* ResumeForge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResumeForge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,7 +191,6 @@
 		381755A9A6DDA2B93A5ED7CA /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				D81DBDD348A9876B175608CB /* AppTheme.swift */,
 				71C1ED32A9A57407FB36D3A7 /* ErrorView.swift */,
 				20BCB741DB891206C591361B /* LoadingView.swift */,
 				686AAA7865A2B19504028AAF /* Router.swift */,
@@ -525,7 +522,6 @@
 				256F339DB3FB050D6889140E /* AIProviderSettingsView.swift in Sources */,
 				13EC65A7DCF794342CF83D50 /* AIServiceProtocol.swift in Sources */,
 				85740D17C56DECBA9DE4AB23 /* AnthropicService.swift in Sources */,
-				484ACAB6CE7B2FC0290EFC93 /* AppTheme.swift in Sources */,
 				5A656F26A2194A6B15AB5B2A /* ContentView.swift in Sources */,
 				C01AC7510333F0C50CA99098 /* CouncilOrchestrator.swift in Sources */,
 				1402E1C52A0278B6BA584F06 /* CouncilPrompts.swift in Sources */,

@@ -15,6 +15,7 @@ struct AICouncilView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
+                    header
                     preAnalysisPanel
                     if viewModel.orchestrator.analysisPhase == .analyzing {
                         analysisPhasePanel
@@ -28,7 +29,9 @@ struct AICouncilView: View {
                 }
                 .padding()
             }
+            .appScreenBackground()
             .navigationTitle("AI Council")
+            .tint(AppTheme.blue)
             .toolbar {
                 if viewModel.orchestrator.analysisPhase == .analyzing || viewModel.orchestrator.analysisPhase == .synthesizing {
                     ToolbarItem(placement: .automatic) {
@@ -39,16 +42,36 @@ struct AICouncilView: View {
         }
     }
 
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("AI Council")
+                .font(AppTheme.heroTitle)
+                .foregroundStyle(.white)
+            Text("Parallel model analysis followed by one unified synthesis.")
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.84))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(24)
+        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
+    }
+
     private var preAnalysisPanel: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Pre-Analysis")
-                .font(.headline)
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             Text("Profile: \(viewModel.profile.fullName.isEmpty ? "Unnamed Profile" : viewModel.profile.fullName)")
+                .foregroundStyle(AppTheme.text)
             Text("Job: \(viewModel.jobDescription.displayTitle)")
+                .foregroundStyle(AppTheme.text)
             Text("Active providers: \(viewModel.activeProviders.count)")
+                .foregroundStyle(AppTheme.text)
             Text("Estimated tokens: input \(viewModel.estimate.estimatedInputTokens), output \(viewModel.estimate.estimatedOutputTokens)")
+                .foregroundStyle(AppTheme.text)
             Text(String(format: "Estimated cost: $%.4f", viewModel.estimate.estimatedCostUSD))
                 .font(.subheadline.weight(.semibold))
+                .foregroundStyle(AppTheme.text)
 
             if !viewModel.hasConfiguredProviders {
                 Text("No compatible AI providers configured. Add OpenAI, Anthropic, or Gemini keys in Settings.")
@@ -57,17 +80,19 @@ struct AICouncilView: View {
 
             Button("Convene the Council") { viewModel.conveneCouncil() }
                 .buttonStyle(.borderedProminent)
+                .tint(AppTheme.blue)
                 .disabled(!viewModel.hasConfiguredProviders)
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .appCard()
     }
 
     private var analysisPhasePanel: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Analysis Phase")
-                .font(.headline)
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             ForEach(viewModel.orchestrator.providerProgress) { progress in
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
@@ -77,6 +102,7 @@ struct AICouncilView: View {
                     }
                     Text(progress.streamedText.isEmpty ? "Waiting for response..." : progress.streamedText)
                         .font(.caption)
+                        .foregroundStyle(AppTheme.text)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .textSelection(.enabled)
                     HStack {
@@ -91,29 +117,35 @@ struct AICouncilView: View {
                     .foregroundStyle(.secondary)
                 }
                 .padding()
-                .background(.quaternary.opacity(0.6), in: RoundedRectangle(cornerRadius: 12))
+                .background(.white, in: RoundedRectangle(cornerRadius: 10))
             }
         }
+        .padding(16)
+        .appCard()
     }
 
     private var synthesisPanel: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Synthesizing recommendations...")
-                .font(.headline)
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             ProgressView()
+                .tint(AppTheme.blue)
             Text(viewModel.orchestrator.synthesisText)
                 .font(.caption)
+                .foregroundStyle(AppTheme.text)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .textSelection(.enabled)
         }
         .padding()
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .appCard()
     }
 
     private var resultsPanel: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Unified Recommendations")
-                .font(.headline)
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
 
             recommendationSection(title: "Critical")
             recommendationSection(title: "Important")
@@ -136,12 +168,14 @@ struct AICouncilView: View {
 
             Text("Total tokens used: \(viewModel.orchestrator.totalTokensUsed)")
                 .font(.caption)
+                .foregroundStyle(AppTheme.textSecondary)
 
             Button("Generate Resume", action: onGenerateResume)
                 .buttonStyle(.borderedProminent)
+                .tint(AppTheme.blue)
         }
         .padding()
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+        .appCard()
     }
 
     @ViewBuilder
@@ -150,22 +184,25 @@ struct AICouncilView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text(title)
                     .font(.subheadline.weight(.bold))
+                    .foregroundStyle(AppTheme.text)
                 ForEach(items) { recommendation in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(recommendation.suggestion)
                             .font(.subheadline)
+                            .foregroundStyle(AppTheme.text)
                         if !recommendation.agreedModels.isEmpty {
                             Text("Agreed by: \(recommendation.agreedModels.joined(separator: ", "))")
                                 .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(AppTheme.textSecondary)
                         }
                         Button("Apply to Resume") {
                             viewModel.applyRecommendation(recommendation)
                         }
                         .buttonStyle(.bordered)
+                        .tint(AppTheme.blue)
                     }
                     .padding()
-                    .background(.quaternary.opacity(0.6), in: RoundedRectangle(cornerRadius: 10))
+                    .background(.white, in: RoundedRectangle(cornerRadius: 10))
                 }
             }
         }

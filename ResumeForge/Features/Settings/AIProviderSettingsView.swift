@@ -114,17 +114,24 @@ struct EditableProviderSettingsView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                pythonSection
-                providersSection
-                parsingSection
-            }
-            .navigationTitle("Settings")
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { viewModel.saveSettings() }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    header
+                    pythonSection
+                    providersSection
+                    parsingSection
+                    HStack {
+                        Spacer()
+                        Button("Save") { viewModel.saveSettings() }
+                            .buttonStyle(.borderedProminent)
+                            .tint(AppTheme.blue)
+                    }
                 }
+                .padding(20)
             }
+            .appScreenBackground()
+            .navigationTitle("Settings")
+            .tint(AppTheme.blue)
             .alert("Settings Saved", isPresented: $viewModel.savedAlert) {
                 Button("OK") { }
             }
@@ -164,8 +171,25 @@ struct EditableProviderSettingsView: View {
         }
     }
 
+    private var header: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Provider & Local Parsing")
+                .font(AppTheme.heroTitle)
+                .foregroundStyle(.white)
+            Text("Configure model providers, API keys, and local parsing behavior.")
+                .font(AppTheme.body)
+                .foregroundStyle(.white.opacity(0.84))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(18)
+        .background(Color.black, in: RoundedRectangle(cornerRadius: 12))
+    }
+
     private var pythonSection: some View {
-        Section(header: Text("Python / Docling")) {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Python / Docling")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             if pythonStatus != .ready {
                 PythonSetupView(status: pythonStatus) {
                     viewModel.loadSecrets()
@@ -173,12 +197,19 @@ struct EditableProviderSettingsView: View {
             } else {
                 Label("docling-parse is installed and ready.", systemImage: "checkmark.circle.fill")
                     .foregroundStyle(.green)
+                    .font(AppTheme.body)
             }
         }
+        .padding(16)
+        .appCard()
     }
 
     private var providersSection: some View {
-        Section(header: Text("API Providers")) {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("API Providers")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
+
             List(selection: $selectedProviderID) {
                 ForEach(viewModel.providers) { provider in
                     ProviderListRow(provider: provider)
@@ -189,6 +220,8 @@ struct EditableProviderSettingsView: View {
                         }
                 }
             }
+                .scrollContentBackground(.hidden)
+                .background(.clear)
             .frame(minHeight: 180, maxHeight: 260)
 
             HStack {
@@ -217,12 +250,21 @@ struct EditableProviderSettingsView: View {
                 .disabled(selectedProviderID == nil)
             }
         }
+        .padding(16)
+        .appCard()
     }
 
     private var parsingSection: some View {
-        Section(header: Text("Local Parsing")) {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Local Parsing")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             Toggle("Use local Ollama for parsing", isOn: $viewModel.localParsingEnabled)
+                .foregroundStyle(AppTheme.text)
+                .toggleStyle(.switch)
         }
+        .padding(16)
+        .appCard()
     }
 }
 
@@ -232,13 +274,14 @@ struct ProviderListRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: provider.kind == .ollama ? "cpu" : "key.horizontal")
-                .foregroundStyle(.blue)
+                .foregroundStyle(AppTheme.blue)
             VStack(alignment: .leading, spacing: 2) {
                 Text(provider.providerName.isEmpty ? provider.kind.displayName : provider.providerName)
-                    .font(.headline)
+                    .font(AppTheme.body.weight(.semibold))
+                    .foregroundStyle(AppTheme.text)
                 Text(provider.endpointURL)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(AppTheme.caption)
+                    .foregroundStyle(AppTheme.textSecondary)
             }
             Spacer()
             Toggle("", isOn: .constant(provider.isEnabled))
@@ -246,5 +289,6 @@ struct ProviderListRow: View {
                 .disabled(true)
         }
         .padding(.vertical, 4)
+        .listRowBackground(AppTheme.surface)
     }
 }
