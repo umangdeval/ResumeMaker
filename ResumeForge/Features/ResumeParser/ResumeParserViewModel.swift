@@ -25,6 +25,12 @@ final class ResumeParserViewModel {
     var error: Error?
     var fileName: String = ""
 
+    private let llmService: AIServiceProtocol
+
+    init(llmService: AIServiceProtocol = OllamaService(model: "qwen2.5:3b-instruct")) {
+        self.llmService = llmService
+    }
+
     // MARK: - Import & parse pipeline
 
     func startImport() {
@@ -39,7 +45,7 @@ final class ResumeParserViewModel {
             let file = try FileImportService.load(from: url)
             fileName = file.fileName
             extractedText = try await extractText(from: file)
-            parsedData = ResumeResultParser.parse(extractedText)
+            parsedData = await parseWithLocalLLMFallback(extractedText)
             parserState = .review
         } catch {
             self.error = error
@@ -135,5 +141,82 @@ final class ResumeParserViewModel {
             profile.education.append(edu)
         }
         profile.updatedAt = .now
+    }
+
+    // MARK: - Local LLM parser pass
+
+    private func parseWithLocalLLMFallback(_ text: String) async -> ParsedResumeData {
+        let fallback = ResumeResultParser.parse(text)
+
+        let systemPrompt = """
+        You are a resume parser.
+        Return valid JSON only.
+        Do not wrap JSON in markdown.
+        Omit comments and explanations.
+        """
+
+        let userPrompt = """
+        Parse this resume text into JSON with the following shape:
+        {
+            "name": String,
+            "email": String,
+            "phone": String,
+            "summary": String,
+            "linkedin": String,
+            "github": String,
+            "website": String,
+            "skills": [String],
+            "experiences": [
+                {
+                    "company": String,
+                    "title": String,
+                    "dateRange": String,
+                    "bulletPoints": [String]
+                }
+            ],
+            "education": [
+                {
+                    "institution": String,
+                    "degree": String,
+                    "field": String,
+                    "graduationDate": String,
+                    "gpa": String
+                }
+            ],
+            "projects": [
+                {
+                    "name": String,
+                    "year": String,
+                    "bulletPoints": [String]
+                }
+            ]
+        }
+
+        Resume text:
+        \(text)
+        """
+
+        do {
+            let llmOutput = try await llmService.complete(prompt: userPrompt, systemPrompt: systemPrompt)
+            let llmParsed = ResumeResultParser.parse(llmOutput)
+            if hasUsefulData(llmParsed) {
+                return llmParsed
+            }
+        } catch {
+            // Fall back to deterministic parser when local model is unavailable.
+        }
+
+        return fallback
+    }
+
+    private func hasUsefulData(_ data: ParsedResumeData) -> Bool {
+        !data.name.isEmpty
+            || !data.email.isEmpty
+            || !data.phone.isEmpty
+            || !data.summary.isEmpty
+            || !data.skills.isEmpty
+            || !data.experiences.isEmpty
+            || !data.education.isEmpty
+            || !data.projects.isEmpty
     }
 }

@@ -58,6 +58,7 @@ enum KeychainKey: String {
     case openAIAPIKey  = "com.resumeforge.apikey.openai"
     case anthropicAPIKey = "com.resumeforge.apikey.anthropic"
     case geminiAPIKey  = "com.resumeforge.apikey.gemini"
+    case openRouterAPIKey = "com.resumeforge.apikey.openrouter"
 }
 
 enum KeychainError: Error, LocalizedError {
