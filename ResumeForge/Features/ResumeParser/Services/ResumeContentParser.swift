@@ -2,24 +2,27 @@ import Foundation
 
 // MARK: - Parser
 
-/// Heuristically parses plain text (from PDF or LaTeX extraction) into `ParsedResumeData`.
+/// Heuristically parses plain text extracted from a PDF or LaTeX file into `ParsedResumeData`.
+/// Handles both "inline" format (all fields on one line) and "multi-line" format.
 /// Best-effort only — the user reviews and corrects the result.
 enum ResumeContentParser {
     static func parse(_ text: String) -> ParsedResumeData {
         let lines = text.components(separatedBy: .newlines)
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .filter { !$0.isEmpty }
+            .filter { !isIconMarker($0) }   // drop PDF icon artifacts: /mobile /envelope etc.
 
         var data = ParsedResumeData()
         let sections = splitIntoSections(lines)
         data.detectedSections = sections.map(\.name)
 
-        data.name = extractName(from: lines)
+        data.name  = extractName(from: lines)
 
-        let contactWindow = Array(lines.prefix(10))
-        data.email = extractEmail(from: contactWindow)
-        data.phone = extractPhone(from: contactWindow)
-        let links = extractLinks(from: contactWindow)
+        // Scan first 20 lines — icon markers inflate line count in raw PDF text
+        let contactWindow = Array(lines.prefix(20))
+        data.email    = extractEmail(from: contactWindow)
+        data.phone    = extractPhone(from: contactWindow)
+        let links     = extractLinks(from: contactWindow)
         data.linkedIn = links.first { $0.contains("linkedin") } ?? ""
         data.github   = links.first { $0.contains("github") }   ?? ""
         data.website  = links.first { !$0.contains("linkedin") && !$0.contains("github") } ?? ""
@@ -32,6 +35,8 @@ enum ResumeContentParser {
                 data.experiences = parseExperiences(from: section.body)
             } else if lower.contains("education") || lower.contains("academic") {
                 data.education = parseEducation(from: section.body)
+            } else if lower.contains("project") {
+                data.projects = parseProjects(from: section.body)
             } else if lower.contains("skill") || lower.contains("technologies") || lower.contains("competencies") {
                 data.skills = parseSkills(from: section.body)
             }
@@ -42,367 +47,312 @@ enum ResumeContentParser {
 
     // MARK: - Section splitting
 
-    private struct Section {
-        let name: String
-        let body: [String]
-    }
+    private struct Section { let name: String; let body: [String] }
 
-    /// Section heading keywords — intentionally excludes "tools" to avoid splitting skill sublists.
     private static let sectionKeywords = [
         "experience", "work history", "employment", "positions",
         "education", "academic", "qualifications",
         "skills", "technologies", "competencies",
         "summary", "objective", "profile", "about",
-        "projects", "achievements", "certifications", "awards",
+        "projects", "project", "achievements", "certifications", "awards",
         "publications", "volunteer", "languages"
     ]
 
+    /// Icon artifacts from PDF icon fonts appear as "/word" lines (e.g. /mobile /envelope).
+    private static func isIconMarker(_ line: String) -> Bool {
+        line.hasPrefix("/") && line.dropFirst().allSatisfy(\.isLetter)
+    }
+
     private static func isSectionHeading(_ line: String) -> Bool {
         let lower = line.lowercased()
-        // Markdown-style from LaTeX extractor
         if line.hasPrefix("## ") || line.hasPrefix("### ") { return true }
-        // All-caps line that is NOT a common non-heading abbreviation
+
         let allCapsExclusions = ["OOP", "API", "GPA", "UI", "UX", "IT", "QA", "OS", "ML", "AI"]
         if line == line.uppercased() && line.count > 3 && line.count <= 30
             && !allCapsExclusions.contains(line)
             && line.filter(\.isLetter).count >= 3 { return true }
-        // Match known section keyword only when it's the whole line (or nearly so)
-        // — prevents short words like "tools" inside longer non-heading lines from triggering
-        return sectionKeywords.contains { lower == $0 || lower.hasPrefix($0 + " ") } && line.count < 40
-    }
 
-    private static func sectionName(from line: String) -> String {
-        line.replacingOccurrences(of: "^#+\\s*", with: "", options: .regularExpression)
-            .trimmingCharacters(in: .whitespaces)
+        let wordCount = lower.split(separator: " ").count
+        guard line.count < 45, wordCount <= 4 else { return false }
+        // "Work Experience", "Technical Skills", "Personal Project" etc.
+        return sectionKeywords.contains { lower == $0 || lower.hasSuffix(" " + $0) || lower.hasPrefix($0 + " ") }
     }
 
     private static func splitIntoSections(_ lines: [String]) -> [Section] {
         var sections: [Section] = []
         var currentName = "Header"
         var currentBody: [String] = []
-
         for line in lines {
             if isSectionHeading(line) {
-                if !currentBody.isEmpty {
-                    sections.append(Section(name: currentName, body: currentBody))
-                }
-                currentName = sectionName(from: line)
+                if !currentBody.isEmpty { sections.append(Section(name: currentName, body: currentBody)) }
+                currentName = line.replacingOccurrences(of: "^#+\\s*", with: "", options: .regularExpression)
+                                  .trimmingCharacters(in: .whitespaces)
                 currentBody = []
             } else {
                 currentBody.append(line)
             }
         }
-        if !currentBody.isEmpty {
-            sections.append(Section(name: currentName, body: currentBody))
-        }
+        if !currentBody.isEmpty { sections.append(Section(name: currentName, body: currentBody)) }
         return sections
     }
 
-    // MARK: - Name extraction
+    // MARK: - Contact
 
     private static func extractName(from lines: [String]) -> String {
         for line in lines.prefix(5) {
-            guard !line.contains("@"),
-                  !line.contains("http"),
-                  !line.contains("linkedin"),
-                  !line.contains("github"),
-                  !line.contains("|"),
-                  line.filter(\.isNumber).count <= 2,
-                  line.count > 2,
-                  line.count < 60
-            else { continue }
-            // Looks like a name if it's mostly letters and spaces
-            let letterRatio = Double(line.filter { $0.isLetter || $0.isWhitespace }.count) / Double(line.count)
-            if letterRatio > 0.85 { return line }
+            guard !line.contains("@"), !line.contains("http"), !line.contains("linkedin"),
+                  !line.contains("github"), !line.contains("|"),
+                  line.filter(\.isNumber).count <= 2, line.count > 2, line.count < 60 else { continue }
+            let ratio = Double(line.filter { $0.isLetter || $0.isWhitespace }.count) / Double(line.count)
+            if ratio > 0.85 { return line }
         }
         return ""
     }
 
-    // MARK: - Contact extraction
-
     static func extractEmail(from lines: [String]) -> String {
-        let pattern = #"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}"#
-        for line in lines {
-            if let match = line.range(of: pattern, options: .regularExpression) {
-                return String(line[match])
-            }
-        }
-        return ""
+        let p = #"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}"#
+        return lines.lazy.compactMap { line -> String? in
+            guard let m = line.range(of: p, options: .regularExpression) else { return nil }
+            return String(line[m])
+        }.first ?? ""
     }
 
     static func extractPhone(from lines: [String]) -> String {
-        let pattern = #"(?:\+?1[\s\-.]?)?\(?\d{3}\)?[\s\-.]?\d{3}[\s\-.]?\d{4}"#
-        for line in lines {
-            if let match = line.range(of: pattern, options: .regularExpression) {
-                return String(line[match])
-            }
-        }
-        return ""
+        let p = #"(?:\+?1[\s\-.]?)?\(?\d{3}\)?[\s\-.]?\d{3}[\s\-.]?\d{4}"#
+        return lines.lazy.compactMap { line -> String? in
+            guard let m = line.range(of: p, options: .regularExpression) else { return nil }
+            return String(line[m])
+        }.first ?? ""
     }
 
     private static func extractLinks(from lines: [String]) -> [String] {
-        // Match URLs with or without scheme (e.g. linkedin.com/in/... or https://linkedin.com/...)
-        let pattern = #"(?:https?://)?(?:www\.)?(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}(?:/[^\s,;|•)(<>\[\]]*)?"#
-        var links: [String] = []
-        var seen = Set<String>()
+        let p = #"(?:https?://)?(?:www\.)?(?:[a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,}(?:/[^\s,;|•)(<>\[\]]*)?"#
+        var links: [String] = []; var seen = Set<String>()
         for line in lines {
-            var search = line[line.startIndex...]
-            while let match = search.range(of: pattern, options: .regularExpression) {
-                let urlStr = String(search[match]).trimmingCharacters(in: CharacterSet(charactersIn: ".,"))
-                // Skip plain domain-like words that aren't URLs (e.g. "e.g", "i.e")
-                if urlStr.contains("/") || urlStr.hasPrefix("http") || urlStr.hasPrefix("www") {
-                    if !seen.contains(urlStr) {
-                        links.append(urlStr)
-                        seen.insert(urlStr)
-                    }
+            var s = line[line.startIndex...]
+            while let m = s.range(of: p, options: .regularExpression) {
+                let url = String(s[m]).trimmingCharacters(in: CharacterSet(charactersIn: ".,"))
+                if (url.contains("/") || url.hasPrefix("http") || url.hasPrefix("www")), seen.insert(url).inserted {
+                    links.append(url)
                 }
-                search = search[match.upperBound...]
+                s = s[m.upperBound...]
             }
         }
         return links
     }
 
-    // MARK: - Experience parsing
+    // MARK: - Experience
 
-    /// Handles the common resume pattern:
-    ///   Company | Title           ← line BEFORE date
-    ///   Date – Date | Location    ← date line (may include location after |)
-    ///   • Bullet…
+    /// Handles inline format: "Title (Company) Location MM/yyyy - MM/yyyy"
+    /// and multi-line format: date on its own line with title/company on previous lines.
     private static func parseExperiences(from lines: [String]) -> [ParsedExperience] {
-        // Pass 1: find indices of all date-range lines
-        var dateLine: [(index: Int, range: ParsedDateRange)] = []
+        struct Header { let lineIndex: Int; let title: String; let company: String; let range: ParsedDateRange }
+        var headers: [Header] = []
+
         for (i, line) in lines.enumerated() {
-            if let range = DateRangeParser.parse(from: line) {
-                dateLine.append((i, range))
-            }
-        }
-
-        guard !dateLine.isEmpty else { return [] }
-
-        var result: [ParsedExperience] = []
-
-        for (entryIdx, entry) in dateLine.enumerated() {
-            let nextStart = entryIdx + 1 < dateLine.count ? dateLine[entryIdx + 1].index : lines.count
-
-            // Collect bullet points — lines after the date until the next entry
-            let bodyLines = lines[(entry.index + 1)..<nextStart]
-            let bullets = bodyLines
-                .filter { $0.hasPrefix("•") || $0.hasPrefix("–") || $0.hasPrefix("-") }
-                .map { $0.dropFirst().trimmingCharacters(in: .whitespaces) }
-                .filter { !$0.isEmpty }
-
-            // Look backwards for the company/title line (immediately before date line)
-            var company = ""
-            var title = ""
-            if entry.index > 0 {
-                let candidate = lines[entry.index - 1]
-                // Skip if it's a bullet or another date
-                if !candidate.hasPrefix("•") && DateRangeParser.parse(from: candidate) == nil {
-                    if candidate.contains(" | ") {
-                        // "Company | Title" same-line format
-                        let parts = candidate.components(separatedBy: " | ")
-                        company = parts[0].trimmingCharacters(in: .whitespaces)
-                        title = parts.dropFirst().joined(separator: " | ").trimmingCharacters(in: .whitespaces)
-                    } else {
-                        // Guess: title-only or company-only line
-                        title = candidate
+            if let (prefix, range) = DateRangeParser.parseSuffix(from: line) {
+                let (title, company) = splitJobHeader(prefix)
+                headers.append(Header(lineIndex: i, title: title, company: company, range: range))
+            } else if let range = DateRangeParser.parse(from: line) {
+                // Multi-line: look backwards, skipping any location line
+                var lookback = i - 1
+                if lookback >= 0 && isLocationLine(lines[lookback]) { lookback -= 1 }
+                var title = ""; var company = ""
+                if lookback >= 0 {
+                    let candidate = lines[lookback]
+                    if !candidate.hasPrefix("•") && DateRangeParser.parse(from: candidate) == nil
+                        && DateRangeParser.parseSuffix(from: candidate) == nil {
+                        (title, company) = splitJobHeader(candidate)
                     }
                 }
+                headers.append(Header(lineIndex: i, title: title, company: company, range: range))
             }
-
-            result.append(ParsedExperience(
-                company: company,
-                title: title,
-                startDate: entry.range.start,
-                endDate: entry.range.isCurrent ? nil : entry.range.end,
-                isCurrent: entry.range.isCurrent,
-                bulletPoints: bullets
-            ))
         }
-        return result
+
+        return headers.enumerated().map { (idx, header) in
+            let nextStart = idx + 1 < headers.count ? headers[idx + 1].lineIndex : lines.count
+            let bullets = lines[(header.lineIndex + 1)..<nextStart]
+                .filter { $0.hasPrefix("•") || $0.hasPrefix("–") || $0.hasPrefix("-") }
+                .map { String($0.dropFirst()).trimmingCharacters(in: .whitespaces) }
+                .filter { !$0.isEmpty }
+            return ParsedExperience(
+                company: header.company, title: header.title,
+                startDate: header.range.start,
+                endDate: header.range.isCurrent ? nil : header.range.end,
+                isCurrent: header.range.isCurrent, bulletPoints: bullets)
+        }
     }
 
-    // MARK: - Education parsing
+    /// Extracts (title, company) from "Title (Company) Location" or "Title | Company".
+    private static func splitJobHeader(_ header: String) -> (title: String, company: String) {
+        if let open = header.firstIndex(of: "("), let close = header[open...].firstIndex(of: ")") {
+            let company = String(header[header.index(after: open)..<close]).trimmingCharacters(in: .whitespaces)
+            let title   = String(header[..<open]).trimmingCharacters(in: CharacterSet(charactersIn: ", ").union(.whitespaces))
+            return (title, company)
+        }
+        if header.contains(" | ") {
+            let parts = header.components(separatedBy: " | ")
+            return (parts[0].trimmingCharacters(in: .whitespaces),
+                    parts.dropFirst().joined(separator: " | ").trimmingCharacters(in: .whitespaces))
+        }
+        return (header.trimmingCharacters(in: CharacterSet(charactersIn: ", ").union(.whitespaces)), "")
+    }
 
-    /// Handles both "Expected YYYY" graduation years and "YYYY – YYYY | GPA: X.X" combined lines.
+    private static func isLocationLine(_ line: String) -> Bool {
+        guard !line.hasPrefix("•"), !line.hasPrefix("-"),
+              DateRangeParser.parse(from: line) == nil,
+              DateRangeParser.parseSuffix(from: line) == nil else { return false }
+        let words = line.split(separator: " ")
+        return words.count <= 4 && (line == "Remote" || line.contains(","))
+    }
+
+    // MARK: - Education
+
+    /// Handles inline: "Degree Institution City, Province yyyy-Present"
+    /// and multi-line format with one field per line.
     private static func parseEducation(from lines: [String]) -> [ParsedEducation] {
-        // Split into institution blocks: a new block starts on a line that is
-        // not a bullet, not a date range, and looks like an institution name
-        // (determined by not being a descriptor line for the current block).
-        var blocks: [[String]] = []
-        var currentBlock: [String] = []
-
-        for line in lines {
-            let isBullet = line.hasPrefix("•") || line.hasPrefix("-")
-            let isDate = DateRangeParser.parse(from: line) != nil
-            let isExpected = line.lowercased().hasPrefix("expected")
-            let isGPA = line.lowercased().contains("gpa")
-            let isMinor = line.lowercased().hasPrefix("minor")
-            let isDeansList = line.lowercased().contains("dean")
-
-            // A line that starts a new institution: not a bullet, not a date/meta line,
-            // and there's already content in the current block.
-            let isMeta = isBullet || isDate || isExpected || isGPA || isMinor || isDeansList
-            if !isMeta && !currentBlock.isEmpty {
-                // Heuristic: if current block already has an institution name (first line)
-                // and this new line looks like another institution, start a new block.
-                blocks.append(currentBlock)
-                currentBlock = []
+        struct EduHeader { let lineIndex: Int; let prefix: String; let range: ParsedDateRange }
+        var headers: [EduHeader] = []
+        for (i, line) in lines.enumerated() {
+            if let (prefix, range) = DateRangeParser.parseSuffix(from: line) {
+                headers.append(EduHeader(lineIndex: i, prefix: prefix, range: range))
+            } else if let range = DateRangeParser.parse(from: line) {
+                headers.append(EduHeader(lineIndex: i, prefix: "", range: range))
             }
-            currentBlock.append(line)
         }
-        if !currentBlock.isEmpty { blocks.append(currentBlock) }
+        guard !headers.isEmpty else { return [] }
 
-        return blocks.compactMap { parseEducationBlock($0) }
+        return headers.enumerated().compactMap { (entryIdx, header) in
+            let lowerBound = entryIdx > 0 ? headers[entryIdx - 1].lineIndex + 1 : 0
+            let nextStart  = entryIdx + 1 < headers.count ? headers[entryIdx + 1].lineIndex : lines.count
+            var edu = ParsedEducation()
+            edu.graduationDate = header.range.end ?? header.range.start
+
+            if !header.prefix.isEmpty {
+                let (degree, field, institution) = splitEducationHeader(header.prefix)
+                edu.degree = degree; edu.field = field; edu.institution = institution
+            } else {
+                var lookback = header.lineIndex - 1
+                while lookback >= lowerBound {
+                    let line = lines[lookback]
+                    guard !line.hasPrefix("•"), !line.hasPrefix("-"), !isLocationLine(line),
+                          !line.lowercased().contains("dean"), !line.lowercased().hasPrefix("minor")
+                    else { lookback -= 1; continue }
+                    let looksLikeDegree = line.range(of: #"(?i)\b(bachelor|master|diploma|doctor|phd|associate|certificate|computing|engineering|arts|science)"#, options: .regularExpression) != nil
+                    let looksLikeInst   = line.range(of: #"(?i)\b(university|college|institute|school|academy)"#, options: .regularExpression) != nil
+                    if looksLikeDegree && edu.degree.isEmpty { let (d, f) = splitDegree(line); edu.degree = d; edu.field = f }
+                    else if looksLikeInst && edu.institution.isEmpty { edu.institution = line }
+                    else if edu.institution.isEmpty && edu.degree.isEmpty { edu.institution = line }
+                    lookback -= 1
+                }
+            }
+
+            for line in lines[(header.lineIndex + 1)..<nextStart] {
+                if line.lowercased().contains("gpa"),
+                   let m = line.range(of: #"\d\.\d{1,2}"#, options: .regularExpression) {
+                    edu.gpa = String(line[m])
+                }
+            }
+            return (edu.institution.isEmpty && edu.degree.isEmpty) ? nil : edu
+        }
     }
 
-    private static func parseEducationBlock(_ lines: [String]) -> ParsedEducation? {
-        var edu = ParsedEducation()
-        var lineIdx = 0
-        for line in lines {
-            if let range = DateRangeParser.parse(from: line) {
-                edu.graduationDate = range.end ?? range.start
-            } else if line.lowercased().hasPrefix("expected") {
-                // "Expected 2028" — extract the 4-digit year
-                let yearMatch = line.range(of: #"(?:19|20)\d{2}"#, options: .regularExpression)
-                if let r = yearMatch, let date = DateRangeParser.parseDate(String(line[r])) {
-                    edu.graduationDate = date
-                }
-            } else if line.lowercased().contains("gpa") {
-                // Extract numeric GPA value
-                let gpaMatch = line.range(of: #"\d\.\d{1,2}"#, options: .regularExpression)
-                edu.gpa = gpaMatch.map { String(line[$0]) } ?? line
-            } else if line.lowercased().hasPrefix("minor") || line.lowercased().contains("dean") {
-                // Metadata — skip
-                continue
-            } else {
-                switch lineIdx {
-                case 0: edu.institution = line
-                case 1:
-                    let (deg, field) = splitDegree(line)
-                    edu.degree = deg
-                    edu.field = field
-                default: break
-                }
-                lineIdx += 1
+    /// Parses "Degree Field Institution City, Province" by splitting on institution keyword.
+    private static func splitEducationHeader(_ header: String) -> (degree: String, field: String, institution: String) {
+        for kw in ["University", "College", "Institute", "School", "Academy", "Polytechnic"] {
+            guard let kwRange = header.range(of: "\\b\(kw)", options: [.regularExpression, .caseInsensitive]) else { continue }
+            var instStart = kwRange.lowerBound
+            // Include preceding proper noun (e.g. "Sheridan" before "College")
+            let before = String(header[..<kwRange.lowerBound]).trimmingCharacters(in: .whitespaces)
+            let lastWord = before.components(separatedBy: .whitespaces).filter { !$0.isEmpty }.last ?? ""
+            if lastWord.first?.isUppercase == true, !lastWord.hasSuffix(","),
+               !lastWord.hasSuffix(")"), !lastWord.hasSuffix("."),
+               let lwRange = header.range(of: lastWord, options: .backwards) {
+                instStart = lwRange.lowerBound
             }
+            let degreePart = String(header[..<instStart]).trimmingCharacters(in: .whitespaces)
+            let instRaw    = String(header[instStart...]).trimmingCharacters(in: .whitespaces)
+            let institution = instRaw.components(separatedBy: " ").reduce(into: [String]()) { acc, word in
+                guard acc.isEmpty || !word.hasSuffix(",") else { return }
+                if !word.hasSuffix(",") { acc.append(word) }
+            }.joined(separator: " ")
+            let (degree, field) = splitDegree(degreePart)
+            return (degree, field, institution)
         }
-        return edu.institution.isEmpty ? nil : edu
+        return (header, "", "")
     }
 
     private static func splitDegree(_ line: String) -> (degree: String, field: String) {
         let trim: (String) -> String = { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        let separators = [" in ", " of Science in ", " of Arts in ", " of Engineering in "]
-        for sep in separators {
-            if let range = line.range(of: sep, options: .caseInsensitive) {
-                return (trim(String(line[..<range.lowerBound])),
-                        trim(String(line[range.upperBound...])))
+        for sep in [" in ", " of Science in ", " of Arts in ", " of Engineering in "] {
+            if let r = line.range(of: sep, options: .caseInsensitive) {
+                return (trim(String(line[..<r.lowerBound])), trim(String(line[r.upperBound...])))
             }
         }
-        // Try comma split: "B.Comp, Computer Science" → ("B.Comp", "Computer Science")
-        if let commaIdx = line.firstIndex(of: ",") {
-            let degree = trim(String(line[..<commaIdx]))
-            let field  = trim(String(line[line.index(after: commaIdx)...]))
-            if !degree.isEmpty && !field.isEmpty { return (degree, field) }
+        if let comma = line.firstIndex(of: ",") {
+            let d = trim(String(line[..<comma])); let f = trim(String(line[line.index(after: comma)...]))
+            if !d.isEmpty && !f.isEmpty { return (d, f) }
         }
         return (line, "")
     }
 
-    // MARK: - Skills parsing
+    // MARK: - Projects
+
+    private static func parseProjects(from lines: [String]) -> [ParsedProject] {
+        var projects: [ParsedProject] = []
+        var currentName = ""; var currentYear = ""; var currentBullets: [String] = []
+
+        func flush() {
+            guard !currentName.isEmpty else { return }
+            projects.append(ParsedProject(name: currentName, year: currentYear, bulletPoints: currentBullets))
+        }
+
+        for line in lines {
+            if line.hasPrefix("•") || line.hasPrefix("-") {
+                let bullet = String(line.dropFirst()).trimmingCharacters(in: .whitespaces)
+                if !bullet.isEmpty { currentBullets.append(bullet) }
+            } else if line.range(of: #"^\d{4}$"#, options: .regularExpression) != nil {
+                currentYear = line  // standalone year on its own line
+            } else {
+                var name = line; var year = ""
+                // "Project Name 2025" — trailing 4-digit year on same line
+                if let yr = line.range(of: #"\s(\d{4})\s*$"#, options: .regularExpression) {
+                    year = String(line[yr]).trimmingCharacters(in: .whitespaces)
+                    name = String(line[..<yr.lowerBound]).trimmingCharacters(in: .whitespaces)
+                }
+                flush(); currentName = name; currentYear = year; currentBullets = []
+            }
+        }
+        flush()
+        return projects
+    }
+
+    // MARK: - Skills
 
     private static func parseSkills(from lines: [String]) -> [String] {
         var skills: [String] = []
         for line in lines {
-            // Skip subsection labels (short single-word lines without commas or bullets)
-            let trimmed = line.trimmingCharacters(in: .whitespaces)
-            let isSubLabel = !trimmed.contains(",") && !trimmed.hasPrefix("•") && trimmed.split(separator: " ").count <= 2
-            if isSubLabel && trimmed.filter(\.isNumber).count == 0 && trimmed.count < 20 { continue }
+            // Strip dotted leaders: "Programming Languages. . . . . . ." → "Programming Languages"
+            let trimmed = line
+                .replacingOccurrences(of: #"[\s.]*\.(\s*\.){2,}[\s.]*"#, with: "", options: .regularExpression)
+                .trimmingCharacters(in: .whitespaces)
+            guard !trimmed.isEmpty else { continue }
 
-            let parts = trimmed.components(separatedBy: ",")
-            if parts.count > 1 {
-                skills.append(contentsOf: parts.map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty })
+            let wordCount = trimmed.split(separator: " ").count
+            let isSubLabel = !trimmed.contains(",") && !trimmed.hasPrefix("•") && !trimmed.hasPrefix("-")
+                && wordCount <= 3 && trimmed.filter(\.isNumber).count == 0 && trimmed.count < 25
+            if isSubLabel { continue }
+
+            if trimmed.contains(",") {
+                skills.append(contentsOf: trimmed.components(separatedBy: ",")
+                    .map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty })
             } else if trimmed.hasPrefix("•") || trimmed.hasPrefix("-") {
-                let skill = String(trimmed.dropFirst()).trimmingCharacters(in: .whitespaces)
-                if !skill.isEmpty { skills.append(skill) }
-            } else if !trimmed.isEmpty {
+                let s = String(trimmed.dropFirst()).trimmingCharacters(in: .whitespaces)
+                if !s.isEmpty { skills.append(s) }
+            } else {
                 skills.append(trimmed)
             }
         }
         return skills
     }
 }
-
-// MARK: - Date range parser (internal, also used by tests)
-
-struct ParsedDateRange: Sendable {
-    let start: Date
-    let end: Date?
-    let isCurrent: Bool
-}
-
-enum DateRangeParser {
-    static func parse(from line: String) -> ParsedDateRange? {
-        // Strip location info appended after " | " before attempting date parse
-        // e.g. "Apr 2025 | Guelph" → "Apr 2025"
-        let cleaned = stripLocationSuffix(line)
-
-        let separators = ["–", "—", " to "]
-        for sep in separators {
-            if let result = tryParse(cleaned, separator: sep) { return result }
-        }
-
-        // Hyphen "-" only when surrounded by spaces to avoid "Co-op", "full-time", etc.
-        if let result = tryParse(cleaned, separator: " - ") { return result }
-
-        // Year-only range: "2019 – 2022", "2019-2022"
-        let yearPattern = #"((?:19|20)\d{2})\s*[–\-—]|to\s+((?:19|20)\d{2}|[Pp]resent)"#
-        let fullYearPattern = #"((?:19|20)\d{2})\s*(?:[–\-—]|to)\s*((?:19|20)\d{2}|[Pp]resent)"#
-        if let match = cleaned.range(of: fullYearPattern, options: .regularExpression) {
-            let matched = String(cleaned[match])
-            if let result = tryParse(matched, separator: "–") { return result }
-            if let result = tryParse(matched, separator: "-") { return result }
-        }
-
-        return nil
-    }
-
-    private static func stripLocationSuffix(_ line: String) -> String {
-        // "May 2025 – Present | Singapore (Remote)" → "May 2025 – Present"
-        guard let pipeRange = line.range(of: " | ") else { return line }
-        // Only strip if the part before | contains a separator (it's a date range, not "Company | Title")
-        let beforePipe = String(line[..<pipeRange.lowerBound])
-        let hasSeparator = ["–", "—", " - ", " to "].contains { beforePipe.contains($0) }
-            || beforePipe.range(of: #"(?:19|20)\d{2}"#, options: .regularExpression) != nil
-        return hasSeparator ? beforePipe : line
-    }
-
-    private static func tryParse(_ line: String, separator: String) -> ParsedDateRange? {
-        let parts = line.components(separatedBy: separator).map { $0.trimmingCharacters(in: .whitespaces) }
-        guard parts.count == 2, let start = parseDate(parts[0]) else { return nil }
-        let endStr = parts[1].lowercased()
-        if endStr.contains("present") || endStr.contains("current") || endStr.contains("now") || endStr.isEmpty {
-            return ParsedDateRange(start: start, end: nil, isCurrent: true)
-        }
-        if let end = parseDate(parts[1]) {
-            return ParsedDateRange(start: start, end: end, isCurrent: false)
-        }
-        return nil
-    }
-
-    static func parseDate(_ raw: String) -> Date? {
-        let cleaned = raw.trimmingCharacters(in: .whitespaces)
-        // Reject clearly non-date strings quickly
-        guard !cleaned.isEmpty,
-              cleaned.filter(\.isNumber).count >= 2 else { return nil }
-
-        let formats = ["MMMM yyyy", "MMM yyyy", "yyyy", "MM/yyyy", "MMMM d, yyyy", "MMM d, yyyy"]
-        for fmt in formats {
-            let f = DateFormatter()
-            f.dateFormat = fmt
-            f.locale = Locale(identifier: "en_US_POSIX")
-            if let date = f.date(from: cleaned) { return date }
-        }
-        return nil
-    }
-}
-

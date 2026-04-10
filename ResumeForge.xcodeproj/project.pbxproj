@@ -37,6 +37,7 @@
 		8F34F41C52E449A9AD3BC3F6 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1ED32A9A57407FB36D3A7 /* ErrorView.swift */; };
 		9CF397D99013CBA3DFDE6803 /* ResumeParserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C60E8B511925CC6C03E300 /* ResumeParserView.swift */; };
 		ADC8AB1EF75F3725778832A6 /* DoclingPDFExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */; };
+		B1C2D3E4F5A6B7C8D9E0F1A2 /* DateRangeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D3E4F5A6B7C8D9E0F1A2B3 /* DateRangeParser.swift */; };
 		AFEF9AFF0B0933DEF3EDDE23 /* SettingsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778FD35A6CA5AC3186CF1CEC /* SettingsPlaceholder.swift */; };
 		C470399CE6429C29F9BB11EC /* LaTeXTextExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */; };
 		C9953FEBC07419085A94C85E /* GeneratedResume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B45103B99619E88EE88F5D /* GeneratedResume.swift */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		03423074FE0ABC87FFF503DC /* AppRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterTests.swift; sourceTree = "<group>"; };
 		100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTextExtractor.swift; sourceTree = "<group>"; };
+		C2D3E4F5A6B7C8D9E0F1A2B3 /* DateRangeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeParser.swift; sourceTree = "<group>"; };
 		18C1C4EE86A696223EE749D3 /* ParsedResumeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedResumeData.swift; sourceTree = "<group>"; };
 		1ABC08A9FE182CBD0AEE55CE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1B4303940C464D62C04FC88D /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */,
+				C2D3E4F5A6B7C8D9E0F1A2B3 /* DateRangeParser.swift */,
 				1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */,
 				100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */,
 				A08FE135728E1B77AB45F3DF /* ResumeContentParser.swift */,
@@ -414,6 +417,7 @@
 				E7533682A227DBA5DE76BC5C /* CoverLetterPlaceholder.swift in Sources */,
 				80988C2FC24022BEFBE2CCEE /* Date+Extensions.swift in Sources */,
 				ADC8AB1EF75F3725778832A6 /* DoclingPDFExtractor.swift in Sources */,
+				B1C2D3E4F5A6B7C8D9E0F1A2 /* DateRangeParser.swift in Sources */,
 				044CD8D5AEA3484AA9543630 /* Education.swift in Sources */,
 				8F34F41C52E449A9AD3BC3F6 /* ErrorView.swift in Sources */,
 				7B0AA15702AC54AE3113BA06 /* Experience.swift in Sources */,

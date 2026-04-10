@@ -14,6 +14,7 @@ struct ParsedResumeData: Sendable {
     var summary: String
     var experiences: [ParsedExperience]
     var education: [ParsedEducation]
+    var projects: [ParsedProject]
     var skills: [String]
     /// Section names that were detected in the raw text (used for UI display).
     var detectedSections: [String]
@@ -28,6 +29,7 @@ struct ParsedResumeData: Sendable {
         summary: String = "",
         experiences: [ParsedExperience] = [],
         education: [ParsedEducation] = [],
+        projects: [ParsedProject] = [],
         skills: [String] = [],
         detectedSections: [String] = []
     ) {
@@ -40,6 +42,7 @@ struct ParsedResumeData: Sendable {
         self.summary = summary
         self.experiences = experiences
         self.education = education
+        self.projects = projects
         self.skills = skills
         self.detectedSections = detectedSections
     }
@@ -69,6 +72,19 @@ struct ParsedExperience: Sendable, Identifiable {
         self.startDate = startDate
         self.endDate = endDate
         self.isCurrent = isCurrent
+        self.bulletPoints = bulletPoints
+    }
+}
+
+struct ParsedProject: Sendable, Identifiable {
+    var id: UUID = UUID()
+    var name: String
+    var year: String
+    var bulletPoints: [String]
+
+    init(name: String = "", year: String = "", bulletPoints: [String] = []) {
+        self.name = name
+        self.year = year
         self.bulletPoints = bulletPoints
     }
 }
