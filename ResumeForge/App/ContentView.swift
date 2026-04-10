@@ -82,7 +82,7 @@ private struct ProfileTab: View {
 private struct CreateTab: View {
     var body: some View {
         NavigationStack {
-            ResumeParserView()
+            CreateWorkflowView()
         }
     }
 }

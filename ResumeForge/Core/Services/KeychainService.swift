@@ -74,7 +74,7 @@ enum KeychainKey: String {
     case openRouterAPIKey = "com.resumeforge.apikey.openrouter"
 }
 
-enum KeychainError: Error, LocalizedError {
+enum KeychainError: Error, LocalizedError, Equatable {
     case encodingFailed
     case notFound
     case underlyingError(OSStatus)

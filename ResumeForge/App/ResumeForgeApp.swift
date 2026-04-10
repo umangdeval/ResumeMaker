@@ -12,6 +12,7 @@ struct ResumeForgeApp: App {
                 for: UserProfile.self,
                      Experience.self,
                      Education.self,
+                     JobDescription.self,
                      GeneratedResume.self,
                      CoverLetter.self,
                 configurations: ModelConfiguration(isStoredInMemoryOnly: false)

@@ -144,8 +144,14 @@ enum ResumeResultParser {
 
         return items.map { item in
             let range = dateRange(from: item)
+            let rangeText = string(from: item, keys: ["dateRange", "date_range", "duration"]).lowercased()
             let endRaw = string(from: item, keys: ["end", "endDate", "end_date", "to"])
-            let isCurrent = bool(from: item, keys: ["isCurrent", "is_current", "current"]) || endRaw.lowercased().contains("present") || endRaw.lowercased().contains("current")
+            let isCurrent = bool(from: item, keys: ["isCurrent", "is_current", "current"])
+                || endRaw.lowercased().contains("present")
+                || endRaw.lowercased().contains("current")
+                || rangeText.contains("present")
+                || rangeText.contains("current")
+                || rangeText.contains("now")
 
             return ParsedExperience(
                 company: string(from: item, keys: ["company", "organization", "employer"]),
