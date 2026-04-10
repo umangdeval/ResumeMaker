@@ -102,32 +102,9 @@ private struct DocumentsTab: View {
 
 private struct SettingsTab: View {
     let pythonStatus: PythonEnvironmentStatus
-    @State private var currentStatus: PythonEnvironmentStatus = .ready
 
     var body: some View {
-        NavigationStack {
-            Form {
-                if currentStatus != .ready {
-                    Section("Python / Docling Setup") {
-                        PythonSetupView(status: currentStatus) {
-                            currentStatus = PythonEnvironmentService.checkDocling()
-                        }
-                    }
-                } else {
-                    Section("Python / Docling") {
-                        Label("docling-parse is installed and ready.", systemImage: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                    }
-                }
-                Section("API Keys") {
-                    Text("API key management — coming soon.")
-                        .foregroundStyle(.secondary)
-                }
-            }
-            .formStyle(.grouped)
-            .navigationTitle("Settings")
-            .onAppear { currentStatus = pythonStatus }
-        }
+        SettingsView(pythonStatus: pythonStatus)
     }
 }
 

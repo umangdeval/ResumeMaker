@@ -5,10 +5,13 @@ final class OpenAIService: AIServiceProtocol {
     let providerName = "OpenAI"
 
     private let model: String
-    private let baseURL = URL(string: "https://api.openai.com/v1/chat/completions")! // swiftlint:disable:this force_unwrapping
+    private let baseURL: URL
+    private let apiKeyStorageKey: String
 
-    init(model: String = "gpt-4o") {
+    init(model: String = "gpt-4o", apiKeyStorageKey: String = KeychainKey.openAIAPIKey.rawValue, baseURLString: String = "https://api.openai.com/v1/chat/completions") {
         self.model = model
+        self.apiKeyStorageKey = apiKeyStorageKey
+        self.baseURL = URL(string: baseURLString) ?? URL(fileURLWithPath: "/")
     }
 
     func estimateTokens(for prompt: String) -> Int {
@@ -20,7 +23,7 @@ final class OpenAIService: AIServiceProtocol {
         AsyncThrowingStream { continuation in
             Task {
                 do {
-                    let apiKey = try KeychainService.load(key: .openAIAPIKey)
+                    let apiKey = try KeychainService.load(key: apiKeyStorageKey)
                     var request = URLRequest(url: baseURL)
                     request.httpMethod = "POST"
                     request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
@@ -48,7 +51,7 @@ final class OpenAIService: AIServiceProtocol {
     }
 
     func complete(prompt: String, systemPrompt: String) async throws -> String {
-        let apiKey = try KeychainService.load(key: .openAIAPIKey)
+        let apiKey = try KeychainService.load(key: apiKeyStorageKey)
         var request = URLRequest(url: baseURL)
         request.httpMethod = "POST"
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")

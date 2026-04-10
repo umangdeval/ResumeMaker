@@ -119,7 +119,6 @@ struct AICouncilView: View {
                 }
             }
             .navigationTitle("AI Council")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

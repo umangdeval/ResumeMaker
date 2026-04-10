@@ -7,6 +7,10 @@ enum KeychainService {
     // MARK: - Public API
 
     static func save(key: KeychainKey, value: String) throws(KeychainError) {
+        try save(key: key.rawValue, value: value)
+    }
+
+    static func save(key: String, value: String) throws(KeychainError) {
         guard let data = value.data(using: .utf8) else {
             throw .encodingFailed
         }
@@ -15,7 +19,7 @@ enum KeychainService {
 
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
-            kSecAttrAccount: key.rawValue,
+            kSecAttrAccount: key,
             kSecValueData: data,
             kSecAttrAccessible: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
@@ -26,9 +30,13 @@ enum KeychainService {
     }
 
     static func load(key: KeychainKey) throws(KeychainError) -> String {
+        try load(key: key.rawValue)
+    }
+
+    static func load(key: String) throws(KeychainError) -> String {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
-            kSecAttrAccount: key.rawValue,
+            kSecAttrAccount: key,
             kSecReturnData: true,
             kSecMatchLimit: kSecMatchLimitOne
         ]
@@ -44,9 +52,14 @@ enum KeychainService {
 
     @discardableResult
     static func delete(key: KeychainKey) -> Bool {
+        delete(key: key.rawValue)
+    }
+
+    @discardableResult
+    static func delete(key: String) -> Bool {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
-            kSecAttrAccount: key.rawValue
+            kSecAttrAccount: key
         ]
         return SecItemDelete(query as CFDictionary) == errSecSuccess
     }

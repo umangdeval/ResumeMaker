@@ -9,28 +9,19 @@ final class AICounselService {
     private let synthesizerProvider: AIServiceProtocol
 
     init() {
-        // Build provider list from enabled settings
-        var activeProviders: [AIServiceProtocol] = []
-        
-        if UserDefaults.standard.bool(forKey: "provider.openai.enabled") {
-            activeProviders.append(OpenAIService())
-        }
-        if UserDefaults.standard.bool(forKey: "provider.anthropic.enabled") {
-            activeProviders.append(AnthropicService())
-        }
-        if UserDefaults.standard.bool(forKey: "provider.gemini.enabled") {
-            activeProviders.append(GeminiService())
-        }
-        if UserDefaults.standard.bool(forKey: "provider.openrouter.enabled") {
-            activeProviders.append(OpenRouterService())
-        }
-        
-        // Fall back to local Ollama if no providers enabled
+        let providerConfigs = AIProviderSettingsStore.loadProviders()
+        let activeProviders = providerConfigs.compactMap { AIProviderServiceFactory.makeService(for: $0) }
+
         self.providers = activeProviders.isEmpty ? [OllamaService()] : activeProviders
-        
-        // Synthesizer can be any provider (OpenAI preferred if available)
-        let selectedRaw = UserDefaults.standard.string(forKey: "ai.selectedProvider") ?? "openai"
-        self.synthesizerProvider = selectProvider(for: selectedRaw)
+
+        if let defaultProvider = providerConfigs.first(where: { $0.isEnabled && $0.isDefault }),
+           let service = AIProviderServiceFactory.makeService(for: defaultProvider) {
+            self.synthesizerProvider = service
+        } else if let firstActive = activeProviders.first {
+            self.synthesizerProvider = firstActive
+        } else {
+            self.synthesizerProvider = OllamaService()
+        }
     }
 
     /// Run the full AI Council analysis on a resume.
@@ -98,19 +89,11 @@ final class AICounselService {
         return synthesis
     }
 
-    private func selectProvider(for rawValue: String) -> AIServiceProtocol {
-        switch rawValue {
-        case "openai": return OpenAIService()
-        case "anthropic": return AnthropicService()
-        case "gemini": return GeminiService()
-        case "openrouter": return OpenRouterService()
-        default: return OllamaService()
-        }
-    }
 }
 
 // MARK: - UI ViewModel
 
+@MainActor
 @Observable
 final class AICouncelViewModel {
     var state: AICouncilState = .idle

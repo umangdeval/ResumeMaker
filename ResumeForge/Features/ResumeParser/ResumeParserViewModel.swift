@@ -25,9 +25,9 @@ final class ResumeParserViewModel {
     var error: Error?
     var fileName: String = ""
 
-    private let llmService: AIServiceProtocol
+    private let llmService: AIServiceProtocol?
 
-    init(llmService: AIServiceProtocol = OllamaService(model: "qwen2.5:3b-instruct")) {
+    init(llmService: AIServiceProtocol? = nil) {
         self.llmService = llmService
     }
 
@@ -148,6 +148,10 @@ final class ResumeParserViewModel {
     private func parseWithLocalLLMFallback(_ text: String) async -> ParsedResumeData {
         let fallback = ResumeResultParser.parse(text)
 
+        guard UserDefaults.standard.bool(forKey: "parser.localLLMEnabled") else {
+            return fallback
+        }
+
         let systemPrompt = """
         You are a resume parser.
         Return valid JSON only.
@@ -197,7 +201,10 @@ final class ResumeParserViewModel {
         """
 
         do {
-            let llmOutput = try await llmService.complete(prompt: userPrompt, systemPrompt: systemPrompt)
+            let llmOutput = try await (llmService ?? Self.makeLocalLLMService()).complete(
+                prompt: userPrompt,
+                systemPrompt: systemPrompt
+            )
             let llmParsed = ResumeResultParser.parse(llmOutput)
             if hasUsefulData(llmParsed) {
                 return llmParsed
@@ -207,6 +214,17 @@ final class ResumeParserViewModel {
         }
 
         return fallback
+    }
+
+    private static func makeLocalLLMService() -> AIServiceProtocol {
+        if let ollamaProvider = AIProviderSettingsStore.loadProviders().first(where: { $0.kind == .ollama && $0.isEnabled }) {
+            return OllamaService(
+                model: ollamaProvider.model,
+                endpoint: URL(string: ollamaProvider.endpointURL)
+            )
+        }
+
+        return OllamaService()
     }
 
     private func hasUsefulData(_ data: ParsedResumeData) -> Bool {

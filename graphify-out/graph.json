@@ -185,7 +185,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L1",
       "id": "parsedresumedata",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ParsedResumeData",
@@ -193,7 +193,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L7",
       "id": "parsedresumedata_parsedresumedata",
-      "community": 4
+      "community": 3
     },
     {
       "label": "Sendable",
@@ -201,7 +201,7 @@
       "source_file": "",
       "source_location": "",
       "id": "sendable",
-      "community": 4
+      "community": 3
     },
     {
       "label": ".init()",
@@ -209,7 +209,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L22",
       "id": "parsedresumedata_parsedresumedata_init",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ParsedExperience",
@@ -217,7 +217,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L53",
       "id": "parsedresumedata_parsedexperience",
-      "community": 4
+      "community": 3
     },
     {
       "label": "Identifiable",
@@ -225,7 +225,7 @@
       "source_file": "",
       "source_location": "",
       "id": "identifiable",
-      "community": 4
+      "community": 3
     },
     {
       "label": ".init()",
@@ -233,7 +233,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L64",
       "id": "parsedresumedata_parsedexperience_init",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ParsedProject",
@@ -241,7 +241,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L83",
       "id": "parsedresumedata_parsedproject",
-      "community": 4
+      "community": 3
     },
     {
       "label": ".init()",
@@ -249,7 +249,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L89",
       "id": "parsedresumedata_parsedproject_init",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ParsedEducation",
@@ -257,7 +257,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L96",
       "id": "parsedresumedata_parsededucation",
-      "community": 4
+      "community": 3
     },
     {
       "label": ".init()",
@@ -265,7 +265,7 @@
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
       "source_location": "L104",
       "id": "parsedresumedata_parsededucation_init",
-      "community": 4
+      "community": 3
     },
     {
       "label": "Experience.swift",
@@ -273,7 +273,7 @@
       "source_file": "ResumeForge/Core/Models/Experience.swift",
       "source_location": "L1",
       "id": "experience",
-      "community": 23
+      "community": 25
     },
     {
       "label": "Experience",
@@ -281,7 +281,7 @@
       "source_file": "ResumeForge/Core/Models/Experience.swift",
       "source_location": "L4",
       "id": "experience_experience",
-      "community": 23
+      "community": 25
     },
     {
       "label": ".init()",
@@ -289,7 +289,7 @@
       "source_file": "ResumeForge/Core/Models/Experience.swift",
       "source_location": "L15",
       "id": "experience_experience_init",
-      "community": 23
+      "community": 25
     },
     {
       "label": "UserProfile.swift",
@@ -297,7 +297,7 @@
       "source_file": "ResumeForge/Core/Models/UserProfile.swift",
       "source_location": "L1",
       "id": "userprofile",
-      "community": 24
+      "community": 26
     },
     {
       "label": "UserProfile",
@@ -305,7 +305,7 @@
       "source_file": "ResumeForge/Core/Models/UserProfile.swift",
       "source_location": "L4",
       "id": "userprofile_userprofile",
-      "community": 24
+      "community": 26
     },
     {
       "label": ".init()",
@@ -313,7 +313,7 @@
       "source_file": "ResumeForge/Core/Models/UserProfile.swift",
       "source_location": "L21",
       "id": "userprofile_userprofile_init",
-      "community": 24
+      "community": 26
     },
     {
       "label": "CoverLetter.swift",
@@ -321,7 +321,7 @@
       "source_file": "ResumeForge/Core/Models/CoverLetter.swift",
       "source_location": "L1",
       "id": "coverletter",
-      "community": 25
+      "community": 27
     },
     {
       "label": "CoverLetter",
@@ -329,7 +329,7 @@
       "source_file": "ResumeForge/Core/Models/CoverLetter.swift",
       "source_location": "L4",
       "id": "coverletter_coverletter",
-      "community": 25
+      "community": 27
     },
     {
       "label": ".init()",
@@ -337,7 +337,7 @@
       "source_file": "ResumeForge/Core/Models/CoverLetter.swift",
       "source_location": "L12",
       "id": "coverletter_coverletter_init",
-      "community": 25
+      "community": 27
     },
     {
       "label": "ParseConfidence.swift",
@@ -345,7 +345,7 @@
       "source_file": "ResumeForge/Core/Models/ParseConfidence.swift",
       "source_location": "L1",
       "id": "parseconfidence",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ParseConfidence",
@@ -353,7 +353,7 @@
       "source_file": "ResumeForge/Core/Models/ParseConfidence.swift",
       "source_location": "L5",
       "id": "parseconfidence_parseconfidence",
-      "community": 4
+      "community": 3
     },
     {
       "label": "Int",
@@ -361,7 +361,7 @@
       "source_file": "",
       "source_location": "",
       "id": "int",
-      "community": 4
+      "community": 3
     },
     {
       "label": "Comparable",
@@ -369,7 +369,7 @@
       "source_file": "",
       "source_location": "",
       "id": "comparable",
-      "community": 4
+      "community": 3
     },
     {
       "label": "missing",
@@ -377,7 +377,7 @@
       "source_file": "ResumeForge/Core/Models/ParseConfidence.swift",
       "source_location": "L7",
       "id": "parseconfidence_parseconfidence_missing",
-      "community": 4
+      "community": 3
     },
     {
       "label": "guessed",
@@ -385,7 +385,7 @@
       "source_file": "ResumeForge/Core/Models/ParseConfidence.swift",
       "source_location": "L9",
       "id": "parseconfidence_parseconfidence_guessed",
-      "community": 4
+      "community": 3
     },
     {
       "label": "inferred",
@@ -393,7 +393,7 @@
       "source_file": "ResumeForge/Core/Models/ParseConfidence.swift",
       "source_location": "L11",
       "id": "parseconfidence_parseconfidence_inferred",
-      "community": 4
+      "community": 3
     },
     {
       "label": "certain",
@@ -401,7 +401,7 @@
       "source_file": "ResumeForge/Core/Models/ParseConfidence.swift",
       "source_location": "L13",
       "id": "parseconfidence_parseconfidence_certain",
-      "community": 4
+      "community": 3
     },
     {
       "label": "Education.swift",
@@ -409,7 +409,7 @@
       "source_file": "ResumeForge/Core/Models/Education.swift",
       "source_location": "L1",
       "id": "education",
-      "community": 26
+      "community": 28
     },
     {
       "label": "Education",
@@ -417,7 +417,7 @@
       "source_file": "ResumeForge/Core/Models/Education.swift",
       "source_location": "L4",
       "id": "education_education",
-      "community": 26
+      "community": 28
     },
     {
       "label": ".init()",
@@ -425,7 +425,7 @@
       "source_file": "ResumeForge/Core/Models/Education.swift",
       "source_location": "L13",
       "id": "education_education_init",
-      "community": 26
+      "community": 28
     },
     {
       "label": "GeneratedResume.swift",
@@ -513,7 +513,7 @@
       "source_file": "ResumeForge/Core/Extensions/String+Extensions.swift",
       "source_location": "L1",
       "id": "string_extensions",
-      "community": 28
+      "community": 30
     },
     {
       "label": "String",
@@ -521,7 +521,7 @@
       "source_file": "ResumeForge/Core/Extensions/String+Extensions.swift",
       "source_location": "L3",
       "id": "string_extensions_string",
-      "community": 28
+      "community": 30
     },
     {
       "label": "View+Extensions.swift",
@@ -529,7 +529,7 @@
       "source_file": "ResumeForge/Core/Extensions/View+Extensions.swift",
       "source_location": "L1",
       "id": "view_extensions",
-      "community": 21
+      "community": 23
     },
     {
       "label": "View",
@@ -537,7 +537,7 @@
       "source_file": "ResumeForge/Core/Extensions/View+Extensions.swift",
       "source_location": "L3",
       "id": "view_extensions_view",
-      "community": 21
+      "community": 23
     },
     {
       "label": ".loadingOverlay()",
@@ -545,7 +545,7 @@
       "source_file": "ResumeForge/Core/Extensions/View+Extensions.swift",
       "source_location": "L5",
       "id": "view_extensions_view_loadingoverlay",
-      "community": 21
+      "community": 23
     },
     {
       "label": ".errorBanner()",
@@ -553,7 +553,7 @@
       "source_file": "ResumeForge/Core/Extensions/View+Extensions.swift",
       "source_location": "L15",
       "id": "view_extensions_view_errorbanner",
-      "community": 21
+      "community": 23
     },
     {
       "label": "Date+Extensions.swift",
@@ -561,7 +561,7 @@
       "source_file": "ResumeForge/Core/Extensions/Date+Extensions.swift",
       "source_location": "L1",
       "id": "date_extensions",
-      "community": 27
+      "community": 29
     },
     {
       "label": "Date",
@@ -569,7 +569,7 @@
       "source_file": "ResumeForge/Core/Extensions/Date+Extensions.swift",
       "source_location": "L3",
       "id": "date_extensions_date",
-      "community": 27
+      "community": 29
     },
     {
       "label": ".dateRangeString()",
@@ -577,7 +577,7 @@
       "source_file": "ResumeForge/Core/Extensions/Date+Extensions.swift",
       "source_location": "L5",
       "id": "date_extensions_date_daterangestring",
-      "community": 27
+      "community": 29
     },
     {
       "label": "OpenRouterService.swift",
@@ -593,7 +593,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L5",
       "id": "openrouterservice_openrouterservice",
-      "community": 6
+      "community": 0
     },
     {
       "label": "AIServiceProtocol.swift",
@@ -609,7 +609,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L11",
       "id": "openrouterservice_openrouterservice_init",
-      "community": 6
+      "community": 0
     },
     {
       "label": ".estimateTokens()",
@@ -617,7 +617,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L15",
       "id": "openrouterservice_openrouterservice_estimatetokens",
-      "community": 6
+      "community": 0
     },
     {
       "label": ".stream()",
@@ -625,7 +625,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L20",
       "id": "openrouterservice_openrouterservice_stream",
-      "community": 6
+      "community": 0
     },
     {
       "label": ".complete()",
@@ -633,7 +633,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L53",
       "id": "openrouterservice_openrouterservice_complete",
-      "community": 6
+      "community": 0
     },
     {
       "label": ".validateHTTPResponse()",
@@ -641,7 +641,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L73",
       "id": "openrouterservice_openrouterservice_validatehttpresponse",
-      "community": 6
+      "community": 0
     },
     {
       "label": "OpenRouterRequest",
@@ -649,7 +649,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L86",
       "id": "openrouterservice_openrouterrequest",
-      "community": 6
+      "community": 0
     },
     {
       "label": "Encodable",
@@ -665,7 +665,7 @@
       "source_file": "ResumeForge/Core/Services/OpenRouterService.swift",
       "source_location": "L91",
       "id": "openrouterservice_openrouterrequest_init",
-      "community": 6
+      "community": 0
     },
     {
       "label": "OpenRouterMessage",
@@ -785,7 +785,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L5",
       "id": "pythonenvironmentservice_pythonenvironmentstatus",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ready",
@@ -793,7 +793,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L6",
       "id": "pythonenvironmentservice_pythonenvironmentstatus_ready",
-      "community": 4
+      "community": 3
     },
     {
       "label": "pythonNotFound",
@@ -801,7 +801,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L7",
       "id": "pythonenvironmentservice_pythonenvironmentstatus_pythonnotfound",
-      "community": 4
+      "community": 3
     },
     {
       "label": "doclingNotInstalled",
@@ -809,7 +809,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L8",
       "id": "pythonenvironmentservice_pythonenvironmentstatus_doclingnotinstalled",
-      "community": 4
+      "community": 3
     },
     {
       "label": "error",
@@ -817,7 +817,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L9",
       "id": "pythonenvironmentservice_pythonenvironmentstatus_error",
-      "community": 4
+      "community": 3
     },
     {
       "label": "PythonEnvironmentError",
@@ -825,7 +825,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L14",
       "id": "pythonenvironmentservice_pythonenvironmenterror",
-      "community": 3
+      "community": 4
     },
     {
       "label": "Error",
@@ -833,7 +833,7 @@
       "source_file": "",
       "source_location": "",
       "id": "error",
-      "community": 3
+      "community": 4
     },
     {
       "label": "LocalizedError",
@@ -841,7 +841,7 @@
       "source_file": "",
       "source_location": "",
       "id": "localizederror",
-      "community": 3
+      "community": 4
     },
     {
       "label": "pythonNotFound",
@@ -849,7 +849,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L15",
       "id": "pythonenvironmentservice_pythonenvironmenterror_pythonnotfound",
-      "community": 3
+      "community": 4
     },
     {
       "label": "backendScriptNotFound",
@@ -857,7 +857,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L16",
       "id": "pythonenvironmentservice_pythonenvironmenterror_backendscriptnotfound",
-      "community": 3
+      "community": 4
     },
     {
       "label": "doclingNotInstalled",
@@ -865,7 +865,7 @@
       "source_file": "ResumeForge/Core/Services/PythonEnvironmentService.swift",
       "source_location": "L17",
       "id": "pythonenvironmentservice_pythonenvironmenterror_doclingnotinstalled",
-      "community": 3
+      "community": 4
     },
     {
       "label": "PythonEnvironmentService",
@@ -1225,7 +1225,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L4",
       "id": "openaiservice_openaiservice",
-      "community": 0
+      "community": 6
     },
     {
       "label": ".init()",
@@ -1233,7 +1233,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L10",
       "id": "openaiservice_openaiservice_init",
-      "community": 0
+      "community": 6
     },
     {
       "label": ".estimateTokens()",
@@ -1241,7 +1241,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L14",
       "id": "openaiservice_openaiservice_estimatetokens",
-      "community": 0
+      "community": 6
     },
     {
       "label": ".stream()",
@@ -1249,7 +1249,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L19",
       "id": "openaiservice_openaiservice_stream",
-      "community": 0
+      "community": 6
     },
     {
       "label": ".complete()",
@@ -1257,7 +1257,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L50",
       "id": "openaiservice_openaiservice_complete",
-      "community": 0
+      "community": 6
     },
     {
       "label": ".validateHTTPResponse()",
@@ -1265,7 +1265,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L68",
       "id": "openaiservice_openaiservice_validatehttpresponse",
-      "community": 0
+      "community": 6
     },
     {
       "label": "OpenAIChatRequest",
@@ -1273,7 +1273,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L80",
       "id": "openaiservice_openaichatrequest",
-      "community": 0
+      "community": 6
     },
     {
       "label": ".init()",
@@ -1281,7 +1281,7 @@
       "source_file": "ResumeForge/Core/Services/OpenAIService.swift",
       "source_location": "L85",
       "id": "openaiservice_openaichatrequest_init",
-      "community": 0
+      "community": 6
     },
     {
       "label": "OpenAIChatMessage",
@@ -1337,7 +1337,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L1",
       "id": "fileimportservice",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ResumeFileType",
@@ -1345,7 +1345,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L6",
       "id": "fileimportservice_resumefiletype",
-      "community": 4
+      "community": 3
     },
     {
       "label": "pdf",
@@ -1353,7 +1353,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L7",
       "id": "fileimportservice_resumefiletype_pdf",
-      "community": 4
+      "community": 3
     },
     {
       "label": "latex",
@@ -1361,7 +1361,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L8",
       "id": "fileimportservice_resumefiletype_latex",
-      "community": 4
+      "community": 3
     },
     {
       "label": "ImportedFile",
@@ -1369,7 +1369,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L15",
       "id": "fileimportservice_importedfile",
-      "community": 4
+      "community": 3
     },
     {
       "label": "FileImportError",
@@ -1377,7 +1377,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L23",
       "id": "fileimportservice_fileimporterror",
-      "community": 4
+      "community": 3
     },
     {
       "label": "accessDenied",
@@ -1385,7 +1385,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L24",
       "id": "fileimportservice_fileimporterror_accessdenied",
-      "community": 4
+      "community": 3
     },
     {
       "label": "unreadable",
@@ -1393,7 +1393,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L25",
       "id": "fileimportservice_fileimporterror_unreadable",
-      "community": 4
+      "community": 3
     },
     {
       "label": "unsupportedType",
@@ -1401,7 +1401,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L26",
       "id": "fileimportservice_fileimporterror_unsupportedtype",
-      "community": 4
+      "community": 3
     },
     {
       "label": "FileImportService",
@@ -1409,7 +1409,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L41",
       "id": "fileimportservice_fileimportservice",
-      "community": 4
+      "community": 3
     },
     {
       "label": ".load()",
@@ -1417,7 +1417,7 @@
       "source_file": "ResumeForge/Core/Services/FileImportService.swift",
       "source_location": "L42",
       "id": "fileimportservice_fileimportservice_load",
-      "community": 4
+      "community": 3
     },
     {
       "label": "KeychainService.swift",
@@ -1505,7 +1505,7 @@
       "source_file": "ResumeForge/Core/Services/KeychainService.swift",
       "source_location": "L64",
       "id": "keychainservice_keychainerror",
-      "community": 3
+      "community": 4
     },
     {
       "label": "encodingFailed",
@@ -1513,7 +1513,7 @@
       "source_file": "ResumeForge/Core/Services/KeychainService.swift",
       "source_location": "L65",
       "id": "keychainservice_keychainerror_encodingfailed",
-      "community": 3
+      "community": 4
     },
     {
       "label": "notFound",
@@ -1521,7 +1521,7 @@
       "source_file": "ResumeForge/Core/Services/KeychainService.swift",
       "source_location": "L66",
       "id": "keychainservice_keychainerror_notfound",
-      "community": 3
+      "community": 4
     },
     {
       "label": "underlyingError",
@@ -1529,7 +1529,7 @@
       "source_file": "ResumeForge/Core/Services/KeychainService.swift",
       "source_location": "L67",
       "id": "keychainservice_keychainerror_underlyingerror",
-      "community": 3
+      "community": 4
     },
     {
       "label": "GeminiService.swift",
@@ -1665,7 +1665,7 @@
       "source_file": "ResumeForge/Core/Services/AIServiceProtocol.swift",
       "source_location": "L24",
       "id": "aiserviceprotocol_aipromptrequest",
-      "community": 4
+      "community": 6
     },
     {
       "label": ".init()",
@@ -1673,7 +1673,7 @@
       "source_file": "ResumeForge/Core/Services/AIServiceProtocol.swift",
       "source_location": "L29",
       "id": "aiserviceprotocol_aipromptrequest_init",
-      "community": 4
+      "community": 6
     },
     {
       "label": "AIServiceError",
@@ -1793,7 +1793,7 @@
       "source_file": "ResumeForge/App/ResumeForgeApp.swift",
       "source_location": "L1",
       "id": "resumeforgeapp",
-      "community": 22
+      "community": 24
     },
     {
       "label": "ResumeForgeApp",
@@ -1801,7 +1801,7 @@
       "source_file": "ResumeForge/App/ResumeForgeApp.swift",
       "source_location": "L4",
       "id": "resumeforgeapp_resumeforgeapp",
-      "community": 22
+      "community": 24
     },
     {
       "label": "App",
@@ -1809,7 +1809,7 @@
       "source_file": "",
       "source_location": "",
       "id": "app",
-      "community": 22
+      "community": 24
     },
     {
       "label": ".init()",
@@ -1817,7 +1817,7 @@
       "source_file": "ResumeForge/App/ResumeForgeApp.swift",
       "source_location": "L9",
       "id": "resumeforgeapp_resumeforgeapp_init",
-      "community": 22
+      "community": 24
     },
     {
       "label": "ContentView.swift",
@@ -1879,7 +1879,7 @@
       "label": "PlaceholderTabView",
       "file_type": "code",
       "source_file": "ResumeForge/App/ContentView.swift",
-      "source_location": "L136",
+      "source_location": "L113",
       "id": "contentview_placeholdertabview",
       "community": 2
     },
@@ -1889,7 +1889,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L1",
       "id": "docling_backend",
-      "community": 16
+      "community": 17
     },
     {
       "label": "_emit()",
@@ -1897,7 +1897,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L18",
       "id": "docling_backend_emit",
-      "community": 16
+      "community": 17
     },
     {
       "label": "_import_docling_parse()",
@@ -1905,7 +1905,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L22",
       "id": "docling_backend_import_docling_parse",
-      "community": 16
+      "community": 17
     },
     {
       "label": "cmd_health()",
@@ -1913,7 +1913,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L31",
       "id": "docling_backend_cmd_health",
-      "community": 16
+      "community": 17
     },
     {
       "label": "_extract_text()",
@@ -1921,7 +1921,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L50",
       "id": "docling_backend_extract_text",
-      "community": 16
+      "community": 17
     },
     {
       "label": "cmd_extract()",
@@ -1929,7 +1929,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L132",
       "id": "docling_backend_cmd_extract",
-      "community": 16
+      "community": 17
     },
     {
       "label": "build_parser()",
@@ -1937,7 +1937,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L143",
       "id": "docling_backend_build_parser",
-      "community": 16
+      "community": 17
     },
     {
       "label": "main()",
@@ -1945,7 +1945,7 @@
       "source_file": "ResumeForge/Resources/Python/docling_backend.py",
       "source_location": "L155",
       "id": "docling_backend_main",
-      "community": 16
+      "community": 17
     },
     {
       "label": "SettingsView.swift",
@@ -1959,39 +1959,55 @@
       "label": "SettingsViewModel",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L3",
+      "source_location": "L4",
       "id": "settingsview_settingsviewmodel",
-      "community": 2
+      "community": 19
     },
     {
       "label": ".init()",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L20",
+      "source_location": "L29",
       "id": "settingsview_settingsviewmodel_init",
-      "community": 2
+      "community": 19
     },
     {
       "label": ".loadKeysFromKeychain()",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L26",
+      "source_location": "L33",
       "id": "settingsview_settingsviewmodel_loadkeysfromkeychain",
-      "community": 2
+      "community": 19
     },
     {
       "label": ".saveSettings()",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L42",
+      "source_location": "L48",
       "id": "settingsview_settingsviewmodel_savesettings",
-      "community": 2
+      "community": 19
+    },
+    {
+      "label": ".showOllamaCommands()",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L92",
+      "id": "settingsview_settingsviewmodel_showollamacommands",
+      "community": 19
+    },
+    {
+      "label": ".openTerminal()",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L98",
+      "id": "settingsview_settingsviewmodel_openterminal",
+      "community": 19
     },
     {
       "label": "LLMProvider",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L87",
+      "source_location": "L112",
       "id": "settingsview_llmprovider",
       "community": 1
     },
@@ -1999,7 +2015,7 @@
       "label": "openai",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L88",
+      "source_location": "L113",
       "id": "settingsview_llmprovider_openai",
       "community": 1
     },
@@ -2007,7 +2023,7 @@
       "label": "anthropic",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L89",
+      "source_location": "L114",
       "id": "settingsview_llmprovider_anthropic",
       "community": 1
     },
@@ -2015,7 +2031,7 @@
       "label": "gemini",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L90",
+      "source_location": "L115",
       "id": "settingsview_llmprovider_gemini",
       "community": 1
     },
@@ -2023,23 +2039,79 @@
       "label": "openrouter",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L91",
+      "source_location": "L116",
       "id": "settingsview_llmprovider_openrouter",
+      "community": 1
+    },
+    {
+      "label": "OllamaModelOption",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L137",
+      "id": "settingsview_ollamamodeloption",
+      "community": 1
+    },
+    {
+      "label": "qwen25_3b",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L138",
+      "id": "settingsview_ollamamodeloption_qwen25_3b",
+      "community": 1
+    },
+    {
+      "label": "qwen25_7b",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L139",
+      "id": "settingsview_ollamamodeloption_qwen25_7b",
+      "community": 1
+    },
+    {
+      "label": "mistral7b",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L140",
+      "id": "settingsview_ollamamodeloption_mistral7b",
+      "community": 1
+    },
+    {
+      "label": "llama32_3b",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L141",
+      "id": "settingsview_ollamamodeloption_llama32_3b",
       "community": 1
     },
     {
       "label": "SettingsView",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L112",
+      "source_location": "L183",
       "id": "settingsview_settingsview",
+      "community": 2
+    },
+    {
+      "label": "OllamaModelPickerView",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L306",
+      "id": "settingsview_ollamamodelpickerview",
+      "community": 2
+    },
+    {
+      "label": "OllamaCommandSheet",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L353",
+      "id": "settingsview_ollamacommandsheet",
       "community": 2
     },
     {
       "label": "ProviderSection",
       "file_type": "code",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L193",
+      "source_location": "L389",
       "id": "settingsview_providersection",
       "community": 2
     },
@@ -2049,7 +2121,7 @@
       "source_file": "ResumeForge/Features/Settings/SettingsPlaceholder.swift",
       "source_location": "L1",
       "id": "settingsplaceholder",
-      "community": 29
+      "community": 31
     },
     {
       "label": "PythonSetupView.swift",
@@ -2105,7 +2177,7 @@
       "source_file": "ResumeForge/Features/CoverLetter/CoverLetterPlaceholder.swift",
       "source_location": "L1",
       "id": "coverletterplaceholder",
-      "community": 30
+      "community": 32
     },
     {
       "label": "ResumeParserView.swift",
@@ -2332,10 +2404,18 @@
       "community": 8
     },
     {
+      "label": ".makeLocalLLMService()",
+      "file_type": "code",
+      "source_file": "ResumeForge/Features/ResumeParser/ResumeParserViewModel.swift",
+      "source_location": "L219",
+      "id": "resumeparserviewmodel_resumeparserviewmodel_makelocalllmservice",
+      "community": 8
+    },
+    {
       "label": ".hasUsefulData()",
       "file_type": "code",
       "source_file": "ResumeForge/Features/ResumeParser/ResumeParserViewModel.swift",
-      "source_location": "L212",
+      "source_location": "L225",
       "id": "resumeparserviewmodel_resumeparserviewmodel_hasusefuldata",
       "community": 8
     },
@@ -2345,7 +2425,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L1",
       "id": "latextextextractor",
-      "community": 3
+      "community": 4
     },
     {
       "label": "LaTeXExtractionError",
@@ -2353,7 +2433,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L5",
       "id": "latextextextractor_latexextractionerror",
-      "community": 3
+      "community": 4
     },
     {
       "label": "emptyDocument",
@@ -2361,7 +2441,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L6",
       "id": "latextextextractor_latexextractionerror_emptydocument",
-      "community": 3
+      "community": 4
     },
     {
       "label": "invalidEncoding",
@@ -2369,7 +2449,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L7",
       "id": "latextextextractor_latexextractionerror_invalidencoding",
-      "community": 3
+      "community": 4
     },
     {
       "label": "LaTeXTextExtractor",
@@ -2377,7 +2457,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L21",
       "id": "latextextextractor_latextextextractor",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".extract()",
@@ -2385,7 +2465,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L22",
       "id": "latextextextractor_latextextextractor_extract",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".process()",
@@ -2393,7 +2473,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L35",
       "id": "latextextextractor_latextextextractor_process",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".removeComments()",
@@ -2401,7 +2481,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L60",
       "id": "latextextextractor_latextextextractor_removecomments",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".extractBody()",
@@ -2409,7 +2489,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L76",
       "id": "latextextextractor_latextextextractor_extractbody",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".convertSections()",
@@ -2417,7 +2497,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L88",
       "id": "latextextextractor_latextextextractor_convertsections",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".convertLists()",
@@ -2425,7 +2505,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L107",
       "id": "latextextextractor_latextextextractor_convertlists",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".stripEnvironments()",
@@ -2433,7 +2513,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L125",
       "id": "latextextextractor_latextextextractor_stripenvironments",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".extractCommandContent()",
@@ -2441,7 +2521,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L133",
       "id": "latextextextractor_latextextextractor_extractcommandcontent",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".removeStandaloneCommands()",
@@ -2449,7 +2529,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L166",
       "id": "latextextextractor_latextextextractor_removestandalonecommands",
-      "community": 3
+      "community": 14
     },
     {
       "label": ".normalizeWhitespace()",
@@ -2457,7 +2537,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/LaTeXTextExtractor.swift",
       "source_location": "L191",
       "id": "latextextextractor_latextextextractor_normalizewhitespace",
-      "community": 3
+      "community": 14
     },
     {
       "label": "ExperienceEntryExtractor.swift",
@@ -2889,7 +2969,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L1",
       "id": "daterangeparser",
-      "community": 17
+      "community": 18
     },
     {
       "label": "ParsedDateRange",
@@ -2897,7 +2977,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L5",
       "id": "daterangeparser_parseddaterange",
-      "community": 17
+      "community": 18
     },
     {
       "label": "DateRangeParser",
@@ -2905,7 +2985,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L13",
       "id": "daterangeparser_daterangeparser",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".parse()",
@@ -2913,7 +2993,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L14",
       "id": "daterangeparser_daterangeparser_parse",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".stripLocationSuffix()",
@@ -2921,7 +3001,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L38",
       "id": "daterangeparser_daterangeparser_striplocationsuffix",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".tryParse()",
@@ -2929,7 +3009,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L46",
       "id": "daterangeparser_daterangeparser_tryparse",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".parseSuffix()",
@@ -2937,7 +3017,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L61",
       "id": "daterangeparser_daterangeparser_parsesuffix",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".parseDate()",
@@ -2945,7 +3025,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DateRangeParser.swift",
       "source_location": "L80",
       "id": "daterangeparser_daterangeparser_parsedate",
-      "community": 17
+      "community": 18
     },
     {
       "label": "DoclingPDFExtractor.swift",
@@ -2953,7 +3033,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L1",
       "id": "doclingpdfextractor",
-      "community": 3
+      "community": 4
     },
     {
       "label": "DoclingExtractionError",
@@ -2961,7 +3041,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L5",
       "id": "doclingpdfextractor_doclingextractionerror",
-      "community": 3
+      "community": 4
     },
     {
       "label": "moduleNotAvailable",
@@ -2969,7 +3049,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L6",
       "id": "doclingpdfextractor_doclingextractionerror_modulenotavailable",
-      "community": 3
+      "community": 4
     },
     {
       "label": "parseFailure",
@@ -2977,7 +3057,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L7",
       "id": "doclingpdfextractor_doclingextractionerror_parsefailure",
-      "community": 3
+      "community": 4
     },
     {
       "label": "emptyResult",
@@ -2985,7 +3065,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L8",
       "id": "doclingpdfextractor_doclingextractionerror_emptyresult",
-      "community": 3
+      "community": 4
     },
     {
       "label": "DoclingPDFExtractor",
@@ -2993,7 +3073,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L26",
       "id": "doclingpdfextractor_doclingpdfextractor",
-      "community": 3
+      "community": 4
     },
     {
       "label": ".extract()",
@@ -3001,7 +3081,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L29",
       "id": "doclingpdfextractor_doclingpdfextractor_extract",
-      "community": 3
+      "community": 4
     },
     {
       "label": ".extractSync()",
@@ -3009,7 +3089,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/DoclingPDFExtractor.swift",
       "source_location": "L37",
       "id": "doclingpdfextractor_doclingpdfextractor_extractsync",
-      "community": 3
+      "community": 4
     },
     {
       "label": "PDFTextExtractor.swift",
@@ -3017,7 +3097,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/PDFTextExtractor.swift",
       "source_location": "L1",
       "id": "pdftextextractor",
-      "community": 3
+      "community": 4
     },
     {
       "label": "PDFExtractionError",
@@ -3025,7 +3105,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/PDFTextExtractor.swift",
       "source_location": "L6",
       "id": "pdftextextractor_pdfextractionerror",
-      "community": 3
+      "community": 4
     },
     {
       "label": "invalidData",
@@ -3033,7 +3113,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/PDFTextExtractor.swift",
       "source_location": "L7",
       "id": "pdftextextractor_pdfextractionerror_invaliddata",
-      "community": 3
+      "community": 4
     },
     {
       "label": "passwordProtected",
@@ -3041,7 +3121,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/PDFTextExtractor.swift",
       "source_location": "L8",
       "id": "pdftextextractor_pdfextractionerror_passwordprotected",
-      "community": 3
+      "community": 4
     },
     {
       "label": "noTextContent",
@@ -3049,7 +3129,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/PDFTextExtractor.swift",
       "source_location": "L9",
       "id": "pdftextextractor_pdfextractionerror_notextcontent",
-      "community": 3
+      "community": 4
     },
     {
       "label": "PDFTextExtractor",
@@ -3057,7 +3137,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/PDFTextExtractor.swift",
       "source_location": "L22",
       "id": "pdftextextractor_pdftextextractor",
-      "community": 3
+      "community": 4
     },
     {
       "label": ".extract()",
@@ -3065,7 +3145,7 @@
       "source_file": "ResumeForge/Features/ResumeParser/Services/PDFTextExtractor.swift",
       "source_location": "L24",
       "id": "pdftextextractor_pdftextextractor_extract",
-      "community": 3
+      "community": 4
     },
     {
       "label": "JobDescriptionPlaceholder.swift",
@@ -3073,7 +3153,7 @@
       "source_file": "ResumeForge/Features/JobDescription/JobDescriptionPlaceholder.swift",
       "source_location": "L1",
       "id": "jobdescriptionplaceholder",
-      "community": 31
+      "community": 33
     },
     {
       "label": "AICouncilPlaceholder.swift",
@@ -3081,7 +3161,7 @@
       "source_file": "ResumeForge/Features/AICouncil/AICouncilPlaceholder.swift",
       "source_location": "L1",
       "id": "aicouncilplaceholder",
-      "community": 32
+      "community": 34
     },
     {
       "label": "AICounselService.swift",
@@ -3135,7 +3215,7 @@
       "label": ".runCouncil()",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L122",
+      "source_location": "L123",
       "id": "aicounselservice_aicouncelviewmodel_runcouncil",
       "community": 13
     },
@@ -3143,7 +3223,7 @@
       "label": "AICouncilState",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L140",
+      "source_location": "L141",
       "id": "aicounselservice_aicouncilstate",
       "community": 13
     },
@@ -3151,7 +3231,7 @@
       "label": "idle",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L141",
+      "source_location": "L142",
       "id": "aicounselservice_aicouncilstate_idle",
       "community": 13
     },
@@ -3159,7 +3239,7 @@
       "label": "analyzing",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L142",
+      "source_location": "L143",
       "id": "aicounselservice_aicouncilstate_analyzing",
       "community": 13
     },
@@ -3167,7 +3247,7 @@
       "label": "complete",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L143",
+      "source_location": "L144",
       "id": "aicounselservice_aicouncilstate_complete",
       "community": 13
     },
@@ -3175,7 +3255,7 @@
       "label": "error",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L144",
+      "source_location": "L145",
       "id": "aicounselservice_aicouncilstate_error",
       "community": 13
     },
@@ -3199,7 +3279,7 @@
       "label": "CouncilResponse",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L127",
+      "source_location": "L126",
       "id": "aicouncilview_councilresponse",
       "community": 1
     },
@@ -3207,7 +3287,7 @@
       "label": "CodingKeys",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L133",
+      "source_location": "L132",
       "id": "aicouncilview_codingkeys",
       "community": 1
     },
@@ -3215,7 +3295,7 @@
       "label": "topStrengths",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L134",
+      "source_location": "L133",
       "id": "aicouncilview_codingkeys_topstrengths",
       "community": 1
     },
@@ -3223,7 +3303,7 @@
       "label": "criticalImprovements",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L135",
+      "source_location": "L134",
       "id": "aicouncilview_codingkeys_criticalimprovements",
       "community": 1
     },
@@ -3231,7 +3311,7 @@
       "label": "tailoredKeywords",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L136",
+      "source_location": "L135",
       "id": "aicouncilview_codingkeys_tailoredkeywords",
       "community": 1
     },
@@ -3239,7 +3319,7 @@
       "label": "actionPlan",
       "file_type": "code",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L137",
+      "source_location": "L136",
       "id": "aicouncilview_codingkeys_actionplan",
       "community": 1
     },
@@ -3289,7 +3369,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L1",
       "id": "profileview",
-      "community": 14
+      "community": 15
     },
     {
       "label": "ProfileView",
@@ -3297,7 +3377,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L4",
       "id": "profileview_profileview",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".profileForm()",
@@ -3305,7 +3385,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L42",
       "id": "profileview_profileview_profileform",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".save()",
@@ -3313,7 +3393,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L57",
       "id": "profileview_profileview_save",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".contactSection()",
@@ -3321,7 +3401,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L59",
       "id": "profileview_profileview_contactsection",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".summarySection()",
@@ -3329,7 +3409,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L74",
       "id": "profileview_profileview_summarysection",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".skillsSection()",
@@ -3337,7 +3417,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L81",
       "id": "profileview_profileview_skillssection",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".experienceSection()",
@@ -3345,7 +3425,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L104",
       "id": "profileview_profileview_experiencesection",
-      "community": 14
+      "community": 15
     },
     {
       "label": ".educationSection()",
@@ -3353,7 +3433,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L122",
       "id": "profileview_profileview_educationsection",
-      "community": 14
+      "community": 15
     },
     {
       "label": "ExperienceRowView",
@@ -3361,7 +3441,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L143",
       "id": "profileview_experiencerowview",
-      "community": 14
+      "community": 15
     },
     {
       "label": "EducationRowView",
@@ -3369,7 +3449,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileView.swift",
       "source_location": "L156",
       "id": "profileview_educationrowview",
-      "community": 14
+      "community": 15
     },
     {
       "label": "ProfilePlaceholder.swift",
@@ -3377,7 +3457,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfilePlaceholder.swift",
       "source_location": "L1",
       "id": "profileplaceholder",
-      "community": 33
+      "community": 35
     },
     {
       "label": "EducationEditView.swift",
@@ -3417,7 +3497,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L1",
       "id": "profileviewmodel",
-      "community": 15
+      "community": 16
     },
     {
       "label": "ProfileViewModel",
@@ -3425,7 +3505,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L4",
       "id": "profileviewmodel_profileviewmodel",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".load()",
@@ -3433,7 +3513,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L15",
       "id": "profileviewmodel_profileviewmodel_load",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".save()",
@@ -3441,7 +3521,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L29",
       "id": "profileviewmodel_profileviewmodel_save",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".addExperience()",
@@ -3449,7 +3529,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L34",
       "id": "profileviewmodel_profileviewmodel_addexperience",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".deleteExperience()",
@@ -3457,7 +3537,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L41",
       "id": "profileviewmodel_profileviewmodel_deleteexperience",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".addEducation()",
@@ -3465,7 +3545,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L48",
       "id": "profileviewmodel_profileviewmodel_addeducation",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".deleteEducation()",
@@ -3473,7 +3553,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L55",
       "id": "profileviewmodel_profileviewmodel_deleteeducation",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".addSkill()",
@@ -3481,7 +3561,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L62",
       "id": "profileviewmodel_profileviewmodel_addskill",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".removeSkill()",
@@ -3489,7 +3569,7 @@
       "source_file": "ResumeForge/Features/Profile/ProfileViewModel.swift",
       "source_location": "L70",
       "id": "profileviewmodel_profileviewmodel_removeskill",
-      "community": 15
+      "community": 16
     },
     {
       "label": "ExportPlaceholder.swift",
@@ -3497,7 +3577,7 @@
       "source_file": "ResumeForge/Features/Export/ExportPlaceholder.swift",
       "source_location": "L1",
       "id": "exportplaceholder",
-      "community": 34
+      "community": 36
     },
     {
       "label": "ResumeBuilderPlaceholder.swift",
@@ -3505,7 +3585,7 @@
       "source_file": "ResumeForge/Features/ResumeBuilder/ResumeBuilderPlaceholder.swift",
       "source_location": "L1",
       "id": "resumebuilderplaceholder",
-      "community": 35
+      "community": 37
     },
     {
       "label": "ResumeParserTests.swift",
@@ -3729,7 +3809,7 @@
       "source_file": "ResumeForge/Tests/StringExtensionTests.swift",
       "source_location": "L1",
       "id": "stringextensiontests",
-      "community": 18
+      "community": 20
     },
     {
       "label": "StringExtensionTests",
@@ -3737,7 +3817,7 @@
       "source_file": "ResumeForge/Tests/StringExtensionTests.swift",
       "source_location": "L4",
       "id": "stringextensiontests_stringextensiontests",
-      "community": 18
+      "community": 20
     },
     {
       "label": ".blankStringIsEmpty()",
@@ -3745,7 +3825,7 @@
       "source_file": "ResumeForge/Tests/StringExtensionTests.swift",
       "source_location": "L6",
       "id": "stringextensiontests_stringextensiontests_blankstringisempty",
-      "community": 18
+      "community": 20
     },
     {
       "label": ".nonBlankStringIsNotEmpty()",
@@ -3753,7 +3833,7 @@
       "source_file": "ResumeForge/Tests/StringExtensionTests.swift",
       "source_location": "L12",
       "id": "stringextensiontests_stringextensiontests_nonblankstringisnotempty",
-      "community": 18
+      "community": 20
     },
     {
       "label": ".trimmed()",
@@ -3761,7 +3841,7 @@
       "source_file": "ResumeForge/Tests/StringExtensionTests.swift",
       "source_location": "L17",
       "id": "stringextensiontests_stringextensiontests_trimmed",
-      "community": 18
+      "community": 20
     },
     {
       "label": ".nonBlankLines()",
@@ -3769,7 +3849,7 @@
       "source_file": "ResumeForge/Tests/StringExtensionTests.swift",
       "source_location": "L22",
       "id": "stringextensiontests_stringextensiontests_nonblanklines",
-      "community": 18
+      "community": 20
     },
     {
       "label": "AppRouterTests.swift",
@@ -3777,7 +3857,7 @@
       "source_file": "ResumeForge/Tests/AppRouterTests.swift",
       "source_location": "L1",
       "id": "approutertests",
-      "community": 19
+      "community": 21
     },
     {
       "label": "RouterTests",
@@ -3785,7 +3865,7 @@
       "source_file": "ResumeForge/Tests/AppRouterTests.swift",
       "source_location": "L4",
       "id": "approutertests_routertests",
-      "community": 19
+      "community": 21
     },
     {
       "label": ".pushAppends()",
@@ -3793,7 +3873,7 @@
       "source_file": "ResumeForge/Tests/AppRouterTests.swift",
       "source_location": "L7",
       "id": "approutertests_routertests_pushappends",
-      "community": 19
+      "community": 21
     },
     {
       "label": ".popOnEmpty()",
@@ -3801,7 +3881,7 @@
       "source_file": "ResumeForge/Tests/AppRouterTests.swift",
       "source_location": "L14",
       "id": "approutertests_routertests_poponempty",
-      "community": 19
+      "community": 21
     },
     {
       "label": ".popToRoot()",
@@ -3809,7 +3889,7 @@
       "source_file": "ResumeForge/Tests/AppRouterTests.swift",
       "source_location": "L21",
       "id": "approutertests_routertests_poptoroot",
-      "community": 19
+      "community": 21
     },
     {
       "label": "KeychainServiceTests.swift",
@@ -3817,7 +3897,7 @@
       "source_file": "ResumeForge/Tests/KeychainServiceTests.swift",
       "source_location": "L1",
       "id": "keychainservicetests",
-      "community": 20
+      "community": 22
     },
     {
       "label": "KeychainServiceTests",
@@ -3825,7 +3905,7 @@
       "source_file": "ResumeForge/Tests/KeychainServiceTests.swift",
       "source_location": "L4",
       "id": "keychainservicetests_keychainservicetests",
-      "community": 20
+      "community": 22
     },
     {
       "label": ".saveAndLoad()",
@@ -3833,7 +3913,7 @@
       "source_file": "ResumeForge/Tests/KeychainServiceTests.swift",
       "source_location": "L9",
       "id": "keychainservicetests_keychainservicetests_saveandload",
-      "community": 20
+      "community": 22
     },
     {
       "label": ".loadMissing()",
@@ -3841,7 +3921,7 @@
       "source_file": "ResumeForge/Tests/KeychainServiceTests.swift",
       "source_location": "L17",
       "id": "keychainservicetests_keychainservicetests_loadmissing",
-      "community": 20
+      "community": 22
     },
     {
       "label": ".overwrite()",
@@ -3849,7 +3929,7 @@
       "source_file": "ResumeForge/Tests/KeychainServiceTests.swift",
       "source_location": "L25",
       "id": "keychainservicetests_keychainservicetests_overwrite",
-      "community": 20
+      "community": 22
     }
   ],
   "links": [
@@ -4169,7 +4249,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/App/ContentView.swift",
-      "source_location": "L136",
+      "source_location": "L113",
       "weight": 1.0,
       "_src": "contentview_placeholdertabview",
       "_tgt": "view",
@@ -4181,7 +4261,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L112",
+      "source_location": "L183",
       "weight": 1.0,
       "_src": "settingsview_settingsview",
       "_tgt": "view",
@@ -4193,7 +4273,31 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L193",
+      "source_location": "L306",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodelpickerview",
+      "_tgt": "view",
+      "source": "view",
+      "target": "settingsview_ollamamodelpickerview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L353",
+      "weight": 1.0,
+      "_src": "settingsview_ollamacommandsheet",
+      "_tgt": "view",
+      "source": "view",
+      "target": "settingsview_ollamacommandsheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L389",
       "weight": 1.0,
       "_src": "settingsview_providersection",
       "_tgt": "view",
@@ -4670,6 +4774,18 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodeloption",
+      "_tgt": "identifiable",
+      "source": "identifiable",
+      "target": "settingsview_ollamamodeloption",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Core/Models/ParsedResumeData.swift",
@@ -5045,7 +5161,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L87",
+      "source_location": "L112",
       "weight": 1.0,
       "_src": "settingsview_llmprovider",
       "_tgt": "string",
@@ -5056,8 +5172,20 @@
     {
       "relation": "inherits",
       "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodeloption",
+      "_tgt": "string",
+      "source": "string",
+      "target": "settingsview_ollamamodeloption",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L133",
+      "source_location": "L132",
       "weight": 1.0,
       "_src": "aicouncilview_codingkeys",
       "_tgt": "string",
@@ -5081,7 +5209,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L127",
+      "source_location": "L126",
       "weight": 1.0,
       "_src": "aicouncilview_councilresponse",
       "_tgt": "codable",
@@ -5093,12 +5221,24 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L87",
+      "source_location": "L112",
       "weight": 1.0,
       "_src": "settingsview_llmprovider",
       "_tgt": "caseiterable",
       "source": "caseiterable",
       "target": "settingsview_llmprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodeloption",
+      "_tgt": "caseiterable",
+      "source": "caseiterable",
+      "target": "settingsview_ollamamodeloption",
       "confidence_score": 1.0
     },
     {
@@ -5981,7 +6121,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L133",
+      "source_location": "L132",
       "weight": 1.0,
       "_src": "aicouncilview_codingkeys",
       "_tgt": "codingkey",
@@ -8105,7 +8245,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/App/ContentView.swift",
-      "source_location": "L136",
+      "source_location": "L113",
       "weight": 1.0,
       "_src": "contentview",
       "_tgt": "contentview_placeholdertabview",
@@ -8309,7 +8449,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0,
       "_src": "settingsview",
       "_tgt": "settingsview_settingsviewmodel",
@@ -8321,7 +8461,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L87",
+      "source_location": "L112",
       "weight": 1.0,
       "_src": "settingsview",
       "_tgt": "settingsview_llmprovider",
@@ -8333,7 +8473,19 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L112",
+      "source_location": "L137",
+      "weight": 1.0,
+      "_src": "settingsview",
+      "_tgt": "settingsview_ollamamodeloption",
+      "source": "settingsview",
+      "target": "settingsview_ollamamodeloption",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L183",
       "weight": 1.0,
       "_src": "settingsview",
       "_tgt": "settingsview_settingsview",
@@ -8345,7 +8497,31 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L193",
+      "source_location": "L306",
+      "weight": 1.0,
+      "_src": "settingsview",
+      "_tgt": "settingsview_ollamamodelpickerview",
+      "source": "settingsview",
+      "target": "settingsview_ollamamodelpickerview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L353",
+      "weight": 1.0,
+      "_src": "settingsview",
+      "_tgt": "settingsview_ollamacommandsheet",
+      "source": "settingsview",
+      "target": "settingsview_ollamacommandsheet",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L389",
       "weight": 1.0,
       "_src": "settingsview",
       "_tgt": "settingsview_providersection",
@@ -8357,7 +8533,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L20",
+      "source_location": "L29",
       "weight": 1.0,
       "_src": "settingsview_settingsviewmodel",
       "_tgt": "settingsview_settingsviewmodel_init",
@@ -8369,7 +8545,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L26",
+      "source_location": "L33",
       "weight": 1.0,
       "_src": "settingsview_settingsviewmodel",
       "_tgt": "settingsview_settingsviewmodel_loadkeysfromkeychain",
@@ -8381,7 +8557,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L42",
+      "source_location": "L48",
       "weight": 1.0,
       "_src": "settingsview_settingsviewmodel",
       "_tgt": "settingsview_settingsviewmodel_savesettings",
@@ -8390,10 +8566,34 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L92",
+      "weight": 1.0,
+      "_src": "settingsview_settingsviewmodel",
+      "_tgt": "settingsview_settingsviewmodel_showollamacommands",
+      "source": "settingsview_settingsviewmodel",
+      "target": "settingsview_settingsviewmodel_showollamacommands",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L98",
+      "weight": 1.0,
+      "_src": "settingsview_settingsviewmodel",
+      "_tgt": "settingsview_settingsviewmodel_openterminal",
+      "source": "settingsview_settingsviewmodel",
+      "target": "settingsview_settingsviewmodel_openterminal",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L22",
+      "source_location": "L30",
       "weight": 1.0,
       "_src": "settingsview_settingsviewmodel_init",
       "_tgt": "settingsview_settingsviewmodel_loadkeysfromkeychain",
@@ -8402,10 +8602,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "settingsview_settingsviewmodel_showollamacommands",
+      "_tgt": "settingsview_settingsviewmodel_openterminal",
+      "source": "settingsview_settingsviewmodel_showollamacommands",
+      "target": "settingsview_settingsviewmodel_openterminal",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L88",
+      "source_location": "L113",
       "weight": 1.0,
       "_src": "settingsview_llmprovider",
       "_tgt": "settingsview_llmprovider_openai",
@@ -8417,7 +8629,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L89",
+      "source_location": "L114",
       "weight": 1.0,
       "_src": "settingsview_llmprovider",
       "_tgt": "settingsview_llmprovider_anthropic",
@@ -8429,7 +8641,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L90",
+      "source_location": "L115",
       "weight": 1.0,
       "_src": "settingsview_llmprovider",
       "_tgt": "settingsview_llmprovider_gemini",
@@ -8441,12 +8653,60 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
-      "source_location": "L91",
+      "source_location": "L116",
       "weight": 1.0,
       "_src": "settingsview_llmprovider",
       "_tgt": "settingsview_llmprovider_openrouter",
       "source": "settingsview_llmprovider",
       "target": "settingsview_llmprovider_openrouter",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "case_of",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodeloption",
+      "_tgt": "settingsview_ollamamodeloption_qwen25_3b",
+      "source": "settingsview_ollamamodeloption",
+      "target": "settingsview_ollamamodeloption_qwen25_3b",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "case_of",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L139",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodeloption",
+      "_tgt": "settingsview_ollamamodeloption_qwen25_7b",
+      "source": "settingsview_ollamamodeloption",
+      "target": "settingsview_ollamamodeloption_qwen25_7b",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "case_of",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L140",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodeloption",
+      "_tgt": "settingsview_ollamamodeloption_mistral7b",
+      "source": "settingsview_ollamamodeloption",
+      "target": "settingsview_ollamamodeloption_mistral7b",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "case_of",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/Settings/SettingsView.swift",
+      "source_location": "L141",
+      "weight": 1.0,
+      "_src": "settingsview_ollamamodeloption",
+      "_tgt": "settingsview_ollamamodeloption_llama32_3b",
+      "source": "settingsview_ollamamodeloption",
+      "target": "settingsview_ollamamodeloption_llama32_3b",
       "confidence_score": 1.0
     },
     {
@@ -8849,7 +9109,19 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/ResumeParser/ResumeParserViewModel.swift",
-      "source_location": "L212",
+      "source_location": "L219",
+      "weight": 1.0,
+      "_src": "resumeparserviewmodel_resumeparserviewmodel",
+      "_tgt": "resumeparserviewmodel_resumeparserviewmodel_makelocalllmservice",
+      "source": "resumeparserviewmodel_resumeparserviewmodel",
+      "target": "resumeparserviewmodel_resumeparserviewmodel_makelocalllmservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/ResumeParser/ResumeParserViewModel.swift",
+      "source_location": "L225",
       "weight": 1.0,
       "_src": "resumeparserviewmodel_resumeparserviewmodel",
       "_tgt": "resumeparserviewmodel_resumeparserviewmodel_hasusefuldata",
@@ -8909,7 +9181,19 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/ResumeParser/ResumeParserViewModel.swift",
-      "source_location": "L202",
+      "source_location": "L204",
+      "weight": 1.0,
+      "_src": "resumeparserviewmodel_resumeparserviewmodel_parsewithlocalllmfallback",
+      "_tgt": "resumeparserviewmodel_resumeparserviewmodel_makelocalllmservice",
+      "source": "resumeparserviewmodel_resumeparserviewmodel_parsewithlocalllmfallback",
+      "target": "resumeparserviewmodel_resumeparserviewmodel_makelocalllmservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "ResumeForge/Features/ResumeParser/ResumeParserViewModel.swift",
+      "source_location": "L209",
       "weight": 1.0,
       "_src": "resumeparserviewmodel_resumeparserviewmodel_parsewithlocalllmfallback",
       "_tgt": "resumeparserviewmodel_resumeparserviewmodel_hasusefuldata",
@@ -10853,7 +11137,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L140",
+      "source_location": "L141",
       "weight": 1.0,
       "_src": "aicounselservice",
       "_tgt": "aicounselservice_aicouncilstate",
@@ -10925,7 +11209,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L127",
+      "source_location": "L128",
       "weight": 1.0,
       "_src": "aicounselservice_aicouncelviewmodel_runcouncil",
       "_tgt": "aicounselservice_aicounselservice_analyzeresume",
@@ -10937,7 +11221,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L122",
+      "source_location": "L123",
       "weight": 1.0,
       "_src": "aicounselservice_aicouncelviewmodel",
       "_tgt": "aicounselservice_aicouncelviewmodel_runcouncil",
@@ -10949,7 +11233,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L141",
+      "source_location": "L142",
       "weight": 1.0,
       "_src": "aicounselservice_aicouncilstate",
       "_tgt": "aicounselservice_aicouncilstate_idle",
@@ -10961,7 +11245,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L142",
+      "source_location": "L143",
       "weight": 1.0,
       "_src": "aicounselservice_aicouncilstate",
       "_tgt": "aicounselservice_aicouncilstate_analyzing",
@@ -10973,7 +11257,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L143",
+      "source_location": "L144",
       "weight": 1.0,
       "_src": "aicounselservice_aicouncilstate",
       "_tgt": "aicounselservice_aicouncilstate_complete",
@@ -10985,7 +11269,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICounselService.swift",
-      "source_location": "L144",
+      "source_location": "L145",
       "weight": 1.0,
       "_src": "aicounselservice_aicouncilstate",
       "_tgt": "aicounselservice_aicouncilstate_error",
@@ -11009,7 +11293,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L127",
+      "source_location": "L126",
       "weight": 1.0,
       "_src": "aicouncilview",
       "_tgt": "aicouncilview_councilresponse",
@@ -11021,7 +11305,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L133",
+      "source_location": "L132",
       "weight": 1.0,
       "_src": "aicouncilview",
       "_tgt": "aicouncilview_codingkeys",
@@ -11033,7 +11317,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L134",
+      "source_location": "L133",
       "weight": 1.0,
       "_src": "aicouncilview_codingkeys",
       "_tgt": "aicouncilview_codingkeys_topstrengths",
@@ -11045,7 +11329,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L135",
+      "source_location": "L134",
       "weight": 1.0,
       "_src": "aicouncilview_codingkeys",
       "_tgt": "aicouncilview_codingkeys_criticalimprovements",
@@ -11057,7 +11341,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L136",
+      "source_location": "L135",
       "weight": 1.0,
       "_src": "aicouncilview_codingkeys",
       "_tgt": "aicouncilview_codingkeys_tailoredkeywords",
@@ -11069,7 +11353,7 @@
       "relation": "case_of",
       "confidence": "EXTRACTED",
       "source_file": "ResumeForge/Features/AICouncil/AICouncilView.swift",
-      "source_location": "L137",
+      "source_location": "L136",
       "weight": 1.0,
       "_src": "aicouncilview_codingkeys",
       "_tgt": "aicouncilview_codingkeys_actionplan",

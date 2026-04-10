@@ -5,10 +5,13 @@ final class AnthropicService: AIServiceProtocol {
     let providerName = "Anthropic"
 
     private let model: String
-    private let baseURL = URL(string: "https://api.anthropic.com/v1/messages")! // swiftlint:disable:this force_unwrapping
+    private let baseURL: URL
+    private let apiKeyStorageKey: String
 
-    init(model: String = "claude-sonnet-4-6") {
+    init(model: String = "claude-sonnet-4-6", apiKeyStorageKey: String = KeychainKey.anthropicAPIKey.rawValue, baseURLString: String = "https://api.anthropic.com/v1/messages") {
         self.model = model
+        self.apiKeyStorageKey = apiKeyStorageKey
+        self.baseURL = URL(string: baseURLString) ?? URL(fileURLWithPath: "/")
     }
 
     func estimateTokens(for prompt: String) -> Int {
@@ -19,7 +22,7 @@ final class AnthropicService: AIServiceProtocol {
         AsyncThrowingStream { continuation in
             Task {
                 do {
-                    let apiKey = try KeychainService.load(key: .anthropicAPIKey)
+                    let apiKey = try KeychainService.load(key: apiKeyStorageKey)
                     var request = URLRequest(url: baseURL)
                     request.httpMethod = "POST"
                     request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
@@ -48,7 +51,7 @@ final class AnthropicService: AIServiceProtocol {
     }
 
     func complete(prompt: String, systemPrompt: String) async throws -> String {
-        let apiKey = try KeychainService.load(key: .anthropicAPIKey)
+        let apiKey = try KeychainService.load(key: apiKeyStorageKey)
         var request = URLRequest(url: baseURL)
         request.httpMethod = "POST"
         request.setValue(apiKey, forHTTPHeaderField: "x-api-key")

@@ -5,9 +5,13 @@ final class GeminiService: AIServiceProtocol {
     let providerName = "Google Gemini"
 
     private let model: String
+    private let apiKeyStorageKey: String
+    private let baseURLString: String
 
-    init(model: String = "gemini-1.5-pro-latest") {
+    init(model: String = "gemini-1.5-pro-latest", apiKeyStorageKey: String = KeychainKey.geminiAPIKey.rawValue, baseURLString: String = "https://generativelanguage.googleapis.com/v1beta/models") {
         self.model = model
+        self.apiKeyStorageKey = apiKeyStorageKey
+        self.baseURLString = baseURLString
     }
 
     func estimateTokens(for prompt: String) -> Int {
@@ -15,8 +19,8 @@ final class GeminiService: AIServiceProtocol {
     }
 
     private func endpoint() throws -> URL {
-        let key = try KeychainService.load(key: .geminiAPIKey)
-        let urlString = "https://generativelanguage.googleapis.com/v1beta/models/\(model):streamGenerateContent?key=\(key)"
+        let key = try KeychainService.load(key: apiKeyStorageKey)
+        let urlString = "\(baseURLString)/\(model):streamGenerateContent?key=\(key)"
         guard let url = URL(string: urlString) else { throw AIServiceError.invalidResponse }
         return url
     }
@@ -57,9 +61,9 @@ final class GeminiService: AIServiceProtocol {
     }
 
     func complete(prompt: String, systemPrompt: String) async throws -> String {
-        let urlString = "https://generativelanguage.googleapis.com/v1beta/models/\(model):generateContent"
+        let urlString = "\(baseURLString)/\(model):generateContent"
         guard let baseURL = URL(string: urlString) else { throw AIServiceError.invalidResponse }
-        let apiKey = try KeychainService.load(key: .geminiAPIKey)
+        let apiKey = try KeychainService.load(key: apiKeyStorageKey)
         var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false)
         components?.queryItems = [URLQueryItem(name: "key", value: apiKey)]
         guard let url = components?.url else { throw AIServiceError.invalidResponse }

@@ -6,10 +6,13 @@ final class OpenRouterService: AIServiceProtocol {
     let providerName = "OpenRouter"
 
     private let model: String
-    private let baseURL = URL(string: "https://openrouter.ai/api/v1/chat/completions")! // swiftlint:disable:this force_unwrapping
+    private let baseURL: URL
+    private let apiKeyStorageKey: String
 
-    init(model: String = "mistral/mistral-7b-instruct") {
+    init(model: String = "mistral/mistral-7b-instruct", apiKeyStorageKey: String = KeychainKey.openRouterAPIKey.rawValue, baseURLString: String = "https://openrouter.ai/api/v1/chat/completions") {
         self.model = model
+        self.apiKeyStorageKey = apiKeyStorageKey
+        self.baseURL = URL(string: baseURLString) ?? URL(fileURLWithPath: "/")
     }
 
     func estimateTokens(for prompt: String) -> Int {
@@ -21,7 +24,7 @@ final class OpenRouterService: AIServiceProtocol {
         AsyncThrowingStream { continuation in
             Task {
                 do {
-                    let apiKey = try KeychainService.load(key: .openRouterAPIKey)
+                    let apiKey = try KeychainService.load(key: apiKeyStorageKey)
                     var request = URLRequest(url: baseURL)
                     request.httpMethod = "POST"
                     request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
@@ -51,7 +54,7 @@ final class OpenRouterService: AIServiceProtocol {
     }
 
     func complete(prompt: String, systemPrompt: String) async throws -> String {
-        let apiKey = try KeychainService.load(key: .openRouterAPIKey)
+        let apiKey = try KeychainService.load(key: apiKeyStorageKey)
         var request = URLRequest(url: baseURL)
         request.httpMethod = "POST"
         request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
