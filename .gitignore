@@ -60,6 +60,7 @@ fastlane/test_output
 # Environment / secrets
 *.env
 .env.local
+.venv/
 Secrets.swift
 APIKeys.swift
 

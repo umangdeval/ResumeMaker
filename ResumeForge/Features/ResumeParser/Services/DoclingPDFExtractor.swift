@@ -1,5 +1,4 @@
 import Foundation
-import PythonKit
 
 // MARK: - Errors
 
@@ -22,7 +21,7 @@ enum DoclingExtractionError: Error, LocalizedError {
 
 // MARK: - Extractor
 
-/// Uses docling-parse (via PythonKit) to extract rich structured text from a PDF.
+/// Uses a local Python backend process (docling-parse) to extract rich structured text from a PDF.
 /// Falls back gracefully — callers should catch and use PDFTextExtractor on failure.
 enum DoclingPDFExtractor {
     /// Extracts text from a PDF file at `url`.
@@ -36,43 +35,24 @@ enum DoclingPDFExtractor {
     // MARK: - Synchronous extraction (runs on worker thread)
 
     private static func extractSync(from url: URL) throws -> String {
-        guard let doclingParse = try? Python.attemptImport("docling_parse") else {
-            throw DoclingExtractionError.moduleNotAvailable
-        }
-
-        let parser = doclingParse.DoclingParser()
-        let result = parser.convert(url.path)
-
-        // docling_parse returns a dict: {"pages": [{"text": "...", "cells": [...]}, ...]}
-        guard result != Python.None else {
-            throw DoclingExtractionError.parseFailure("Parser returned None")
-        }
-
-        let pages = result["pages"]
-        guard pages != Python.None else {
-            throw DoclingExtractionError.emptyResult
-        }
-
-        var textParts: [String] = []
-        for page in pages {
-            // Prefer structured cell text for accuracy
-            let cells = page["cells"]
-            if cells != Python.None {
-                for cell in cells {
-                    let cellText = String(cell["text"]) ?? ""
-                    if !cellText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        textParts.append(cellText)
-                    }
+        do {
+            return try DoclingBackendService.extractText(from: url)
+        } catch let error as DoclingBackendServiceError {
+            switch error {
+            case .pythonNotFound, .backendScriptNotFound:
+                throw DoclingExtractionError.moduleNotAvailable
+            case .backendError(let message):
+                if message.localizedCaseInsensitiveContains("no text") {
+                    throw DoclingExtractionError.emptyResult
                 }
-            } else if let pageText = String(page["text"]), !pageText.isEmpty {
-                textParts.append(pageText)
+                throw DoclingExtractionError.parseFailure(message)
+            case .launchFailed(let details):
+                throw DoclingExtractionError.parseFailure(details)
+            case .timedOut:
+                throw DoclingExtractionError.parseFailure("Timed out while parsing PDF")
+            case .invalidResponse:
+                throw DoclingExtractionError.parseFailure("Invalid backend response")
             }
         }
-
-        let fullText = textParts.joined(separator: "\n")
-        guard !fullText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            throw DoclingExtractionError.emptyResult
-        }
-        return fullText
     }
 }

@@ -44,11 +44,13 @@ struct PythonSetupView: View {
             if case .pythonNotFound = status {
                 SetupStep(number: "1", text: "Install Python 3 from **python.org** or via Homebrew:")
                 CodeBlock(code: "brew install python")
-                SetupStep(number: "2", text: "Install docling-parse:")
-                CodeBlock(code: "pip install docling-parse")
+                SetupStep(number: "2", text: "From the ResumeForge project folder, create a local virtual environment:")
+                CodeBlock(code: "python3 -m venv .venv")
+                SetupStep(number: "3", text: "Install docling-parse in that environment:")
+                CodeBlock(code: "./.venv/bin/python -m pip install --upgrade pip docling-parse")
             } else {
                 SetupStep(number: "1", text: "Open Terminal and run:")
-                CodeBlock(code: "pip install docling-parse")
+                CodeBlock(code: "./.venv/bin/python -m pip install --upgrade pip docling-parse")
                 SetupStep(number: "2", text: "Restart ResumeForge after installation.")
             }
         }
@@ -60,8 +62,8 @@ struct PythonSetupView: View {
     private var copyButton: some View {
         Button {
             let cmd = (status == .pythonNotFound)
-                ? "brew install python && pip install docling-parse"
-                : "pip install docling-parse"
+                ? "brew install python && python3 -m venv .venv && ./.venv/bin/python -m pip install --upgrade pip docling-parse"
+                : "./.venv/bin/python -m pip install --upgrade pip docling-parse"
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString(cmd, forType: .string)
         } label: {
