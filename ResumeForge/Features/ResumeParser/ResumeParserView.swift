@@ -219,8 +219,16 @@ private struct ExperienceRowView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            TextField("Job Title", text: $experience.title)
-                .font(.headline)
+            HStack(alignment: .firstTextBaseline) {
+                TextField("Job Title", text: $experience.title)
+                    .font(.headline)
+                if experience.confidence.needsReview {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                        .font(.caption)
+                        .help(experience.confidence.label)
+                }
+            }
             TextField("Company", text: $experience.company)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)

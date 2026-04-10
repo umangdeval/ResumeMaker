@@ -9,7 +9,8 @@
       "Bash(tee /tmp/rf_build_mac.log)",
       "Bash(git commit:*)",
       "Bash(git add:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }

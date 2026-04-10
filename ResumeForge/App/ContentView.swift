@@ -14,6 +14,9 @@ struct RootTabView: View {
             CreateTab()
                 .tabItem { Label("Create", systemImage: "plus.circle") }
 
+            ProfileTab()
+                .tabItem { Label("Profile", systemImage: "person.crop.circle") }
+
             DocumentsTab()
                 .tabItem { Label("Documents", systemImage: "doc.text") }
 
@@ -69,6 +72,12 @@ private struct DashboardTab: View {
 }
 
 // MARK: - Create tab
+
+private struct ProfileTab: View {
+    var body: some View {
+        ProfileView()
+    }
+}
 
 private struct CreateTab: View {
     var body: some View {

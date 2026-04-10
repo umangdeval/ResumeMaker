@@ -11,6 +11,12 @@
 		044CD8D5AEA3484AA9543630 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52F826C92D4EC19F872EA66 /* Education.swift */; };
 		0A6334DF59451093635E2586 /* JobDescriptionPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605D981D93B192DF34A072E3 /* JobDescriptionPlaceholder.swift */; };
 		0E2C2C7ADB66C91D76DE4DA7 /* ProfilePlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A78C3E8D496DB0D71475E /* ProfilePlaceholder.swift */; };
+		4191676996574D84902DF3E7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAC23E244AD43FC810B76F6 /* ProfileViewModel.swift */; };
+		6E99F6C5EA534849B88AA7BE /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1668EF3C29341B59A9D4C24 /* ProfileView.swift */; };
+		B738371A366641418AAD54AC /* ExperienceEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457A6E6795C5427384BBCBE1 /* ExperienceEditView.swift */; };
+		2D0410ECEB0F42DB830F9E2E /* EducationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E4DC315FAB424D836B4944 /* EducationEditView.swift */; };
+		66D838AD101846EAB18E68BD /* ParseConfidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4335E725FC224849B02B3F6F /* ParseConfidence.swift */; };
+		85C841540D874C899D32805F /* ExperienceEntryExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD7E7C61E874D49BD68F4C6 /* ExperienceEntryExtractor.swift */; };
 		10B87876542D3D0A41B23F25 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6C51D69919BAD5E7EBCFB /* UserProfile.swift */; };
 		13EC65A7DCF794342CF83D50 /* AIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845FF80C7384A354DFEA545 /* AIServiceProtocol.swift */; };
 		2AD12755169DF48F143ECFF2 /* PDFTextExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */; };
@@ -66,6 +72,7 @@
 		100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTextExtractor.swift; sourceTree = "<group>"; };
 		C2D3E4F5A6B7C8D9E0F1A2B3 /* DateRangeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeParser.swift; sourceTree = "<group>"; };
 		18C1C4EE86A696223EE749D3 /* ParsedResumeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsedResumeData.swift; sourceTree = "<group>"; };
+		4335E725FC224849B02B3F6F /* ParseConfidence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseConfidence.swift; sourceTree = "<group>"; };
 		1ABC08A9FE182CBD0AEE55CE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1B4303940C464D62C04FC88D /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
 		1CC1B5FB1ADEF7343DD724B4 /* ResumeBuilderPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeBuilderPlaceholder.swift; sourceTree = "<group>"; };
@@ -92,11 +99,16 @@
 		901970D143AB2AB310FD5703 /* ExportPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPlaceholder.swift; sourceTree = "<group>"; };
 		992627A9918F92E55D95F893 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		A08FE135728E1B77AB45F3DF /* ResumeContentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeContentParser.swift; sourceTree = "<group>"; };
+		BFD7E7C61E874D49BD68F4C6 /* ExperienceEntryExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceEntryExtractor.swift; sourceTree = "<group>"; };
 		A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoclingPDFExtractor.swift; sourceTree = "<group>"; };
 		AA2B0E1CBA98CE1866A6CCCC /* ResumeForgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeForgeApp.swift; sourceTree = "<group>"; };
 		B52F826C92D4EC19F872EA66 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Education.swift; sourceTree = "<group>"; };
 		B882037E615E9F99BC42C517 /* ResumeForgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResumeForgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE5A78C3E8D496DB0D71475E /* ProfilePlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceholder.swift; sourceTree = "<group>"; };
+		6CAC23E244AD43FC810B76F6 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		E1668EF3C29341B59A9D4C24 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		457A6E6795C5427384BBCBE1 /* ExperienceEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceEditView.swift; sourceTree = "<group>"; };
+		42E4DC315FAB424D836B4944 /* EducationEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EducationEditView.swift; sourceTree = "<group>"; };
 		CA57E0959B152E65AD43F185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D1D7A499E0859D2608587C74 /* GeminiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiService.swift; sourceTree = "<group>"; };
 		DFA827560CF98E1AEEA5B6A2 /* FileImportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportService.swift; sourceTree = "<group>"; };
@@ -170,6 +182,7 @@
 				1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */,
 				100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */,
 				A08FE135728E1B77AB45F3DF /* ResumeContentParser.swift */,
+				BFD7E7C61E874D49BD68F4C6 /* ExperienceEntryExtractor.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -196,6 +209,7 @@
 				24C7F30E04975AF2839082AA /* Experience.swift */,
 				24B45103B99619E88EE88F5D /* GeneratedResume.swift */,
 				18C1C4EE86A696223EE749D3 /* ParsedResumeData.swift */,
+				4335E725FC224849B02B3F6F /* ParseConfidence.swift */,
 				2CA6C51D69919BAD5E7EBCFB /* UserProfile.swift */,
 			);
 			path = Models;
@@ -242,6 +256,10 @@
 			isa = PBXGroup;
 			children = (
 				BE5A78C3E8D496DB0D71475E /* ProfilePlaceholder.swift */,
+				6CAC23E244AD43FC810B76F6 /* ProfileViewModel.swift */,
+				E1668EF3C29341B59A9D4C24 /* ProfileView.swift */,
+				457A6E6795C5427384BBCBE1 /* ExperienceEditView.swift */,
+				42E4DC315FAB424D836B4944 /* EducationEditView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -433,6 +451,12 @@
 				2AD12755169DF48F143ECFF2 /* PDFTextExtractor.swift in Sources */,
 				4F27B849517EEE087DBB8AED /* ParsedResumeData.swift in Sources */,
 				0E2C2C7ADB66C91D76DE4DA7 /* ProfilePlaceholder.swift in Sources */,
+				4191676996574D84902DF3E7 /* ProfileViewModel.swift in Sources */,
+				6E99F6C5EA534849B88AA7BE /* ProfileView.swift in Sources */,
+				B738371A366641418AAD54AC /* ExperienceEditView.swift in Sources */,
+				2D0410ECEB0F42DB830F9E2E /* EducationEditView.swift in Sources */,
+				66D838AD101846EAB18E68BD /* ParseConfidence.swift in Sources */,
+				85C841540D874C899D32805F /* ExperienceEntryExtractor.swift in Sources */,
 				D74AA8A17D2077BF65353C69 /* PythonEnvironmentService.swift in Sources */,
 				4B7C735406A97AC7F154EEC5 /* PythonSetupView.swift in Sources */,
 				E7EB8BE873FA9F10A833E3FD /* ResumeBuilderPlaceholder.swift in Sources */,

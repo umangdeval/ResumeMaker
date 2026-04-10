@@ -50,12 +50,23 @@ enum ResumeContentParser {
     private struct Section { let name: String; let body: [String] }
 
     private static let sectionKeywords = [
-        "experience", "work history", "employment", "positions",
-        "education", "academic", "qualifications",
-        "skills", "technologies", "competencies",
-        "summary", "objective", "profile", "about",
+        // Experience
+        "experience", "work history", "employment", "positions", "career history",
+        "professional experience", "professional background", "work experience",
+        "relevant experience", "industry experience",
+        // Education
+        "education", "academic", "qualifications", "academic background",
+        "academic history", "educational background",
+        // Skills
+        "skills", "technologies", "competencies", "technical skills", "core competencies",
+        "key skills", "proficiencies", "expertise", "tools",
+        // Summary
+        "summary", "objective", "profile", "about", "professional summary",
+        "career objective", "personal statement", "overview",
+        // Other
         "projects", "project", "achievements", "certifications", "awards",
-        "publications", "volunteer", "languages"
+        "publications", "volunteer", "languages", "interests", "activities",
+        "references", "honors", "leadership"
     ]
 
     /// Icon artifacts from PDF icon fonts appear as "/word" lines (e.g. /mobile /envelope).
@@ -73,9 +84,15 @@ enum ResumeContentParser {
             && line.filter(\.isLetter).count >= 3 { return true }
 
         let wordCount = lower.split(separator: " ").count
-        guard line.count < 45, wordCount <= 4 else { return false }
-        // "Work Experience", "Technical Skills", "Personal Project" etc.
-        return sectionKeywords.contains { lower == $0 || lower.hasSuffix(" " + $0) || lower.hasPrefix($0 + " ") }
+        guard line.count < 55, wordCount <= 5 else { return false }
+        // Exact match, suffix match ("Work Experience"), prefix match ("Experience Summary"),
+        // or any keyword contained in a short line.
+        return sectionKeywords.contains {
+            lower == $0
+                || lower.hasSuffix(" " + $0)
+                || lower.hasPrefix($0 + " ")
+                || (wordCount <= 3 && lower.contains($0))
+        }
     }
 
     private static func splitIntoSections(_ lines: [String]) -> [Section] {
@@ -143,67 +160,20 @@ enum ResumeContentParser {
 
     // MARK: - Experience
 
-    /// Handles inline format: "Title (Company) Location MM/yyyy - MM/yyyy"
-    /// and multi-line format: date on its own line with title/company on previous lines.
+    /// Delegates to `ExperienceEntryExtractor` which tries five field-mapping strategies
+    /// and annotates each entry with a `ParseConfidence` score.
     private static func parseExperiences(from lines: [String]) -> [ParsedExperience] {
-        struct Header { let lineIndex: Int; let title: String; let company: String; let range: ParsedDateRange }
-        var headers: [Header] = []
-
-        for (i, line) in lines.enumerated() {
-            if let (prefix, range) = DateRangeParser.parseSuffix(from: line) {
-                let (title, company) = splitJobHeader(prefix)
-                headers.append(Header(lineIndex: i, title: title, company: company, range: range))
-            } else if let range = DateRangeParser.parse(from: line) {
-                // Multi-line: look backwards, skipping any location line
-                var lookback = i - 1
-                if lookback >= 0 && isLocationLine(lines[lookback]) { lookback -= 1 }
-                var title = ""; var company = ""
-                if lookback >= 0 {
-                    let candidate = lines[lookback]
-                    if !candidate.hasPrefix("•") && DateRangeParser.parse(from: candidate) == nil
-                        && DateRangeParser.parseSuffix(from: candidate) == nil {
-                        (title, company) = splitJobHeader(candidate)
-                    }
-                }
-                headers.append(Header(lineIndex: i, title: title, company: company, range: range))
-            }
+        ExperienceEntryExtractor.extract(from: lines).map { entry in
+            ParsedExperience(
+                company: entry.company,
+                title: entry.title,
+                startDate: entry.startDate,
+                endDate: entry.endDate,
+                isCurrent: entry.isCurrent,
+                bulletPoints: entry.bulletPoints,
+                confidence: entry.confidence
+            )
         }
-
-        return headers.enumerated().map { (idx, header) in
-            let nextStart = idx + 1 < headers.count ? headers[idx + 1].lineIndex : lines.count
-            let bullets = lines[(header.lineIndex + 1)..<nextStart]
-                .filter { $0.hasPrefix("•") || $0.hasPrefix("–") || $0.hasPrefix("-") }
-                .map { String($0.dropFirst()).trimmingCharacters(in: .whitespaces) }
-                .filter { !$0.isEmpty }
-            return ParsedExperience(
-                company: header.company, title: header.title,
-                startDate: header.range.start,
-                endDate: header.range.isCurrent ? nil : header.range.end,
-                isCurrent: header.range.isCurrent, bulletPoints: bullets)
-        }
-    }
-
-    /// Extracts (title, company) from "Title (Company) Location" or "Title | Company".
-    private static func splitJobHeader(_ header: String) -> (title: String, company: String) {
-        if let open = header.firstIndex(of: "("), let close = header[open...].firstIndex(of: ")") {
-            let company = String(header[header.index(after: open)..<close]).trimmingCharacters(in: .whitespaces)
-            let title   = String(header[..<open]).trimmingCharacters(in: CharacterSet(charactersIn: ", ").union(.whitespaces))
-            return (title, company)
-        }
-        if header.contains(" | ") {
-            let parts = header.components(separatedBy: " | ")
-            return (parts[0].trimmingCharacters(in: .whitespaces),
-                    parts.dropFirst().joined(separator: " | ").trimmingCharacters(in: .whitespaces))
-        }
-        return (header.trimmingCharacters(in: CharacterSet(charactersIn: ", ").union(.whitespaces)), "")
-    }
-
-    private static func isLocationLine(_ line: String) -> Bool {
-        guard !line.hasPrefix("•"), !line.hasPrefix("-"),
-              DateRangeParser.parse(from: line) == nil,
-              DateRangeParser.parseSuffix(from: line) == nil else { return false }
-        let words = line.split(separator: " ")
-        return words.count <= 4 && (line == "Remote" || line.contains(","))
     }
 
     // MARK: - Education

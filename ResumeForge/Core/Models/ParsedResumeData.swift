@@ -58,6 +58,8 @@ struct ParsedExperience: Sendable, Identifiable {
     var endDate: Date?
     var isCurrent: Bool
     var bulletPoints: [String]
+    /// How confident the parser is about the title/company mapping for this entry.
+    var confidence: ParseConfidence
 
     init(
         company: String = "",
@@ -65,7 +67,8 @@ struct ParsedExperience: Sendable, Identifiable {
         startDate: Date? = nil,
         endDate: Date? = nil,
         isCurrent: Bool = false,
-        bulletPoints: [String] = []
+        bulletPoints: [String] = [],
+        confidence: ParseConfidence = .guessed
     ) {
         self.company = company
         self.title = title
@@ -73,6 +76,7 @@ struct ParsedExperience: Sendable, Identifiable {
         self.endDate = endDate
         self.isCurrent = isCurrent
         self.bulletPoints = bulletPoints
+        self.confidence = confidence
     }
 }
 
