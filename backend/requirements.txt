@@ -1,0 +1,19 @@
+# ResumeForge Python Backend – Dependencies
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# For ML-powered PDF extraction (optional but recommended):
+#   pip install docling
+#
+# Python 3.10+ required.
+
+# Web framework
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+
+# Lightweight PDF text extraction (fallback when docling is not installed)
+pdfminer.six>=20231228
+
+# File upload handling (FastAPI dependency)
+python-multipart>=0.0.9

@@ -78,3 +78,9 @@ APIKeys.swift
 # AI models — large binary files, not tracked in git
 # Re-download with: python3 download_models.py
 Models/
+
+# Python backend virtual environment
+backend/.venv/
+backend/venv/
+backend/__pycache__/
+backend/*.pyc

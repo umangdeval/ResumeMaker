@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02AF918D43AD1460D687EC17 /* PythonKit in Frameworks */ = {isa = PBXBuildFile; productRef = D7BB49D5AFE036A38D0B831A /* PythonKit */; };
+		02AF918D43AD1460D687EC17 /* BackendPDFExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BB49D5AFE036A38D0B831A /* BackendPDFExtractor.swift */; };
 		044CD8D5AEA3484AA9543630 /* Education.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52F826C92D4EC19F872EA66 /* Education.swift */; };
 		0A6334DF59451093635E2586 /* JobDescriptionPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605D981D93B192DF34A072E3 /* JobDescriptionPlaceholder.swift */; };
 		0BD8A19ED6D0F14B38D03168 /* EducationEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF5350CC12A7477E8A9C8E0 /* EducationEditView.swift */; };
 		0E2C2C7ADB66C91D76DE4DA7 /* ProfilePlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A78C3E8D496DB0D71475E /* ProfilePlaceholder.swift */; };
 		10B87876542D3D0A41B23F25 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA6C51D69919BAD5E7EBCFB /* UserProfile.swift */; };
-		126C7D3AEDB236A762862CE5 /* docling_helper.py in Resources */ = {isa = PBXBuildFile; fileRef = 3D495E15F8C7C642EBE9A9C9 /* docling_helper.py */; };
 		13EC65A7DCF794342CF83D50 /* AIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845FF80C7384A354DFEA545 /* AIServiceProtocol.swift */; };
 		1D0DBFCBE90A955A153C22DA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3F59D5D19B89D855EE2FFC /* ProfileView.swift */; };
 		2AD12755169DF48F143ECFF2 /* PDFTextExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100702F0D43637F44A59BD33 /* PDFTextExtractor.swift */; };
@@ -42,6 +41,8 @@
 		9CF397D99013CBA3DFDE6803 /* ResumeParserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C60E8B511925CC6C03E300 /* ResumeParserView.swift */; };
 		ADC8AB1EF75F3725778832A6 /* DoclingPDFExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */; };
 		AFEF9AFF0B0933DEF3EDDE23 /* SettingsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778FD35A6CA5AC3186CF1CEC /* SettingsPlaceholder.swift */; };
+		B1A00001CAFE00000000BA01 /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A00002CAFE00000000BA02 /* BackendService.swift */; };
+		B1A00003CAFE00000000BA03 /* BackendSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A00004CAFE00000000BA04 /* BackendSetupView.swift */; };
 		C470399CE6429C29F9BB11EC /* LaTeXTextExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */; };
 		C9953FEBC07419085A94C85E /* GeneratedResume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B45103B99619E88EE88F5D /* GeneratedResume.swift */; };
 		D3599A8DBEFBBAC6CEB332E7 /* GeminiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D7A499E0859D2608587C74 /* GeminiService.swift */; };
@@ -114,6 +115,9 @@
 		F9FD3A776A990A6EBBD92387 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		FDA32C3512B24542CACE209C /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		FFE6DA46FD6632968B07E07A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B1A00002CAFE00000000BA02 /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendService.swift; sourceTree = "<group>"; };
+		B1A00004CAFE00000000BA04 /* BackendSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendSetupView.swift; sourceTree = "<group>"; };
+		D7BB49D5AFE036A38D0B831A /* BackendPDFExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendPDFExtractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +125,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02AF918D43AD1460D687EC17 /* PythonKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +157,7 @@
 		38260FCD08D17E05DF4D7D7B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				B1A00004CAFE00000000BA04 /* BackendSetupView.swift */,
 				8FCCB00C6B80E077F43F186D /* PythonSetupView.swift */,
 				778FD35A6CA5AC3186CF1CEC /* SettingsPlaceholder.swift */,
 			);
@@ -173,6 +177,7 @@
 		5A40CB8CC54281A63FB8CE2E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D7BB49D5AFE036A38D0B831A /* BackendPDFExtractor.swift */,
 				3D495E15F8C7C642EBE9A9C9 /* docling_helper.py */,
 				A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */,
 				1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */,
@@ -187,6 +192,7 @@
 			children = (
 				6845FF80C7384A354DFEA545 /* AIServiceProtocol.swift */,
 				411A3BA8734B81ED7CFABF1D /* AnthropicService.swift */,
+				B1A00002CAFE00000000BA02 /* BackendService.swift */,
 				DFA827560CF98E1AEEA5B6A2 /* FileImportService.swift */,
 				D1D7A499E0859D2608587C74 /* GeminiService.swift */,
 				992627A9918F92E55D95F893 /* KeychainService.swift */,
@@ -373,7 +379,6 @@
 			);
 			name = ResumeForge;
 			packageProductDependencies = (
-				D7BB49D5AFE036A38D0B831A /* PythonKit */,
 			);
 			productName = ResumeForge;
 			productReference = F4ADBF899595BCADA9704827 /* ResumeForge.app */;
@@ -404,7 +409,6 @@
 			mainGroup = 0452E09A5B391326C68DAB80;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				49F531A2D5860B23594051DC /* XCRemoteSwiftPackageReference "PythonKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8BF6219C42E42C4CF775B8A6 /* Products */;
@@ -422,7 +426,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				126C7D3AEDB236A762862CE5 /* docling_helper.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +439,9 @@
 				7CD2030924EE30760D69F9CB /* AICouncilPlaceholder.swift in Sources */,
 				13EC65A7DCF794342CF83D50 /* AIServiceProtocol.swift in Sources */,
 				85740D17C56DECBA9DE4AB23 /* AnthropicService.swift in Sources */,
+				02AF918D43AD1460D687EC17 /* BackendPDFExtractor.swift in Sources */,
+				B1A00001CAFE00000000BA01 /* BackendService.swift in Sources */,
+				B1A00003CAFE00000000BA03 /* BackendSetupView.swift in Sources */,
 				5A656F26A2194A6B15AB5B2A /* ContentView.swift in Sources */,
 				3B809083EC3F33161AF7C291 /* CoverLetter.swift in Sources */,
 				E7533682A227DBA5DE76BC5C /* CoverLetterPlaceholder.swift in Sources */,
@@ -732,22 +738,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		49F531A2D5860B23594051DC /* XCRemoteSwiftPackageReference "PythonKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pvieito/PythonKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D7BB49D5AFE036A38D0B831A /* PythonKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 49F531A2D5860B23594051DC /* XCRemoteSwiftPackageReference "PythonKit" */;
-			productName = PythonKit;
-		};
 /* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7F2D83090402DC424E320F9B /* Project object */;

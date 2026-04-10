@@ -4,7 +4,7 @@ import SwiftData
 @main
 struct ResumeForgeApp: App {
     let modelContainer: ModelContainer
-    @State private var pythonStatus: PythonEnvironmentStatus = .ready
+    @State private var backendStatus: BackendStatus = .unreachable
 
     init() {
         do {
@@ -19,17 +19,13 @@ struct ResumeForgeApp: App {
         } catch {
             fatalError("Failed to initialize ModelContainer: \(error)")
         }
-
-        // Configure PythonKit to find the correct interpreter at startup.
-        // Failure here just means Docling won't be available; PDFKit fallback still works.
-        try? PythonEnvironmentService.configure()
     }
 
     var body: some Scene {
         WindowGroup {
-            RootTabView(pythonStatus: pythonStatus)
+            RootTabView(backendStatus: backendStatus)
                 .environment(Router())
-                .task { pythonStatus = PythonEnvironmentService.checkDocling() }
+                .task { backendStatus = await BackendService.checkHealth() }
         }
         .modelContainer(modelContainer)
         .defaultSize(width: 1100, height: 720)

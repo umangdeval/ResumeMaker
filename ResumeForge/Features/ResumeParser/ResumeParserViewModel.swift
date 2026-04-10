@@ -79,29 +79,33 @@ final class ResumeParserViewModel {
     private func extractText(from file: ImportedFile) async throws -> String {
         switch file.fileType {
         case .latex:
-            return try await Task.detached(priority: .userInitiated) {
-                try LaTeXTextExtractor.extract(from: file.data)
-            }.value
+            // Try backend LaTeX parser first; fall back to local extractor if unavailable.
+            do {
+                print("[ResumeParser] 🌐 Trying backend LaTeX parser…")
+                let text = try await BackendService.parseLaTeX(source: String(data: file.data, encoding: .utf8) ?? "")
+                print("[ResumeParser] ✅ Backend LaTeX extraction succeeded")
+                return text
+            } catch BackendError.unreachable {
+                print("[ResumeParser] ⚠️  Backend unreachable — using local LaTeX extractor")
+                return try await Task.detached(priority: .userInitiated) {
+                    try LaTeXTextExtractor.extract(from: file.data)
+                }.value
+            }
 
         case .pdf:
-            // Write data to a temp file so Docling (which needs a file path) can access it
-            let tmpURL = FileManager.default.temporaryDirectory
-                .appendingPathComponent(UUID().uuidString + ".pdf")
-            try file.data.write(to: tmpURL)
-            defer { try? FileManager.default.removeItem(at: tmpURL) }
-
+            // Try backend PDF parser first; fall back to PDFKit if backend is unreachable.
             do {
-                print("[ResumeParser] 🐍 Trying Docling extractor…")
-                let text = try await DoclingPDFExtractor.extract(from: tmpURL)
-                print("[ResumeParser] ✅ Docling extraction succeeded")
+                print("[ResumeParser] 🌐 Trying backend PDF extractor…")
+                let text = try await BackendPDFExtractor.extract(from: file.data)
+                print("[ResumeParser] ✅ Backend PDF extraction succeeded")
                 return text
-            } catch DoclingExtractionError.moduleNotAvailable {
-                print("[ResumeParser] ⚠️  Docling unavailable — using PDFKit fallback")
+            } catch BackendPDFExtractionError.backendUnreachable {
+                print("[ResumeParser] ⚠️  Backend unreachable — using PDFKit fallback")
                 return try await Task.detached(priority: .userInitiated) {
                     try PDFTextExtractor.extract(from: file.data)
                 }.value
             }
-            // Other Docling errors (parse failure, empty) propagate to the caller
+            // Other backend errors (parse failure, empty result) propagate to the caller.
         }
     }
 

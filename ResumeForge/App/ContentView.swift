@@ -4,7 +4,7 @@ import SwiftData
 // MARK: - Root tab container
 
 struct RootTabView: View {
-    let pythonStatus: PythonEnvironmentStatus
+    let backendStatus: BackendStatus
 
     var body: some View {
         TabView {
@@ -20,7 +20,7 @@ struct RootTabView: View {
             DocumentsTab()
                 .tabItem { Label("Documents", systemImage: "doc.text") }
 
-            SettingsTab(pythonStatus: pythonStatus)
+            SettingsTab(backendStatus: backendStatus)
                 .tabItem { Label("Settings", systemImage: "gear") }
         }
     }
@@ -95,24 +95,14 @@ private struct DocumentsTab: View {
 // MARK: - Settings tab
 
 private struct SettingsTab: View {
-    let pythonStatus: PythonEnvironmentStatus
-    @State private var currentStatus: PythonEnvironmentStatus = .ready
+    let backendStatus: BackendStatus
+    @State private var currentStatus: BackendStatus = .unreachable
+    @State private var backendURL: String = UserDefaults.standard.string(forKey: "backendURL") ?? ""
 
     var body: some View {
         NavigationStack {
             Form {
-                if currentStatus != .ready {
-                    Section("Python / Docling Setup") {
-                        PythonSetupView(status: currentStatus) {
-                            currentStatus = PythonEnvironmentService.checkDocling()
-                        }
-                    }
-                } else {
-                    Section("Python / Docling") {
-                        Label("docling-parse is installed and ready.", systemImage: "checkmark.circle.fill")
-                            .foregroundStyle(.green)
-                    }
-                }
+                backendSection
                 Section("API Keys") {
                     Text("API key management — coming soon.")
                         .foregroundStyle(.secondary)
@@ -120,7 +110,22 @@ private struct SettingsTab: View {
             }
             .formStyle(.grouped)
             .navigationTitle("Settings")
-            .onAppear { currentStatus = pythonStatus }
+            .onAppear { currentStatus = backendStatus }
+        }
+    }
+
+    private var backendSection: some View {
+        Section("Backend Server") {
+            BackendSetupView(status: currentStatus) {
+                Task { currentStatus = await BackendService.checkHealth() }
+            }
+            LabeledContent("Server URL") {
+                TextField("http://127.0.0.1:8765", text: $backendURL)
+                    .onSubmit {
+                        UserDefaults.standard.set(backendURL, forKey: "backendURL")
+                        Task { currentStatus = await BackendService.checkHealth() }
+                    }
+            }
         }
     }
 }
