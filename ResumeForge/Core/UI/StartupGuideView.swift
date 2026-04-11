@@ -149,6 +149,8 @@ struct StartupGuideView: View {
     }
 
     private func runAutoSetup() {
+        AIProviderSettingsStore.markInitialSetupUsed(ollamaOnly: installOllama)
+
         let commands = setupCommandText(installOllama: installOllama)
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(commands, forType: .string)

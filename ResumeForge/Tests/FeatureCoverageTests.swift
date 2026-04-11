@@ -152,6 +152,34 @@ struct FeatureCoverageTests {
         #expect(vm.error == nil)
     }
 
+    @Test("Initial setup with Ollama keeps only Ollama provider")
+    func initialSetupOllamaOnlyProviders() {
+        let providersKey = "ai.providerConfigs"
+        let setupUsedKey = "startup.initialSetupUsed"
+        let setupOllamaOnlyKey = "startup.initialSetupOllamaOnly"
+        let localParsingKey = "parser.localLLMEnabled"
+
+        UserDefaults.standard.removeObject(forKey: providersKey)
+        UserDefaults.standard.removeObject(forKey: setupUsedKey)
+        UserDefaults.standard.removeObject(forKey: setupOllamaOnlyKey)
+        UserDefaults.standard.removeObject(forKey: localParsingKey)
+
+        defer {
+            UserDefaults.standard.removeObject(forKey: providersKey)
+            UserDefaults.standard.removeObject(forKey: setupUsedKey)
+            UserDefaults.standard.removeObject(forKey: setupOllamaOnlyKey)
+            UserDefaults.standard.removeObject(forKey: localParsingKey)
+        }
+
+        AIProviderSettingsStore.markInitialSetupUsed(ollamaOnly: true)
+
+        let loaded = AIProviderSettingsStore.loadProviders()
+        #expect(loaded.count == 1)
+        #expect(loaded[0].kind == .ollama)
+        #expect(loaded[0].isEnabled == true)
+        #expect(loaded[0].isDefault == true)
+    }
+
     @Test("Integration: cover letter + resume builder + export")
     func fullFeatureFlow() async throws {
         let container = try makeInMemoryContainer()

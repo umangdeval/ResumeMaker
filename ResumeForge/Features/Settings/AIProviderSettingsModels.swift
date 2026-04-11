@@ -170,21 +170,46 @@ struct AIProviderConfig: Identifiable, Codable, Equatable {
 enum AIProviderSettingsStore {
     private static let providersKey = "ai.providerConfigs"
     private static let localParsingKey = "parser.localLLMEnabled"
+    private static let initialSetupUsedKey = "startup.initialSetupUsed"
+    private static let initialSetupOllamaOnlyKey = "startup.initialSetupOllamaOnly"
 
     static func loadProviders() -> [AIProviderConfig] {
+        if isInitialSetupOllamaOnlyEnabled {
+            return ollamaOnlyProviders(from: defaultProviders())
+        }
+
         if let data = UserDefaults.standard.data(forKey: providersKey),
            let decoded = try? JSONDecoder().decode([AIProviderConfig].self, from: data),
            !decoded.isEmpty {
-            return normalized(decoded)
+            let normalizedProviders = normalized(decoded)
+            return isInitialSetupOllamaOnlyEnabled
+                ? ollamaOnlyProviders(from: normalizedProviders)
+                : normalizedProviders
         }
-        return defaultProviders()
+        let defaults = defaultProviders()
+        return isInitialSetupOllamaOnlyEnabled
+            ? ollamaOnlyProviders(from: defaults)
+            : defaults
     }
 
     static func saveProviders(_ providers: [AIProviderConfig]) {
-        let encoded = normalized(providers)
+        let normalizedProviders = normalized(providers)
+        let encoded = isInitialSetupOllamaOnlyEnabled
+            ? ollamaOnlyProviders(from: normalizedProviders)
+            : normalizedProviders
+
         if let data = try? JSONEncoder().encode(encoded) {
             UserDefaults.standard.set(data, forKey: providersKey)
         }
+    }
+
+    static func markInitialSetupUsed(ollamaOnly: Bool) {
+        UserDefaults.standard.set(true, forKey: initialSetupUsedKey)
+        UserDefaults.standard.set(ollamaOnly, forKey: initialSetupOllamaOnlyKey)
+
+        guard ollamaOnly else { return }
+        saveLocalParsingEnabled(true)
+        saveProviders(ollamaOnlyProviders(from: loadProviders()))
     }
 
     static func loadLocalParsingEnabled() -> Bool {
@@ -250,6 +275,19 @@ enum AIProviderSettingsStore {
             result[firstIndex].isDefault = true
         }
         return result
+    }
+
+    private static var isInitialSetupOllamaOnlyEnabled: Bool {
+        UserDefaults.standard.bool(forKey: initialSetupUsedKey) &&
+        UserDefaults.standard.bool(forKey: initialSetupOllamaOnlyKey)
+    }
+
+    private static func ollamaOnlyProviders(from providers: [AIProviderConfig]) -> [AIProviderConfig] {
+        let source = providers.first(where: { $0.kind == .ollama })
+        var ollama = source ?? AIProviderConfig.makeDefault(kind: .ollama)
+        ollama.isEnabled = true
+        ollama.isDefault = true
+        return [ollama]
     }
 }
 

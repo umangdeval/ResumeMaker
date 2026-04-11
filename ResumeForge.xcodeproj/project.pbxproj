@@ -72,6 +72,7 @@
 		C01AC7510333F0C50CA99098 /* CouncilOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C51EA9F9B5FFA54BFBF160 /* CouncilOrchestrator.swift */; };
 		C470399CE6429C29F9BB11EC /* LaTeXTextExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A9CBB7268189BAF47A6B2 /* LaTeXTextExtractor.swift */; };
 		C9953FEBC07419085A94C85E /* GeneratedResume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24B45103B99619E88EE88F5D /* GeneratedResume.swift */; };
+		CBD83F7B6522220DCACED4AC /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = CDBB3AB81CC28F373B988330 /* AppIcon.icns */; };
 		D3599A8DBEFBBAC6CEB332E7 /* GeminiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D7A499E0859D2608587C74 /* GeminiService.swift */; };
 		D42335330373E1A187CC0FA8 /* FileImportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA827560CF98E1AEEA5B6A2 /* FileImportService.swift */; };
 		D46D451B1F7560C59A856E29 /* CoverLetterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6275678EF65100E93731AB80 /* CoverLetterViewModel.swift */; };
@@ -163,6 +164,7 @@
 		B882037E615E9F99BC42C517 /* ResumeForgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResumeForgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE5A78C3E8D496DB0D71475E /* ProfilePlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePlaceholder.swift; sourceTree = "<group>"; };
 		CA57E0959B152E65AD43F185 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CDBB3AB81CC28F373B988330 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		CF3EEEB1DC0CADC15345E4EA /* CreateWorkflowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkflowView.swift; sourceTree = "<group>"; };
 		D1D7A499E0859D2608587C74 /* GeminiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiService.swift; sourceTree = "<group>"; };
 		D68C140CB44F8CA68D1E58DF /* GoogleGeminiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeminiService.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 		B06F6D5D9634277387DEBAD4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CDBB3AB81CC28F373B988330 /* AppIcon.icns */,
 				4B4E41C6F86B1B1B9E13A5EF /* Python */,
 			);
 			path = Resources;
@@ -389,6 +392,13 @@
 				6275678EF65100E93731AB80 /* CoverLetterViewModel.swift */,
 			);
 			path = CoverLetter;
+			sourceTree = "<group>";
+		};
+		B9EA2D356FB523DC392852C6 /* icon */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = icon;
 			sourceTree = "<group>";
 		};
 		BA752928FBF1E3C09B02EFE6 /* Tests */ = {
@@ -441,6 +451,7 @@
 				7B817212CFD7197EF9B13536 /* App */,
 				E969AFB25437F0FD39B05AD8 /* Core */,
 				B139C4AB7EC5BD9FD38E4A3A /* Features */,
+				B9EA2D356FB523DC392852C6 /* icon */,
 				B06F6D5D9634277387DEBAD4 /* Resources */,
 			);
 			path = ResumeForge;
@@ -539,6 +550,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD83F7B6522220DCACED4AC /* AppIcon.icns in Resources */,
 				BA475ADD49AE2F3681DBAC73 /* docling_backend.py in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
