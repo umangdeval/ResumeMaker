@@ -78,6 +78,16 @@ struct AICouncilView: View {
                     .foregroundStyle(.orange)
             }
 
+            if viewModel.synthesizerOptions.count > 1 {
+                Picker("Head of Council", selection: $viewModel.selectedSynthesizerIndex) {
+                    ForEach(Array(viewModel.synthesizerOptions.enumerated()), id: \.offset) { i, name in
+                        Text(name).tag(i)
+                    }
+                }
+                .pickerStyle(.menu)
+                .tint(AppTheme.blue)
+            }
+
             Button("Convene the Council") { viewModel.conveneCouncil() }
                 .buttonStyle(.borderedProminent)
                 .tint(AppTheme.blue)
@@ -96,7 +106,7 @@ struct AICouncilView: View {
             ForEach(viewModel.orchestrator.providerProgress) { progress in
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Label(progress.provider.displayName, systemImage: icon(for: progress.provider))
+                        Label(progress.displayName, systemImage: icon(for: progress.provider))
                         Spacer()
                         statusIndicator(progress.status)
                     }

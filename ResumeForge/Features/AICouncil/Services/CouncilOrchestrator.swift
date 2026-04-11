@@ -19,10 +19,13 @@ struct ProviderRunProgress: Identifiable, Equatable {
     let id: UUID
     let provider: LLMProvider
     let model: String
+    var label: String?          // persona label in single-key mode, nil otherwise
     var streamedText: String
     var latency: TimeInterval?
     var tokensUsed: Int?
     var status: ModelRunState
+
+    var displayName: String { label ?? provider.displayName }
 }
 
 struct CouncilRecommendation: Identifiable, Equatable {
@@ -41,6 +44,7 @@ final class CouncilOrchestrator {
     var analyses: [LLMResponse] = []
     var recommendations: [CouncilRecommendation] = []
     var totalTokensUsed: Int = 0
+    var synthesizerIndex: Int = 0   // which descriptor acts as Head of Council
 
     private let serviceDescriptorsProvider: @Sendable () -> [CouncilServiceDescriptor]
     private var activeTask: Task<Void, Never>?
@@ -71,12 +75,30 @@ final class CouncilOrchestrator {
                 recommendations = []
                 totalTokensUsed = 0
 
-                let descriptors = serviceDescriptorsProvider()
+                let rawDescriptors = serviceDescriptorsProvider()
+                let descriptors: [CouncilServiceDescriptor]
+                if rawDescriptors.count == 1 {
+                    // Single-key mode: run 3 persona perspectives on the one available model
+                    let base = rawDescriptors[0]
+                    descriptors = CouncilPrompts.singleKeyPersonas.map { persona in
+                        CouncilServiceDescriptor(
+                            provider: base.provider,
+                            model: base.model,
+                            service: base.service,
+                            systemPromptOverride: persona.systemPrompt,
+                            label: persona.label
+                        )
+                    }
+                } else {
+                    descriptors = rawDescriptors
+                }
+
                 providerProgress = descriptors.map {
                     ProviderRunProgress(
                         id: $0.id,
                         provider: $0.provider,
                         model: $0.model,
+                        label: $0.label,
                         streamedText: "",
                         latency: nil,
                         tokensUsed: nil,
@@ -225,6 +247,11 @@ final class CouncilOrchestrator {
     }
 
     private func resolveSynthesizer(from descriptors: [CouncilServiceDescriptor]) -> CouncilServiceDescriptor {
+        // User-selected head takes priority
+        if synthesizerIndex > 0, synthesizerIndex < descriptors.count {
+            return descriptors[synthesizerIndex]
+        }
+        // Fall back to the provider marked as default in settings
         let defaults = AIProviderSettingsStore.loadProviders()
         if let defaultConfig = defaults.first(where: { $0.isEnabled && $0.isDefault }) {
             switch defaultConfig.kind {
@@ -247,6 +274,8 @@ struct CouncilServiceDescriptor: Identifiable {
     let provider: LLMProvider
     let model: String
     let service: LLMServiceProtocol
+    var systemPromptOverride: String? = nil   // persona system prompt in single-key mode
+    var label: String? = nil                  // display name, e.g. "ATS Recruiter"
 }
 
 private struct SynthesisPayload: Decodable {
@@ -271,8 +300,9 @@ private extension CouncilOrchestrator {
         let startedAt = Date()
         var text = ""
 
+        let resolvedSystemPrompt = descriptor.systemPromptOverride ?? systemPrompt
         do {
-            for try await chunk in service.streamMessage(prompt: prompt, systemPrompt: systemPrompt, model: descriptor.model, maxTokens: 1_800) {
+            for try await chunk in service.streamMessage(prompt: prompt, systemPrompt: resolvedSystemPrompt, model: descriptor.model, maxTokens: 1_800) {
                 try Task.checkCancellation()
                 text += chunk
                 await onChunk(chunk)

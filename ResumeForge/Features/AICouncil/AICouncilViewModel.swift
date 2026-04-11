@@ -8,6 +8,7 @@ final class AICouncilViewModel {
 
     var orchestrator = CouncilOrchestrator()
     var appliedRecommendations: Set<UUID> = []
+    var selectedSynthesizerIndex: Int = 0
 
     init(profile: UserProfile, jobDescription: JobDescription) {
         self.profile = profile
@@ -22,6 +23,15 @@ final class AICouncilViewModel {
         !activeProviders.isEmpty
     }
 
+    /// Names shown in the Head of Council picker.
+    /// Single-key mode shows persona names; multi-key shows provider display names.
+    var synthesizerOptions: [String] {
+        if activeProviders.count == 1 {
+            return CouncilPrompts.singleKeyPersonas.map(\.label)
+        }
+        return activeProviders.map(\.displayName)
+    }
+
     var estimate: CostEstimate {
         TokenCostEstimator.estimate(profile: profile, jobDescription: jobDescription, activeProviders: activeProviders)
     }
@@ -31,6 +41,7 @@ final class AICouncilViewModel {
     }
 
     func conveneCouncil() {
+        orchestrator.synthesizerIndex = selectedSynthesizerIndex
         orchestrator.conveneCouncil(profile: profile, jobDescription: jobDescription)
     }
 

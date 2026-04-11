@@ -115,6 +115,31 @@ struct CouncilPrompts {
         """
     }
 
+    // MARK: - Single-key persona mode
+
+    static let personaRecruiter = """
+    You are a strict ATS recruiter. Focus on keyword density, format compliance, \
+    quantified achievements, and whether the resume passes automated screening.
+    """
+
+    static let personaHiringManager = """
+    You are a creative hiring manager who values narrative, cultural fit, career \
+    trajectory, and storytelling. Focus on impact and uniqueness.
+    """
+
+    static let personaTechnicalPeer = """
+    You are a senior technical peer reviewing for technical depth, stack relevance, \
+    scope of past work, and engineering credibility.
+    """
+
+    static var singleKeyPersonas: [(label: String, systemPrompt: String)] {
+        [
+            ("ATS Recruiter",   personaRecruiter),
+            ("Hiring Manager",  personaHiringManager),
+            ("Technical Peer",  personaTechnicalPeer),
+        ]
+    }
+
     private static func xmlEscaped(_ value: String) -> String {
         value
             .replacingOccurrences(of: "&", with: "&amp;")
