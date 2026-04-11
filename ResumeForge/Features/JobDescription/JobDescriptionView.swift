@@ -16,6 +16,7 @@ struct JobDescriptionView: View {
                 savedCard
             }
             .padding(20)
+            .appContentWidth()
         }
         .appScreenBackground()
         .navigationTitle("Job Description")
@@ -30,16 +31,20 @@ struct JobDescriptionView: View {
 
             TextField("Role title", text: $title)
                 .textFieldStyle(.plain)
+                .foregroundStyle(AppTheme.text)
                 .padding(12)
-                .background(.white, in: RoundedRectangle(cornerRadius: 8))
+                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 6))
             TextField("Company", text: $company)
                 .textFieldStyle(.plain)
+                .foregroundStyle(AppTheme.text)
                 .padding(12)
-                .background(.white, in: RoundedRectangle(cornerRadius: 8))
+                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 6))
             TextEditor(text: $rawText)
                 .frame(minHeight: 190)
                 .padding(8)
-                .background(.white, in: RoundedRectangle(cornerRadius: 8))
+                .foregroundStyle(AppTheme.text)
+                .scrollContentBackground(.hidden)
+                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 6))
 
             Button("Save Job Description", action: save)
                 .buttonStyle(.borderedProminent)

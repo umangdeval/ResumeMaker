@@ -1,17 +1,24 @@
 import SwiftUI
 
 enum AppTheme {
-    static let bg = Color.black
-    static let surface = Color(.sRGB, red: 245 / 255, green: 245 / 255, blue: 247 / 255, opacity: 1)
-    static let text = Color(.sRGB, red: 29 / 255, green: 29 / 255, blue: 31 / 255, opacity: 1)
-    static let textSecondary = Color(.sRGB, red: 29 / 255, green: 29 / 255, blue: 31 / 255, opacity: 0.72)
-    static let blue = Color(.sRGB, red: 0 / 255, green: 113 / 255, blue: 227 / 255, opacity: 1)
+    // MARK: - Adaptive colors (light + dark mode)
+    static let bg             = Color(nsColor: .windowBackgroundColor)
+    static let surface        = Color(nsColor: .controlBackgroundColor)
+    static let text           = Color(nsColor: .labelColor)
+    static let textSecondary  = Color(nsColor: .secondaryLabelColor)
+    static let separator      = Color(nsColor: .separatorColor)
+    static let blue           = Color.accentColor
 
-    static let heroTitle = Font.system(size: 34, weight: .semibold)
-    static let sectionTitle = Font.system(size: 21, weight: .semibold)
-    static let body = Font.system(size: 17, weight: .regular)
-    static let caption = Font.system(size: 12, weight: .regular)
+    // MARK: - macOS HIG font scale
+    static let heroTitle    = Font.system(size: 20, weight: .semibold)
+    static let sectionTitle = Font.system(size: 15, weight: .semibold)
+    static let body         = Font.system(size: 13, weight: .regular)
+    static let caption      = Font.system(size: 11, weight: .regular)
+
+    static let contentMaxWidth: CGFloat = 900
 }
+
+// MARK: - View modifiers
 
 private struct AppScreenBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
@@ -20,12 +27,34 @@ private struct AppScreenBackgroundModifier: ViewModifier {
 }
 
 private struct AppCardModifier: ViewModifier {
-    var cornerRadius: CGFloat = 12
+    var cornerRadius: CGFloat = 8
 
     func body(content: Content) -> some View {
         content
             .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: cornerRadius))
-            .shadow(color: .black.opacity(0.22), radius: 18, x: 3, y: 5)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(AppTheme.separator, lineWidth: 0.5)
+            )
+    }
+}
+
+private struct AppContentWidthModifier: ViewModifier {
+    var maxWidth: CGFloat
+
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: maxWidth)
+            .frame(maxWidth: .infinity, alignment: .center)
+    }
+}
+
+private struct AppFormCardModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .formStyle(.grouped)
+            .scrollContentBackground(.hidden)
+            .foregroundStyle(AppTheme.text)
     }
 }
 
@@ -34,7 +63,15 @@ extension View {
         modifier(AppScreenBackgroundModifier())
     }
 
-    func appCard(cornerRadius: CGFloat = 12) -> some View {
+    func appCard(cornerRadius: CGFloat = 8) -> some View {
         modifier(AppCardModifier(cornerRadius: cornerRadius))
+    }
+
+    func appContentWidth(_ maxWidth: CGFloat = AppTheme.contentMaxWidth) -> some View {
+        modifier(AppContentWidthModifier(maxWidth: maxWidth))
+    }
+
+    func appFormCard() -> some View {
+        modifier(AppFormCardModifier())
     }
 }

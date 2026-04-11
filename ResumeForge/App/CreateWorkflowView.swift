@@ -8,8 +8,10 @@ struct CreateWorkflowView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 18) {
-                header
+            VStack(alignment: .leading, spacing: 14) {
+                stepCard(title: "Step 1", name: "Import / Parse Resume", subtitle: "Extract and normalize your resume data.", icon: "doc.text.viewfinder") {
+                    ResumeParserView()
+                }
                 stepCard(title: "Step 2", name: "Add Job Description", subtitle: "Define the exact role you are targeting.", icon: "doc.plaintext") {
                     JobDescriptionView()
                 }
@@ -38,23 +40,10 @@ struct CreateWorkflowView: View {
                 }
             }
             .padding(20)
+            .appContentWidth()
         }
-        .appScreenBackground()
+        .background(AppTheme.bg)
         .navigationTitle("Create")
-    }
-
-    private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Create Tailored Applications")
-                .font(AppTheme.heroTitle)
-                .foregroundStyle(.white)
-            Text("Follow the three-step flow to parse your resume, set your target job, and run AI Council.")
-                .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.84))
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(24)
-        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
     }
 
     private func stepCard<Destination: View>(title: String, name: String, subtitle: String, icon: String, @ViewBuilder destination: () -> Destination) -> some View {

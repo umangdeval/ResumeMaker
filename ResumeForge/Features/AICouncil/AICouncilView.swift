@@ -28,6 +28,7 @@ struct AICouncilView: View {
                     }
                 }
                 .padding()
+                .appContentWidth()
             }
             .appScreenBackground()
             .navigationTitle("AI Council")
@@ -43,17 +44,15 @@ struct AICouncilView: View {
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 4) {
             Text("AI Council")
                 .font(AppTheme.heroTitle)
-                .foregroundStyle(.white)
+                .foregroundStyle(AppTheme.text)
             Text("Parallel model analysis followed by one unified synthesis.")
                 .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.84))
+                .foregroundStyle(AppTheme.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(24)
-        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
     }
 
     private var preAnalysisPanel: some View {
@@ -127,7 +126,7 @@ struct AICouncilView: View {
                     .foregroundStyle(.secondary)
                 }
                 .padding()
-                .background(.white, in: RoundedRectangle(cornerRadius: 10))
+                .appCard(cornerRadius: 8)
             }
         }
         .padding(16)
@@ -212,7 +211,7 @@ struct AICouncilView: View {
                         .tint(AppTheme.blue)
                     }
                     .padding()
-                    .background(.white, in: RoundedRectangle(cornerRadius: 10))
+                    .appCard(cornerRadius: 8)
                 }
             }
         }

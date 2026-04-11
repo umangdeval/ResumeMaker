@@ -1,165 +1,174 @@
 import SwiftUI
 import SwiftData
 
-// MARK: - Root tab container
+// MARK: - Sidebar items
+
+enum SidebarItem: String, Hashable, CaseIterable, Identifiable {
+    case dashboard   = "Dashboard"
+    case profile     = "Profile"
+    case create      = "Create"
+    case documents   = "Documents"
+    case settings    = "Settings"
+
+    var id: String { rawValue }
+
+    var icon: String {
+        switch self {
+        case .dashboard:  return "house"
+        case .profile:    return "person.crop.circle"
+        case .create:     return "wand.and.sparkles"
+        case .documents:  return "doc.text"
+        case .settings:   return "gear"
+        }
+    }
+}
+
+// MARK: - Root view
 
 struct RootTabView: View {
     let pythonStatus: PythonEnvironmentStatus
     @AppStorage("didShowStartupGuide") private var didShowStartupGuide = false
     @State private var isShowingStartupGuide = false
+    @State private var selection: SidebarItem? = .dashboard
 
     var body: some View {
-        TabView {
-            DashboardTab()
-                .tabItem { Label("Dashboard", systemImage: "house") }
-
-            CreateTab()
-                .tabItem { Label("Create", systemImage: "plus.circle") }
-
-            ProfileTab()
-                .tabItem { Label("Profile", systemImage: "person.crop.circle") }
-
-            DocumentsTab()
-                .tabItem { Label("Documents", systemImage: "doc.text") }
-
-            SettingsTab(pythonStatus: pythonStatus)
-                .tabItem { Label("Settings", systemImage: "gear") }
+        NavigationSplitView(columnVisibility: .constant(.all)) {
+            sidebar
+        } detail: {
+            detailView
         }
-        .tint(AppTheme.blue)
         .task {
-            if didShowStartupGuide == false {
+            if !didShowStartupGuide {
                 isShowingStartupGuide = true
             }
         }
-        .sheet(isPresented: $isShowingStartupGuide, onDismiss: {
-            didShowStartupGuide = true
-        }) {
+        .sheet(isPresented: $isShowingStartupGuide, onDismiss: { didShowStartupGuide = true }) {
             StartupGuideView(
                 pythonStatus: pythonStatus,
                 ollamaModel: AIProviderConfig.makeDefault(kind: .ollama).model
-            ) {
-                isShowingStartupGuide = false
-            }
+            ) { isShowingStartupGuide = false }
+        }
+    }
+
+    private var sidebar: some View {
+        List(SidebarItem.allCases, selection: $selection) { item in
+            Label(item.rawValue, systemImage: item.icon)
+        }
+        .listStyle(.sidebar)
+        .navigationTitle("ResumeForge")
+        .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+    }
+
+    @ViewBuilder
+    private var detailView: some View {
+        switch selection ?? .dashboard {
+        case .dashboard:  DashboardView()
+        case .profile:    ProfileView()
+        case .create:     NavigationStack { CreateWorkflowView() }
+        case .documents:  DocumentsView()
+        case .settings:   SettingsView(pythonStatus: pythonStatus)
         }
     }
 }
 
-// MARK: - Dashboard tab
+// MARK: - Dashboard
 
-private struct DashboardTab: View {
+private struct DashboardView: View {
     @Query(sort: \GeneratedResume.createdAt, order: .reverse) private var resumes: [GeneratedResume]
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    welcomeSection
-                    if !resumes.isEmpty {
-                        recentSection
-                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                welcomeHeader
+                if !resumes.isEmpty {
+                    recentResumes
                 }
-                .padding(20)
+                quickActions
             }
-            .appScreenBackground()
-            .navigationTitle("ResumeForge")
+            .padding(24)
+            .appContentWidth()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .background(AppTheme.bg)
+        .navigationTitle("Dashboard")
     }
 
-    private var welcomeSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+    private var welcomeHeader: some View {
+        VStack(alignment: .leading, spacing: 6) {
             Text("Welcome to ResumeForge")
                 .font(AppTheme.heroTitle)
-                .foregroundStyle(.white)
+                .foregroundStyle(AppTheme.text)
             Text("Parse your resume, describe a job, and let your AI Council tailor the perfect application.")
                 .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.86))
+                .foregroundStyle(AppTheme.textSecondary)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(24)
-        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
     }
 
-    private var recentSection: some View {
-        VStack(alignment: .leading, spacing: 10) {
+    private var recentResumes: some View {
+        VStack(alignment: .leading, spacing: 8) {
             Text("Recent Resumes")
                 .font(AppTheme.sectionTitle)
                 .foregroundStyle(AppTheme.text)
-            ForEach(resumes) { resume in
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(resume.displayTitle)
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(AppTheme.text)
-                    Text(resume.createdAt.formatted(date: .abbreviated, time: .omitted))
-                        .font(AppTheme.caption)
+            ForEach(resumes.prefix(5)) { resume in
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(resume.displayTitle)
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(AppTheme.text)
+                        Text(resume.createdAt.formatted(date: .abbreviated, time: .omitted))
+                            .font(AppTheme.caption)
+                            .foregroundStyle(AppTheme.textSecondary)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 11))
                         .foregroundStyle(AppTheme.textSecondary)
                 }
-                .padding(.vertical, 3)
+                .padding(.vertical, 6)
+                .padding(.horizontal, 10)
+                .appCard()
             }
         }
-        .padding(18)
+    }
+
+    private var quickActions: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Quick Actions")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
+            HStack(spacing: 10) {
+                quickAction(label: "Import Resume", icon: "doc.text.viewfinder", color: AppTheme.blue)
+                quickAction(label: "New Job", icon: "doc.plaintext", color: .purple)
+                quickAction(label: "AI Council", icon: "person.3.sequence", color: .teal)
+            }
+        }
+    }
+
+    private func quickAction(label: String, icon: String, color: Color) -> some View {
+        VStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.system(size: 22))
+                .foregroundStyle(color)
+            Text(label)
+                .font(AppTheme.caption)
+                .foregroundStyle(AppTheme.text)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 14)
         .appCard()
     }
 }
 
-// MARK: - Create tab
+// MARK: - Documents
 
-private struct ProfileTab: View {
+private struct DocumentsView: View {
     var body: some View {
-        ProfileView()
-    }
-}
-
-private struct CreateTab: View {
-    var body: some View {
-        NavigationStack {
-            CreateWorkflowView()
-        }
-    }
-}
-
-// MARK: - Documents tab
-
-private struct DocumentsTab: View {
-    var body: some View {
-        NavigationStack {
-            PlaceholderTabView(title: "Documents", icon: "doc.text", description: "Saved resumes and cover letters — coming soon.")
-                .navigationTitle("Documents")
-        }
-    }
-}
-
-// MARK: - Settings tab
-
-private struct SettingsTab: View {
-    let pythonStatus: PythonEnvironmentStatus
-
-    var body: some View {
-        SettingsView(pythonStatus: pythonStatus)
-    }
-}
-
-// MARK: - Shared placeholder
-
-private struct PlaceholderTabView: View {
-    let title: String
-    let icon: String
-    let description: String
-
-    var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 44))
-                .foregroundStyle(.white)
-            Text(title)
-                .font(.system(size: 28, weight: .semibold))
-                .foregroundStyle(.white)
-            Text(description)
-                .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.82))
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: 560)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .appScreenBackground()
+        ContentUnavailableView(
+            "No Documents Yet",
+            systemImage: "doc.text",
+            description: Text("Saved resumes and cover letters will appear here.")
+        )
+        .navigationTitle("Documents")
     }
 }

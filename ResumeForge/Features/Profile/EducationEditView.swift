@@ -37,7 +37,7 @@ struct EducationEditView: View {
                     TextField("GPA (optional)", text: $gpa)
                 }
             }
-            .formStyle(.grouped)
+            .appFormCard()
             .navigationTitle(isNew ? "Add Education" : "Edit Education")
             .tint(AppTheme.blue)
             .toolbar {

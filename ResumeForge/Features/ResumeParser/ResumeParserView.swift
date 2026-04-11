@@ -72,23 +72,24 @@ private struct ImportPromptView: View {
     }
 
     private var dropZoneContent: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
             Image(systemName: "doc.badge.plus")
-                .font(.system(size: 64))
-                .foregroundStyle(.white)
+                .font(.system(size: 48))
+                .foregroundStyle(AppTheme.blue)
             Text("Import your existing resume")
                 .font(AppTheme.heroTitle)
-                .foregroundStyle(.white)
+                .foregroundStyle(AppTheme.text)
             Text("Supports PDF and LaTeX (.tex) files.\nWe'll extract your information so you can review and refine it.")
                 .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.84))
+                .foregroundStyle(AppTheme.textSecondary)
                 .multilineTextAlignment(.center)
             Text("Drop a file here or click Import")
                 .font(AppTheme.caption)
-                .foregroundStyle(.white.opacity(0.72))
+                .foregroundStyle(AppTheme.textSecondary)
         }
-        .padding(20)
-        .background(Color.black, in: RoundedRectangle(cornerRadius: 14))
+        .padding(24)
+        .frame(maxWidth: .infinity)
+        .appCard()
     }
 
     private var importButton: some View {
@@ -180,9 +181,7 @@ private struct ParsedDataFormView: View {
             educationSection
             skillsSection
         }
-        .formStyle(.grouped)
-        .scrollContentBackground(.hidden)
-        .background(AppTheme.bg)
+        .appFormCard()
     }
 
     private var contactSection: some View {
@@ -309,19 +308,19 @@ private struct SavedConfirmationView: View {
         VStack(spacing: 12) {
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 42))
-                .foregroundStyle(.white)
+                .foregroundStyle(.green)
             Text("Saved!")
                 .font(AppTheme.heroTitle)
-                .foregroundStyle(.white)
+                .foregroundStyle(AppTheme.text)
             Text("Your resume data has been saved to your profile.\nYou can edit it further in the Profile tab.")
                 .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.84))
+                .foregroundStyle(AppTheme.textSecondary)
                 .multilineTextAlignment(.center)
             Button("Import Another", action: onDismiss)
                 .buttonStyle(.borderedProminent)
                 .tint(AppTheme.blue)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .appScreenBackground()
+        .background(AppTheme.bg)
     }
 }

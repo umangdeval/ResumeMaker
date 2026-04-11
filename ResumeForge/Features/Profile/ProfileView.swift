@@ -18,11 +18,10 @@ struct ProfileView: View {
                     VStack(spacing: 18) {
                         importResumeCard
                         ProgressView("Loading profile…")
-                            .tint(.white)
-                            .foregroundStyle(.white)
                     }
                 }
             }
+            .appContentWidth()
             .appScreenBackground()
             .navigationTitle("Profile")
             .tint(AppTheme.blue)
@@ -68,9 +67,7 @@ struct ProfileView: View {
             experienceSection(profile)
             educationSection(profile)
         }
-        .formStyle(.grouped)
-        .scrollContentBackground(.hidden)
-        .background(AppTheme.bg)
+        .appFormCard()
     }
 
     private var importResumeCard: some View {

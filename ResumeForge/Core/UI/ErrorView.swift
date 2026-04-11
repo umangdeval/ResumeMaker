@@ -8,14 +8,14 @@ struct ErrorView: View {
     var body: some View {
         VStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 42))
-                .foregroundStyle(.white)
+                .font(.system(size: 36))
+                .foregroundStyle(.orange)
             Text("Something went wrong")
-                .font(.system(size: 28, weight: .semibold))
-                .foregroundStyle(.white)
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
             Text(error.localizedDescription)
                 .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.84))
+                .foregroundStyle(AppTheme.textSecondary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: 520)
             if let retryAction {
@@ -25,7 +25,7 @@ struct ErrorView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .appScreenBackground()
+        .background(AppTheme.bg)
     }
 }
 

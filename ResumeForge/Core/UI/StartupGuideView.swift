@@ -34,17 +34,17 @@ struct StartupGuideView: View {
     }
 
     private var hero: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             Text("Welcome to ResumeForge")
                 .font(AppTheme.heroTitle)
-                .foregroundStyle(.white)
+                .foregroundStyle(AppTheme.text)
             Text("Follow these setup steps once, then you can start parsing resumes and using local Ollama commands.")
                 .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.84))
+                .foregroundStyle(AppTheme.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(18)
-        .background(Color.black, in: RoundedRectangle(cornerRadius: 12))
+        .appCard()
     }
 
     private var doclingSection: some View {

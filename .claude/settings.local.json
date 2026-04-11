@@ -18,7 +18,8 @@
       "Read(//Users/umangdeval/.local/**)",
       "Bash(graphify rebuild:*)",
       "Bash(graphify --help)",
-      "Bash(python3 -c ':*)"
+      "Bash(python3 -c ':*)",
+      "Bash(python3)"
     ]
   }
 }

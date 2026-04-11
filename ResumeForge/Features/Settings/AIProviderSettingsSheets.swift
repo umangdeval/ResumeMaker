@@ -57,8 +57,7 @@ struct ProviderEditorSheet: View {
                     .tint(AppTheme.blue)
                 }
             }
-            .scrollContentBackground(.hidden)
-            .background(AppTheme.bg)
+            .appFormCard()
             .navigationTitle(title)
             .tint(AppTheme.blue)
             .toolbar {
@@ -88,24 +87,24 @@ struct EditableOllamaCommandSheet: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Terminal will open, but nothing runs automatically.")
                         .font(AppTheme.sectionTitle)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(AppTheme.text)
                     Text("Commands")
                         .font(AppTheme.body.weight(.semibold))
-                        .foregroundStyle(.white.opacity(0.9))
+                        .foregroundStyle(AppTheme.text)
                     Text(commandText)
                         .font(.system(.body, design: .monospaced))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
-                        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 12))
+                        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 8))
                         .foregroundStyle(AppTheme.text)
                         .textSelection(.enabled)
                     Text("Tip: copy the commands or paste them into the Terminal window that opened for you.")
                         .font(AppTheme.caption)
-                        .foregroundStyle(.white.opacity(0.8))
+                        .foregroundStyle(AppTheme.textSecondary)
                 }
                 .padding()
             }
-            .appScreenBackground()
+            .background(AppTheme.bg)
             .navigationTitle("Ollama Commands")
             .tint(AppTheme.blue)
             .toolbar {

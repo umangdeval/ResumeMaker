@@ -49,7 +49,7 @@ struct ExperienceEditView: View {
                 }
                 bulletSection
             }
-            .formStyle(.grouped)
+            .appFormCard()
             .navigationTitle(isNew ? "Add Experience" : "Edit Experience")
             .tint(AppTheme.blue)
             .toolbar {

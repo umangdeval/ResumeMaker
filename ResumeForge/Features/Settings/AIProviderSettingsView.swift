@@ -155,6 +155,7 @@ struct EditableProviderSettingsView: View {
                     }
                 }
                 .padding(20)
+                .appContentWidth()
             }
             .appScreenBackground()
             .navigationTitle("Settings")
@@ -207,13 +208,13 @@ struct EditableProviderSettingsView: View {
     }
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             Text("Provider & Local Parsing")
                 .font(AppTheme.heroTitle)
-                .foregroundStyle(.white)
+                .foregroundStyle(AppTheme.text)
             Text("Configure model providers, API keys, and local parsing behavior.")
                 .font(AppTheme.body)
-                .foregroundStyle(.white.opacity(0.84))
+                .foregroundStyle(AppTheme.textSecondary)
 
             Button {
                 didShowStartupGuide = false
@@ -221,12 +222,11 @@ struct EditableProviderSettingsView: View {
             } label: {
                 Label("Reset Initial Startup", systemImage: "arrow.counterclockwise")
             }
-            .buttonStyle(.borderedProminent)
-            .tint(AppTheme.blue)
+            .buttonStyle(.bordered)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(18)
-        .background(Color.black, in: RoundedRectangle(cornerRadius: 12))
+        .appCard()
     }
 
     private var pythonSection: some View {
