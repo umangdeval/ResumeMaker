@@ -7,6 +7,8 @@ final class JobDescription {
     var title: String
     var company: String
     var rawText: String
+    var companyWebsiteURL: String?
+    var companyResearchNotes: String?
     var extractedSkills: [String]
     var createdAt: Date
     var updatedAt: Date
@@ -16,6 +18,8 @@ final class JobDescription {
         title: String = "",
         company: String = "",
         rawText: String = "",
+        companyWebsiteURL: String? = nil,
+        companyResearchNotes: String? = nil,
         extractedSkills: [String] = [],
         createdAt: Date = .now,
         updatedAt: Date = .now
@@ -24,6 +28,8 @@ final class JobDescription {
         self.title = title
         self.company = company
         self.rawText = rawText
+        self.companyWebsiteURL = companyWebsiteURL
+        self.companyResearchNotes = companyResearchNotes
         self.extractedSkills = extractedSkills
         self.createdAt = createdAt
         self.updatedAt = updatedAt

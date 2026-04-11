@@ -216,6 +216,13 @@ struct EditableProviderSettingsView: View {
                 .font(AppTheme.body)
                 .foregroundStyle(AppTheme.textSecondary)
 
+            NavigationLink {
+                StyleReferenceView()
+            } label: {
+                Label("Writing Style Reference", systemImage: "text.quote")
+            }
+            .buttonStyle(.bordered)
+
             Button {
                 didShowStartupGuide = false
                 isShowingStartupGuide = true

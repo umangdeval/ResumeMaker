@@ -15,6 +15,7 @@ struct ResumeForgeApp: App {
                      JobDescription.self,
                      GeneratedResume.self,
                      CoverLetter.self,
+                     StylePersona.self,
                 configurations: ModelConfiguration(isStoredInMemoryOnly: false)
             )
         } catch {

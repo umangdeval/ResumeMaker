@@ -7,6 +7,7 @@ struct JobDescriptionView: View {
 
     @State private var title = ""
     @State private var company = ""
+    @State private var companyWebsiteURL = ""
     @State private var rawText = ""
     @State private var validationMessage: String?
     @State private var didSave = false
@@ -47,6 +48,11 @@ struct JobDescriptionView: View {
                 .padding(12)
                 .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 6))
             TextField("Company", text: $company)
+                .textFieldStyle(.plain)
+                .foregroundStyle(AppTheme.text)
+                .padding(12)
+                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 6))
+            TextField("Company website URL (optional)", text: $companyWebsiteURL)
                 .textFieldStyle(.plain)
                 .foregroundStyle(AppTheme.text)
                 .padding(12)
@@ -105,6 +111,10 @@ struct JobDescriptionView: View {
             title: title.trimmingCharacters(in: .whitespacesAndNewlines),
             company: company.trimmingCharacters(in: .whitespacesAndNewlines),
             rawText: normalizedText,
+            companyWebsiteURL: {
+                let trimmed = companyWebsiteURL.trimmingCharacters(in: .whitespacesAndNewlines)
+                return trimmed.isEmpty ? nil : trimmed
+            }(),
             extractedSkills: extractSkills(from: normalizedText),
             updatedAt: .now
         )

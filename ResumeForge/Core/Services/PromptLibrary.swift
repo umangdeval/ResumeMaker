@@ -41,10 +41,13 @@ enum PromptLibrary {
 
     // MARK: - Cover Letter
 
-    static func coverLetterUser(profile: UserProfile, job: JobDescription, styleTraits: String) -> String {
+    static func coverLetterUser(profile: UserProfile, job: JobDescription, styleTraits: String, companyFacts: String = "") -> String {
         """
         Write a professional cover letter for this candidate applying to the role below.
         Tone guidelines derived from their past writing: \(styleTraits)
+
+        Company facts from the provided company link (may be empty):
+        \(companyFacts)
 
         Candidate: \(profile.fullName)
         Role: \(job.title) at \(job.company)
@@ -53,7 +56,12 @@ enum PromptLibrary {
         """
     }
 
-    static let coverLetterSystem = "You are an expert cover letter writer."
+    static let coverLetterSystem = """
+    You are an expert cover letter writer.
+    Never invent or assume facts. Use only information from candidate profile, job description,
+    and company facts provided in the prompt.
+    If a detail is missing, omit it instead of guessing.
+    """
 
     // MARK: - Resume Builder
 
