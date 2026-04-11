@@ -35,6 +35,7 @@ private struct AppCardModifier: ViewModifier {
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(AppTheme.separator, lineWidth: 0.5)
+                    .allowsHitTesting(false)
             )
     }
 }
