@@ -10,11 +10,17 @@ struct ProfileView: View {
         NavigationStack {
             Group {
                 if let profile = viewModel.profile {
-                    profileForm(profile)
+                    VStack(spacing: 18) {
+                        importResumeCard
+                        profileForm(profile)
+                    }
                 } else {
-                    ProgressView("Loading profile…")
-                        .tint(.white)
-                        .foregroundStyle(.white)
+                    VStack(spacing: 18) {
+                        importResumeCard
+                        ProgressView("Loading profile…")
+                            .tint(.white)
+                            .foregroundStyle(.white)
+                    }
                 }
             }
             .appScreenBackground()
@@ -65,6 +71,32 @@ struct ProfileView: View {
         .formStyle(.grouped)
         .scrollContentBackground(.hidden)
         .background(AppTheme.bg)
+    }
+
+    private var importResumeCard: some View {
+        NavigationLink {
+            ResumeParserView()
+        } label: {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Step 1")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(AppTheme.textSecondary)
+                HStack(spacing: 10) {
+                    Image(systemName: "doc.text.viewfinder")
+                        .foregroundStyle(AppTheme.blue)
+                    Text("Import / Parse Resume")
+                        .font(AppTheme.sectionTitle)
+                        .foregroundStyle(AppTheme.text)
+                }
+                Text("Extract and normalize your resume data.")
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundStyle(AppTheme.textSecondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(18)
+            .appCard()
+        }
+        .buttonStyle(.plain)
     }
 }
 

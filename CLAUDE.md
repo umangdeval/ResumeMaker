@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-ResumeForge is a native SwiftUI universal app (iOS 17+ / macOS 14+) that parses existing resumes (PDF/LaTeX), uses an "AI Council" of multiple LLMs to generate tailored resumes and cover letters for specific job descriptions, supports both manual and AI-assisted editing, and exports to PDF, LaTeX, and DOCX. Users bring their own API keys for each supported LLM provider; no backend is required.
+ResumeForge is a native SwiftUI macOS app for 14+ that parses existing resumes (PDF/LaTeX), uses an "AI Council" of multiple LLMs to generate tailored resumes and cover letters for specific job descriptions, supports both manual and AI-assisted editing, and exports to PDF, LaTeX, and DOCX. Users bring their own API keys for each supported LLM provider; no backend is required.
 
 ---
 
@@ -26,11 +26,8 @@ ResumeForge is a native SwiftUI universal app (iOS 17+ / macOS 14+) that parses 
 ## Build & Test Commands
 
 ```bash
-# Build for iOS
-xcodebuild build -scheme ResumeForge -destination 'platform=iOS Simulator,name=iPhone 16 Pro'
-
-# Build for macOS
-xcodebuild build -scheme ResumeForge -destination 'platform=macOS'
+# Build for macOS (primary target — this is a Mac app)
+xcodebuild build -project 'ResumeForge.xcodeproj' -scheme ResumeForge -destination 'platform=macOS'
 
 # Run tests
 xcodebuild test -scheme ResumeForge -destination 'platform=iOS Simulator,name=iPhone 16 Pro'

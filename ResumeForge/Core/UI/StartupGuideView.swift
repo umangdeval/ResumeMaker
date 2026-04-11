@@ -4,6 +4,8 @@ struct StartupGuideView: View {
     let pythonStatus: PythonEnvironmentStatus
     let ollamaModel: String
     let onContinue: () -> Void
+    @State private var showAutoSetupControls = false
+    @State private var installOllama = true
 
     var body: some View {
         NavigationStack {
@@ -12,6 +14,7 @@ struct StartupGuideView: View {
                     hero
                     doclingSection
                     ollamaSection
+                    setupControls
                     footer
                 }
                 .padding(20)
@@ -107,6 +110,72 @@ struct StartupGuideView: View {
         }
         .padding(16)
         .appCard()
+    }
+
+    private var setupControls: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Initial Setup Script")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
+
+            Text("Click Auto Setup to open Terminal and run the startup script. You can choose whether Ollama gets installed.")
+                .font(AppTheme.body)
+                .foregroundStyle(AppTheme.textSecondary)
+
+            if showAutoSetupControls {
+                Toggle("Install Ollama during setup", isOn: $installOllama)
+                    .font(AppTheme.body)
+                    .foregroundStyle(AppTheme.text)
+            }
+
+            HStack(spacing: 10) {
+                Button(showAutoSetupControls ? "Run Auto Setup" : "Auto Setup") {
+                    if showAutoSetupControls == false {
+                        showAutoSetupControls = true
+                        return
+                    }
+                    runAutoSetup()
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(AppTheme.blue)
+
+                Button("Continue Without Setup", action: onContinue)
+                    .buttonStyle(.bordered)
+                    .tint(AppTheme.blue)
+            }
+        }
+        .padding(16)
+        .appCard()
+    }
+
+    private func runAutoSetup() {
+        let commands = setupCommandText(installOllama: installOllama)
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(commands, forType: .string)
+
+        let script = "tell application \"Terminal\"\nactivate\ndo script \"clear; echo 'ResumeForge auto setup'; echo ''; pbpaste; echo ''; echo 'Commands copied to clipboard.'\"\nend tell"
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+        do {
+            try process.run()
+            process.waitUntilExit()
+            if process.terminationStatus != 0 {
+                onContinue()
+            }
+        } catch {
+            onContinue()
+        }
+    }
+
+    private func setupCommandText(installOllama: Bool) -> String {
+        let ollamaBlock = installOllama ? "brew install --cask ollama\nollama serve\nollama pull \(ollamaModel)\nollama run \(ollamaModel)" : "ollama serve\nollama pull \(ollamaModel)\nollama run \(ollamaModel)"
+        return """
+        brew install python
+        python3 -m venv .venv
+        ./.venv/bin/python -m pip install --upgrade pip docling-parse
+        \(ollamaBlock)
+        """
     }
 
     private var footer: some View {

@@ -131,11 +131,13 @@ final class EditableProviderSettingsViewModel {
 
 struct EditableProviderSettingsView: View {
     let pythonStatus: PythonEnvironmentStatus
+    @AppStorage("didShowStartupGuide") private var didShowStartupGuide = false
     @State private var viewModel = EditableProviderSettingsViewModel()
     @State private var selectedProviderID: UUID?
     @State private var isShowingAddSheet = false
     @State private var editingProvider: AIProviderConfig?
     @State private var addDraft = AIProviderConfig.makeDefault(kind: .openAICompatible)
+    @State private var isShowingStartupGuide = false
 
     var body: some View {
         NavigationStack {
@@ -193,6 +195,14 @@ struct EditableProviderSettingsView: View {
                     }
                 )
             }
+            .sheet(isPresented: $isShowingStartupGuide) {
+                StartupGuideView(
+                    pythonStatus: pythonStatus,
+                    ollamaModel: viewModel.ollamaModelForSetup
+                ) {
+                    isShowingStartupGuide = false
+                }
+            }
         }
     }
 
@@ -204,6 +214,15 @@ struct EditableProviderSettingsView: View {
             Text("Configure model providers, API keys, and local parsing behavior.")
                 .font(AppTheme.body)
                 .foregroundStyle(.white.opacity(0.84))
+
+            Button {
+                didShowStartupGuide = false
+                isShowingStartupGuide = true
+            } label: {
+                Label("Reset Initial Startup", systemImage: "arrow.counterclockwise")
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(AppTheme.blue)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(18)

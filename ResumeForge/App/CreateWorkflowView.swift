@@ -10,10 +10,6 @@ struct CreateWorkflowView: View {
         ScrollView {
             VStack(spacing: 18) {
                 header
-                stepCard(title: "Step 1", name: "Import / Parse Resume", subtitle: "Extract and normalize your resume data.", icon: "doc.text.viewfinder") {
-                    ResumeParserView()
-                }
-
                 stepCard(title: "Step 2", name: "Add Job Description", subtitle: "Define the exact role you are targeting.", icon: "doc.plaintext") {
                     JobDescriptionView()
                 }

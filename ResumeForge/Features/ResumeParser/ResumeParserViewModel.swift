@@ -45,6 +45,11 @@ final class ResumeParserViewModel {
             let file = try FileImportService.load(from: url)
             fileName = file.fileName
             extractedText = try await extractText(from: file)
+            // LLM LaTeX extraction populates draft directly and returns ""
+            if extractedText.isEmpty {
+                parserState = .review
+                return
+            }
             let parsed = await parseWithLocalLLMFallback(extractedText)
             draft = makeDraft(from: parsed)
             parserState = .review
@@ -83,6 +88,16 @@ final class ResumeParserViewModel {
     private func extractText(from file: ImportedFile) async throws -> String {
         switch file.fileType {
         case .latex:
+            let rawLatex = String(data: file.data, encoding: .utf8) ?? ""
+            // Try LLM extraction first — more accurate for complex nested LaTeX
+            if let service = llmService ?? Self.makeLocalLLMServiceIfAvailable() {
+                if let parsed = try? await LLMLatexExtractor.extract(from: rawLatex, service: service),
+                   hasUsefulData(parsed) {
+                    draft = makeDraft(from: parsed)
+                    return ""   // draft is populated; skip parseWithLocalLLMFallback
+                }
+            }
+            // Fallback: regex-based extractor
             return try await Task.detached(priority: .userInitiated) {
                 try LaTeXTextExtractor.extract(from: file.data)
             }.value
@@ -231,15 +246,20 @@ final class ResumeParserViewModel {
         return fallback
     }
 
-    private static func makeLocalLLMService() -> AIServiceProtocol {
-        if let ollamaProvider = AIProviderSettingsStore.loadProviders().first(where: { $0.kind == .ollama && $0.isEnabled }) {
-            return OllamaService(
-                model: ollamaProvider.model,
-                endpoint: URL(string: ollamaProvider.endpointURL)
-            )
+    /// Returns any enabled provider's service — cloud or local.
+    /// Prefers Ollama (free, no cost) but falls back to cloud providers.
+    private static func makeLocalLLMServiceIfAvailable() -> AIServiceProtocol? {
+        let providers = AIProviderSettingsStore.loadProviders().filter(\.isEnabled)
+        // Prefer local (Ollama) — no API cost
+        if let ollama = providers.first(where: { $0.kind == .ollama }) {
+            return AIProviderServiceFactory.makeService(for: ollama)
         }
+        // Fall back to any cloud provider with a configured key
+        return providers.compactMap { AIProviderServiceFactory.makeService(for: $0) }.first
+    }
 
-        return OllamaService()
+    private static func makeLocalLLMService() -> AIServiceProtocol {
+        makeLocalLLMServiceIfAvailable() ?? OllamaService()
     }
 
     private func hasUsefulData(_ data: ParsedResumeData) -> Bool {

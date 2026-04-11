@@ -5,6 +5,42 @@ import Foundation
 /// Converts mixed-format parser results into `ParsedResumeData`.
 /// Falls back to the heuristic plain-text parser when content is not structured JSON.
 enum ResumeResultParser {
+    /// Decodes the strict JSON shape produced by `PromptLibrary.latexExtractionUser`.
+    /// Returns an empty `ParsedResumeData` if the JSON is malformed.
+    static func parseJSON(_ jsonString: String) -> ParsedResumeData {
+        let trimmed = jsonString.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let data = trimmed.data(using: .utf8),
+              let raw = try? JSONDecoder().decode(LLMResumeJSON.self, from: data) else {
+            return ParsedResumeData()
+        }
+
+        let experiences: [ParsedExperience] = raw.experiences.map { exp in
+            let range = DateRangeParser.parse(from: exp.dateRange)
+            let isCurrent = exp.dateRange.lowercased().contains("present")
+                || exp.dateRange.lowercased().contains("current")
+            return ParsedExperience(
+                company: exp.company, title: exp.title,
+                startDate: range?.start, endDate: isCurrent ? nil : range?.end,
+                isCurrent: isCurrent, bulletPoints: exp.bulletPoints
+            )
+        }
+
+        let education: [ParsedEducation] = raw.education.map { edu in
+            let grad = DateRangeParser.parseDate(edu.graduationDate)
+            return ParsedEducation(
+                institution: edu.institution, degree: edu.degree,
+                field: edu.field, graduationDate: grad, gpa: edu.gpa
+            )
+        }
+
+        return ParsedResumeData(
+            name: raw.name, email: raw.email, phone: raw.phone,
+            linkedIn: raw.linkedin, github: raw.github, website: raw.website,
+            summary: raw.summary, experiences: experiences,
+            education: education, skills: raw.skills
+        )
+    }
+
     static func parse(_ raw: String) -> ParsedResumeData {
         let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return ParsedResumeData() }
@@ -288,5 +324,35 @@ enum ResumeResultParser {
             if !dictionaries.isEmpty { return dictionaries }
         }
         return nil
+    }
+}
+
+// MARK: - LLM JSON shape (used by parseJSON)
+
+private struct LLMResumeJSON: Decodable {
+    var name: String = ""
+    var email: String = ""
+    var phone: String = ""
+    var linkedin: String = ""
+    var github: String = ""
+    var website: String = ""
+    var summary: String = ""
+    var skills: [String] = []
+    var experiences: [LLMExperience] = []
+    var education: [LLMEducation] = []
+
+    struct LLMExperience: Decodable {
+        var company: String = ""
+        var title: String = ""
+        var dateRange: String = ""
+        var bulletPoints: [String] = []
+    }
+
+    struct LLMEducation: Decodable {
+        var institution: String = ""
+        var degree: String = ""
+        var field: String = ""
+        var graduationDate: String = ""
+        var gpa: String = ""
     }
 }
