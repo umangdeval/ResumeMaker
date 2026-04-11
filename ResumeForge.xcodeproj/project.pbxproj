@@ -33,6 +33,7 @@
 		4B222622BDA4A2419790E776 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8699EC9CDE0A9AA2B6F4ADB2 /* StringExtensionTests.swift */; };
 		4B7C735406A97AC7F154EEC5 /* PythonSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCCB00C6B80E077F43F186D /* PythonSetupView.swift */; };
 		4F27B849517EEE087DBB8AED /* ParsedResumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1C4EE86A696223EE749D3 /* ParsedResumeData.swift */; };
+		4F431BFDD57E7ACDDE78296A /* ResumeBuilderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E8934A520E2F99E847656 /* ResumeBuilderViewModel.swift */; };
 		51776F2C1B0F06DD6217E2F1 /* ResumeParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6E86CA8E8A5E2AFB5641AE /* ResumeParserTests.swift */; };
 		52EFE750B7E6C5E741910545 /* ExportPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901970D143AB2AB310FD5703 /* ExportPlaceholder.swift */; };
 		5624BFAD75B45A60DE11E388 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686AAA7865A2B19504028AAF /* Router.swift */; };
@@ -55,6 +56,7 @@
 		93E7B56BC9D71EBB2980D998 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B70867C26EA0EE8DAC0E0A /* SettingsView.swift */; };
 		9A3E918A18C46DE5190DA9FA /* ResumeResultParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A0CE79624C7ED7E9366304 /* ResumeResultParser.swift */; };
 		9CF397D99013CBA3DFDE6803 /* ResumeParserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C60E8B511925CC6C03E300 /* ResumeParserView.swift */; };
+		A198A217BD3DAEA63397258B /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495227C0FB6FFF4F9C1EF1C8 /* ExportService.swift */; };
 		A800DE28353870AE260C3CD0 /* AICouncilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E029C091D3EC717CDA274 /* AICouncilTests.swift */; };
 		A8024AB4F7A4D2BE95763E71 /* CreateWorkflowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3EEEB1DC0CADC15345E4EA /* CreateWorkflowView.swift */; };
 		AD9F8A0301F41598BAE70E79 /* ExperienceEntryExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5C2B87DA7F9BB765A8BFD4 /* ExperienceEntryExtractor.swift */; };
@@ -62,6 +64,7 @@
 		AFEF9AFF0B0933DEF3EDDE23 /* SettingsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778FD35A6CA5AC3186CF1CEC /* SettingsPlaceholder.swift */; };
 		B1822DD016117E857099C093 /* JobDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89FAE1D8B1361DF2F9EFBF6 /* JobDescriptionView.swift */; };
 		B6D1567C3CF9E6CF33C23291 /* TokenCostEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6628B03C5570DE1E7BEF08B /* TokenCostEstimator.swift */; };
+		B8D8B56217B43D108E156BD3 /* ExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617B14E5242391C60A2A948 /* ExportViewModel.swift */; };
 		B94DD6E3DD7FAB933C138B64 /* LLMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9072BFFED703B2E6D26C3E1B /* LLMService.swift */; };
 		BA475ADD49AE2F3681DBAC73 /* docling_backend.py in Resources */ = {isa = PBXBuildFile; fileRef = 902F129D20FA6639D5155DA4 /* docling_backend.py */; };
 		BF71886B1A166279D9D71CA3 /* AIProviderSettingsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A0B66314CB6C5B2595E758 /* AIProviderSettingsModels.swift */; };
@@ -114,6 +117,7 @@
 		24B45103B99619E88EE88F5D /* GeneratedResume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedResume.swift; sourceTree = "<group>"; };
 		24C7F30E04975AF2839082AA /* Experience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Experience.swift; sourceTree = "<group>"; };
 		25C60E8B511925CC6C03E300 /* ResumeParserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeParserView.swift; sourceTree = "<group>"; };
+		2617B14E5242391C60A2A948 /* ExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewModel.swift; sourceTree = "<group>"; };
 		2636FF17E110DCDF4E5208BF /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		297F1C3C63400F7C743400FC /* StylePersona.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylePersona.swift; sourceTree = "<group>"; };
 		29BBB520AF3D6CE6F099C901 /* StylePersonaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylePersonaViewModel.swift; sourceTree = "<group>"; };
@@ -122,9 +126,11 @@
 		38A0CE79624C7ED7E9366304 /* ResumeResultParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeResultParser.swift; sourceTree = "<group>"; };
 		411A3BA8734B81ED7CFABF1D /* AnthropicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnthropicService.swift; sourceTree = "<group>"; };
 		435DB7C8580B58542701D2DF /* PythonEnvironmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonEnvironmentService.swift; sourceTree = "<group>"; };
+		495227C0FB6FFF4F9C1EF1C8 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		4BD67AEF2B94B3EF0BBE9A96 /* AIProviderSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIProviderSettingsView.swift; sourceTree = "<group>"; };
 		54B70867C26EA0EE8DAC0E0A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		550E13066F204602DD39953D /* ResumeParserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeParserViewModel.swift; sourceTree = "<group>"; };
+		5B5E8934A520E2F99E847656 /* ResumeBuilderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeBuilderViewModel.swift; sourceTree = "<group>"; };
 		5D6E86CA8E8A5E2AFB5641AE /* ResumeParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeParserTests.swift; sourceTree = "<group>"; };
 		6275678EF65100E93731AB80 /* CoverLetterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverLetterViewModel.swift; sourceTree = "<group>"; };
 		6845FF80C7384A354DFEA545 /* AIServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIServiceProtocol.swift; sourceTree = "<group>"; };
@@ -271,6 +277,7 @@
 			children = (
 				6845FF80C7384A354DFEA545 /* AIServiceProtocol.swift */,
 				411A3BA8734B81ED7CFABF1D /* AnthropicService.swift */,
+				495227C0FB6FFF4F9C1EF1C8 /* ExportService.swift */,
 				DFA827560CF98E1AEEA5B6A2 /* FileImportService.swift */,
 				D1D7A499E0859D2608587C74 /* GeminiService.swift */,
 				D68C140CB44F8CA68D1E58DF /* GoogleGeminiService.swift */,
@@ -409,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				901970D143AB2AB310FD5703 /* ExportPlaceholder.swift */,
+				2617B14E5242391C60A2A948 /* ExportViewModel.swift */,
 			);
 			path = Export;
 			sourceTree = "<group>";
@@ -439,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC1B5FB1ADEF7343DD724B4 /* ResumeBuilderPlaceholder.swift */,
+				5B5E8934A520E2F99E847656 /* ResumeBuilderViewModel.swift */,
 			);
 			path = ResumeBuilder;
 			sourceTree = "<group>";
@@ -564,6 +573,8 @@
 				6B4778EF5A267FC8F7C5707A /* ExperienceEditView.swift in Sources */,
 				AD9F8A0301F41598BAE70E79 /* ExperienceEntryExtractor.swift in Sources */,
 				52EFE750B7E6C5E741910545 /* ExportPlaceholder.swift in Sources */,
+				A198A217BD3DAEA63397258B /* ExportService.swift in Sources */,
+				B8D8B56217B43D108E156BD3 /* ExportViewModel.swift in Sources */,
 				D42335330373E1A187CC0FA8 /* FileImportService.swift in Sources */,
 				D3599A8DBEFBBAC6CEB332E7 /* GeminiService.swift in Sources */,
 				C9953FEBC07419085A94C85E /* GeneratedResume.swift in Sources */,
@@ -587,6 +598,7 @@
 				D74AA8A17D2077BF65353C69 /* PythonEnvironmentService.swift in Sources */,
 				4B7C735406A97AC7F154EEC5 /* PythonSetupView.swift in Sources */,
 				E7EB8BE873FA9F10A833E3FD /* ResumeBuilderPlaceholder.swift in Sources */,
+				4F431BFDD57E7ACDDE78296A /* ResumeBuilderViewModel.swift in Sources */,
 				FBA83EA7AF6186330B02DAC7 /* ResumeContentParser.swift in Sources */,
 				56B5D2CDC6AAA0808DAFAFE7 /* ResumeForgeApp.swift in Sources */,
 				9CF397D99013CBA3DFDE6803 /* ResumeParserView.swift in Sources */,

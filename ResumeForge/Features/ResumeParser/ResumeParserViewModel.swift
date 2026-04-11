@@ -50,6 +50,12 @@ final class ResumeParserViewModel {
         do {
             let file = try FileImportService.load(from: url)
             fileName = file.fileName
+            switch file.fileType {
+            case .latex:
+                UserDefaults.standard.set("latex", forKey: "parser.lastImportedFileType")
+            case .pdf:
+                UserDefaults.standard.set("pdf", forKey: "parser.lastImportedFileType")
+            }
             extractedText = try await extractText(from: file)
             // LLM LaTeX extraction populates draft directly and returns ""
             if extractedText.isEmpty {

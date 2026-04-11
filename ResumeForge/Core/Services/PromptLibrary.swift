@@ -65,10 +65,16 @@ enum PromptLibrary {
 
     // MARK: - Resume Builder
 
-    static func resumeBuilderUser(profile: UserProfile, job: JobDescription, synthesis: String) -> String {
+    static func resumeBuilderUser(profile: UserProfile, job: JobDescription, synthesis: String, outputFormat: ResumeFormat) -> String {
         """
-        Using the AI Council recommendations below, rewrite the candidate's resume
-        tailored for the target role. Return the full resume as plain text only.
+        Using the AI Council recommendations below, rewrite the candidate's resume tailored for
+        the target role into an ATS-friendly version.
+
+        Required output format: \(outputFormat.displayName)
+        Format rules:
+        - If format is LaTeX, return valid LaTeX resume content only.
+        - If format is PDF or DOCX, return plain text resume content only.
+        - Do not include markdown fences.
 
         AI Council recommendations:
         \(synthesis)
@@ -79,5 +85,11 @@ enum PromptLibrary {
         """
     }
 
-    static let resumeBuilderSystem = "You are an expert resume writer. Return the full resume as plain text."
+    static let resumeBuilderSystem = """
+    You are an expert ATS resume writer.
+    Produce a resume that is ATS-friendly: clear section headings, keyword relevance to job description,
+    measurable achievements, and no decorative formatting.
+    Never invent facts, dates, employers, titles, certifications, or metrics.
+    If information is missing, omit it rather than guessing.
+    """
 }
