@@ -112,11 +112,6 @@ final class EditableProviderSettingsViewModel {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(commands, forType: .string)
 
-        let terminalURL = URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app")
-        let configuration = NSWorkspace.OpenConfiguration()
-        configuration.activates = true
-        NSWorkspace.shared.openApplication(at: terminalURL, configuration: configuration, completionHandler: { _, _ in })
-
         let terminalCommand = "clear; echo 'ResumeForge Ollama setup commands:'; echo ''; pbpaste; echo ''; echo 'Commands were copied to clipboard too.'"
         let script = "tell application \"Terminal\"\nactivate\ndo script \"\(terminalCommand)\"\nend tell"
         let process = Process()
