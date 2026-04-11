@@ -8,6 +8,8 @@ struct JobDescriptionView: View {
     @State private var title = ""
     @State private var company = ""
     @State private var rawText = ""
+    @State private var validationMessage: String?
+    @State private var didSave = false
 
     var body: some View {
         ScrollView {
@@ -21,6 +23,16 @@ struct JobDescriptionView: View {
         .appScreenBackground()
         .navigationTitle("Job Description")
         .tint(AppTheme.blue)
+        .alert("Could Not Save", isPresented: .constant(validationMessage != nil)) {
+            Button("OK") { validationMessage = nil }
+        } message: {
+            Text(validationMessage ?? "Please review your input.")
+        }
+        .alert("Saved", isPresented: $didSave) {
+            Button("OK") { }
+        } message: {
+            Text("Job description saved successfully.")
+        }
     }
 
     private var inputCard: some View {
@@ -49,7 +61,6 @@ struct JobDescriptionView: View {
             Button("Save Job Description", action: save)
                 .buttonStyle(.borderedProminent)
                 .tint(AppTheme.blue)
-                .disabled(rawText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
         }
         .padding(18)
         .appCard()
@@ -85,7 +96,10 @@ struct JobDescriptionView: View {
 
     private func save() {
         let normalizedText = rawText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !normalizedText.isEmpty else { return }
+        guard !normalizedText.isEmpty else {
+            validationMessage = "Enter the job description text before saving."
+            return
+        }
 
         let job = JobDescription(
             title: title.trimmingCharacters(in: .whitespacesAndNewlines),
@@ -95,7 +109,12 @@ struct JobDescriptionView: View {
             updatedAt: .now
         )
         modelContext.insert(job)
-        try? modelContext.save()
+        do {
+            try modelContext.save()
+            didSave = true
+        } catch {
+            validationMessage = "Failed to save. Please try again."
+        }
     }
 
     private func extractSkills(from text: String) -> [String] {

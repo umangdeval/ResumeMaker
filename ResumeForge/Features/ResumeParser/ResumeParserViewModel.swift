@@ -24,6 +24,9 @@ final class ResumeParserViewModel {
     var draft: DraftProfile = DraftProfile()
     var error: Error?
     var fileName: String = ""
+    var parsingMethodDescription: String = ""
+    var structuringMethodDescription: String = ""
+    var parsedDataMethodDescription: String = ""
 
     private let llmService: AIServiceProtocol?
 
@@ -41,17 +44,24 @@ final class ResumeParserViewModel {
     func handlePickedURL(_ url: URL) async {
         parserState = .parsing
         error = nil
+        parsingMethodDescription = "Detecting file type and selecting parser…"
+        structuringMethodDescription = ""
+        parsedDataMethodDescription = ""
         do {
             let file = try FileImportService.load(from: url)
             fileName = file.fileName
             extractedText = try await extractText(from: file)
             // LLM LaTeX extraction populates draft directly and returns ""
             if extractedText.isEmpty {
+                parsedDataMethodDescription = parsingMethodDescription
                 parserState = .review
                 return
             }
             let parsed = await parseWithLocalLLMFallback(extractedText)
             draft = makeDraft(from: parsed)
+            parsedDataMethodDescription = [parsingMethodDescription, structuringMethodDescription]
+                .filter { !$0.isEmpty }
+                .joined(separator: " ")
             parserState = .review
         } catch {
             self.error = error
@@ -89,20 +99,24 @@ final class ResumeParserViewModel {
         switch file.fileType {
         case .latex:
             let rawLatex = String(data: file.data, encoding: .utf8) ?? ""
+            parsingMethodDescription = "LaTeX: trying LLM-based structure extraction first."
             // Try LLM extraction first — more accurate for complex nested LaTeX
             if let service = llmService ?? Self.makeLocalLLMServiceIfAvailable() {
                 if let parsed = try? await LLMLatexExtractor.extract(from: rawLatex, service: service),
                    hasUsefulData(parsed) {
+                    parsingMethodDescription = "LaTeX parsed with LLM extraction."
                     draft = makeDraft(from: parsed)
                     return ""   // draft is populated; skip parseWithLocalLLMFallback
                 }
             }
             // Fallback: regex-based extractor
+            parsingMethodDescription = "LaTeX LLM unavailable; using regex fallback parser."
             return try await Task.detached(priority: .userInitiated) {
                 try LaTeXTextExtractor.extract(from: file.data)
             }.value
 
         case .pdf:
+            parsingMethodDescription = "PDF: trying Docling extraction first."
             // Write data to a temp file so Docling (which needs a file path) can access it
             let tmpURL = FileManager.default.temporaryDirectory
                 .appendingPathComponent(UUID().uuidString + ".pdf")
@@ -111,9 +125,12 @@ final class ResumeParserViewModel {
 
             do {
                 // Try Docling first — richer, layout-aware extraction
-                return try await DoclingPDFExtractor.extract(from: tmpURL)
+                let text = try await DoclingPDFExtractor.extract(from: tmpURL)
+                parsingMethodDescription = "PDF parsed with Docling."
+                return text
             } catch DoclingExtractionError.moduleNotAvailable {
                 // Docling not installed — fall back silently to PDFKit
+                parsingMethodDescription = "Docling not available; using PDFKit fallback parser."
                 return try await Task.detached(priority: .userInitiated) {
                     try PDFTextExtractor.extract(from: file.data)
                 }.value
@@ -177,10 +194,13 @@ final class ResumeParserViewModel {
 
     private func parseWithLocalLLMFallback(_ text: String) async -> ParsedResumeData {
         let fallback = ResumeResultParser.parse(text)
+        structuringMethodDescription = "Structured with deterministic local parser."
 
         guard UserDefaults.standard.bool(forKey: "parser.localLLMEnabled") else {
             return fallback
         }
+
+        structuringMethodDescription = "Trying local LLM for structured data extraction."
 
         let systemPrompt = """
         You are a resume parser.
@@ -237,10 +257,13 @@ final class ResumeParserViewModel {
             )
             let llmParsed = ResumeResultParser.parse(llmOutput)
             if hasUsefulData(llmParsed) {
+                structuringMethodDescription = "Structured with local LLM parser."
                 return llmParsed
             }
+            structuringMethodDescription = "Local LLM output was incomplete; used deterministic local parser."
         } catch {
             // Fall back to deterministic parser when local model is unavailable.
+            structuringMethodDescription = "Local LLM unavailable; used deterministic local parser."
         }
 
         return fallback

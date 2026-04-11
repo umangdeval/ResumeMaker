@@ -18,7 +18,12 @@ struct ResumeParserView: View {
                 case .importing:
                     LoadingView(message: "Opening file picker…")
                 case .parsing:
-                    LoadingView(message: "Extracting text from \(viewModel.fileName)…")
+                    LoadingView(
+                        message: "Extracting text from \(viewModel.fileName)…",
+                        detail: [viewModel.parsingMethodDescription, viewModel.structuringMethodDescription]
+                            .filter { !$0.isEmpty }
+                            .joined(separator: "\n")
+                    )
                 case .review:
                     ParsedReviewView(viewModel: viewModel)
                 case .saving:
@@ -134,6 +139,15 @@ private struct ParsedReviewView: View {
             }
             .pickerStyle(.segmented)
             .padding()
+
+            if !viewModel.parsedDataMethodDescription.isEmpty {
+                Text(viewModel.parsedDataMethodDescription)
+                    .font(.caption)
+                    .foregroundStyle(AppTheme.textSecondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    .padding(.bottom, 4)
+            }
 
             if selectedTab == 0 {
                 ParsedDataFormView(draft: $viewModel.draft)

@@ -27,44 +27,75 @@ enum SidebarItem: String, Hashable, CaseIterable, Identifiable {
 
 struct RootTabView: View {
     let pythonStatus: PythonEnvironmentStatus
-    @AppStorage("didShowStartupGuide") private var didShowStartupGuide = false
-    @State private var isShowingStartupGuide = false
-    @State private var selection: SidebarItem? = .dashboard
+    @State private var selection: SidebarItem = .dashboard
+    @State private var detailPath = NavigationPath()
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
 
     var body: some View {
-        NavigationSplitView(columnVisibility: .constant(.all)) {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             sidebar
         } detail: {
-            detailView
-        }
-        .task {
-            if !didShowStartupGuide {
-                isShowingStartupGuide = true
+            NavigationStack(path: $detailPath) {
+                detailView
             }
-        }
-        .sheet(isPresented: $isShowingStartupGuide, onDismiss: { didShowStartupGuide = true }) {
-            StartupGuideView(
-                pythonStatus: pythonStatus,
-                ollamaModel: AIProviderConfig.makeDefault(kind: .ollama).model
-            ) { isShowingStartupGuide = false }
+            .toolbar(removing: .sidebarToggle)
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        columnVisibility = columnVisibility == .all ? .detailOnly : .all
+                    } label: {
+                        Image(systemName: "sidebar.right")
+                    }
+                    .help(columnVisibility == .all ? "Hide Sidebar" : "Show Sidebar")
+                }
+            }
         }
     }
 
     private var sidebar: some View {
-        List(SidebarItem.allCases, selection: $selection) { item in
-            Label(item.rawValue, systemImage: item.icon)
+        GeometryReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 4) {
+                    ForEach(SidebarItem.allCases) { item in
+                        Button {
+                            selection = item
+                            detailPath = NavigationPath()
+                        } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: item.icon)
+                                    .frame(width: 18)
+                                if proxy.size.width > 120 {
+                                    Text(item.rawValue)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(selection == item ? AppTheme.blue.opacity(0.18) : .clear)
+                            )
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundStyle(selection == item ? AppTheme.text : AppTheme.textSecondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(8)
+            }
         }
-        .listStyle(.sidebar)
         .navigationTitle("ResumeForge")
-        .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+        .navigationSplitViewColumnWidth(min: 64, ideal: 210, max: 320)
     }
 
     @ViewBuilder
     private var detailView: some View {
-        switch selection ?? .dashboard {
+        switch selection {
         case .dashboard:  DashboardView()
         case .profile:    ProfileView()
-        case .create:     NavigationStack { CreateWorkflowView() }
+        case .create:     CreateWorkflowView()
         case .documents:  DocumentsView()
         case .settings:   SettingsView(pythonStatus: pythonStatus)
         }
@@ -137,9 +168,20 @@ private struct DashboardView: View {
                 .font(AppTheme.sectionTitle)
                 .foregroundStyle(AppTheme.text)
             HStack(spacing: 10) {
-                quickAction(label: "Import Resume", icon: "doc.text.viewfinder", color: AppTheme.blue)
-                quickAction(label: "New Job", icon: "doc.plaintext", color: .purple)
-                quickAction(label: "AI Council", icon: "person.3.sequence", color: .teal)
+                NavigationLink(destination: ResumeParserView()) {
+                    quickAction(label: "Import Resume", icon: "doc.text.viewfinder", color: AppTheme.blue)
+                }
+                .buttonStyle(.plain)
+
+                NavigationLink(destination: JobDescriptionView()) {
+                    quickAction(label: "New Job", icon: "doc.plaintext", color: .purple)
+                }
+                .buttonStyle(.plain)
+
+                NavigationLink(destination: CreateWorkflowView()) {
+                    quickAction(label: "AI Council", icon: "person.3.sequence", color: .teal)
+                }
+                .buttonStyle(.plain)
             }
         }
     }
