@@ -19,7 +19,7 @@ ResumeForge is designed to provide an end-to-end application workflow:
 4. Generate and refine tailored resume + cover letter drafts.
 5. Export polished output files.
 
-Today, steps 1 through 3 are implemented, while resume builder / cover letter / export are still in progress.
+All five steps above are implemented in the current build.
 
 ## Current Status
 
@@ -30,12 +30,13 @@ Today, steps 1 through 3 are implemented, while resume builder / cover letter / 
 | PDF extraction backend | Implemented | Docling first, PDFKit fallback |
 | Profile management | Implemented | Edit contact, summary, skills, experience, education |
 | Job description management | Implemented | Save role, company, full JD text |
+| Style reference analysis | Implemented | Analyze sample writing style and store traits |
 | AI Council analysis | Implemented | Parallel provider analysis + synthesis + token/cost estimate |
 | Settings and provider config | Implemented | Provider setup, Keychain API keys, local parsing toggle |
-| Documents tab | Placeholder | UI present, feature not complete |
-| Resume Builder | Placeholder | Not implemented yet |
-| Cover Letter | Placeholder | Not implemented yet |
-| Export | Placeholder | Not implemented yet |
+| Cover Letter generation | Implemented | AI-assisted draft generation, editing, and save |
+| Resume Builder | Implemented | Tailored generation with format-aware output guidance |
+| Export | Implemented | Export generated resumes to PDF, LaTeX, and DOCX |
+| Documents tab | Implemented (basic) | Tab and screen are active; advanced document management is in progress |
 
 ## How It Works
 
@@ -48,6 +49,8 @@ Today, steps 1 through 3 are implemented, while resume builder / cover letter / 
 5. Save into SwiftData profile records.
 6. Add a target job description.
 7. Convene AI Council for tailoring recommendations.
+8. Generate cover letter and tailored resume drafts.
+9. Export final versions for sharing.
 
 ### Parsing behavior
 
@@ -62,6 +65,7 @@ Today, steps 1 through 3 are implemented, while resume builder / cover letter / 
 - Uses enabled providers from settings.
 - Runs analysis in parallel streams.
 - Synthesizes outputs into prioritized recommendations.
+- If initial startup setup is completed with Ollama enabled, provider config is constrained to Ollama-only for local-first usage.
 
 ### Data and secrets
 
@@ -102,6 +106,27 @@ In Xcode:
 xcodebuild build -scheme ResumeForge -destination 'platform=macOS'
 xcodebuild test -scheme ResumeForge -destination 'platform=macOS'
 xcodebuild clean -scheme ResumeForge
+```
+
+### Package A DMG For Testing
+
+Use the included helper script:
+
+```bash
+./scripts/make-dmg.sh
+```
+
+DMG output:
+
+```text
+dist/ResumeForge-Test.dmg
+```
+
+Useful options:
+
+```bash
+./scripts/make-dmg.sh --skip-build
+./scripts/make-dmg.sh --help
 ```
 
 ### Optional: Verify Docling Backend
