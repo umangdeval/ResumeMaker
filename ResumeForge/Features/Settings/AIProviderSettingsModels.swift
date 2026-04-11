@@ -156,8 +156,11 @@ struct AIProviderConfig: Identifiable, Codable, Equatable {
     var ollamaCommandText: String {
         """
         brew install --cask ollama
+        ollama serve
+        ollama list
         ollama pull \(model)
         ollama run \(model)
+        curl http://127.0.0.1:11434/api/tags
         """
     }
 }

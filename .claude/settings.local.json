@@ -10,8 +10,15 @@
       "Bash(git commit:*)",
       "Bash(git add:*)",
       "Bash(git reset:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(ls /Users/umangdeval/Documents/Projects/ResumeMaker/*.xcodeproj)",
+      "Bash(ls /Users/umangdeval/Documents/Projects/ResumeMaker/*.xcworkspace)",
+      "Bash(python3 -c \"from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code\\(Path\\('.'\\)\\)\")",
+      "Bash(pip3 show:*)",
+      "Read(//Users/umangdeval/.local/**)",
+      "Bash(graphify rebuild:*)",
+      "Bash(graphify --help)",
+      "Bash(python3 -c ':*)"
     ]
   }
-
 }

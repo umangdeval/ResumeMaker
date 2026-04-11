@@ -10,6 +10,9 @@ final class EditableProviderSettingsViewModel {
     var errorMessage: String?
     var isShowingOllamaCommands = false
     var ollamaCommandText = ""
+    private let providerRowHeight: CGFloat = 56
+    private let providerListMinHeight: CGFloat = 180
+    private let providerListMaxHeight: CGFloat = 320
 
     init() {
         loadSecrets()
@@ -93,14 +96,41 @@ final class EditableProviderSettingsViewModel {
             isEnabled: true
         ).ollamaCommandText
         isShowingOllamaCommands = true
-        openTerminal()
+        openTerminal(withCommands: ollamaCommandText)
     }
 
-    private func openTerminal() {
+    var providerListHeight: CGFloat {
+        let contentHeight = CGFloat(max(providers.count, 3)) * providerRowHeight
+        return min(max(contentHeight, providerListMinHeight), providerListMaxHeight)
+    }
+
+    var ollamaModelForSetup: String {
+        providers.first(where: { $0.kind == .ollama })?.model ?? AIProviderKind.ollama.defaultModel
+    }
+
+    private func openTerminal(withCommands commands: String) {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(commands, forType: .string)
+
         let terminalURL = URL(fileURLWithPath: "/System/Applications/Utilities/Terminal.app")
         let configuration = NSWorkspace.OpenConfiguration()
         configuration.activates = true
         NSWorkspace.shared.openApplication(at: terminalURL, configuration: configuration, completionHandler: { _, _ in })
+
+        let terminalCommand = "clear; echo 'ResumeForge Ollama setup commands:'; echo ''; pbpaste; echo ''; echo 'Commands were copied to clipboard too.'"
+        let script = "tell application \"Terminal\"\nactivate\ndo script \"\(terminalCommand)\"\nend tell"
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+        do {
+            try process.run()
+            process.waitUntilExit()
+            if process.terminationStatus != 0 {
+                errorMessage = "Terminal opened, but commands could not be auto-printed. Use the copy button in the command sheet."
+            }
+        } catch {
+            errorMessage = "Terminal opened, but commands could not be auto-printed. Use the copy button in the command sheet."
+        }
     }
 }
 
@@ -222,7 +252,7 @@ struct EditableProviderSettingsView: View {
             }
                 .scrollContentBackground(.hidden)
                 .background(.clear)
-            .frame(minHeight: 180, maxHeight: 260)
+            .frame(height: viewModel.providerListHeight)
 
             HStack {
                 Button {
@@ -254,6 +284,33 @@ struct EditableProviderSettingsView: View {
         .appCard()
     }
 
+    private var ollamaSetupSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Local Ollama Setup")
+                .font(AppTheme.sectionTitle)
+                .foregroundStyle(AppTheme.text)
+            Text("Run these once to use local parsing and local model responses.")
+                .font(AppTheme.body)
+                .foregroundStyle(AppTheme.textSecondary)
+
+            VStack(alignment: .leading, spacing: 6) {
+                Text("1. Install and start Ollama")
+                Text("2. Pull your selected model")
+                Text("3. Keep the service running at http://127.0.0.1:11434")
+            }
+            .font(AppTheme.caption)
+            .foregroundStyle(AppTheme.text)
+
+            Button("Open Terminal + Show Commands") {
+                viewModel.showOllamaCommands(for: viewModel.ollamaModelForSetup)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(AppTheme.blue)
+        }
+        .padding(16)
+        .appCard()
+    }
+
     private var parsingSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Local Parsing")
@@ -262,6 +319,7 @@ struct EditableProviderSettingsView: View {
             Toggle("Use local Ollama for parsing", isOn: $viewModel.localParsingEnabled)
                 .foregroundStyle(AppTheme.text)
                 .toggleStyle(.switch)
+            ollamaSetupSection
         }
         .padding(16)
         .appCard()
