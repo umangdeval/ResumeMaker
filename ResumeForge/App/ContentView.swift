@@ -5,6 +5,8 @@ import SwiftData
 
 struct RootTabView: View {
     let pythonStatus: PythonEnvironmentStatus
+    @AppStorage("didShowStartupGuide") private var didShowStartupGuide = false
+    @State private var isShowingStartupGuide = false
 
     var body: some View {
         TabView {
@@ -24,6 +26,21 @@ struct RootTabView: View {
                 .tabItem { Label("Settings", systemImage: "gear") }
         }
         .tint(AppTheme.blue)
+        .task {
+            if didShowStartupGuide == false {
+                isShowingStartupGuide = true
+            }
+        }
+        .sheet(isPresented: $isShowingStartupGuide, onDismiss: {
+            didShowStartupGuide = true
+        }) {
+            StartupGuideView(
+                pythonStatus: pythonStatus,
+                ollamaModel: AIProviderConfig.makeDefault(kind: .ollama).model
+            ) {
+                isShowingStartupGuide = false
+            }
+        }
     }
 }
 

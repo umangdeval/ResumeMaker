@@ -27,6 +27,7 @@
 		4528CB9B2A47170D2A855B56 /* AICouncilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07CF7FCBB1218A4B343D63 /* AICouncilView.swift */; };
 		47A817AAE4E4DEBC79BD05E7 /* ParseConfidence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071F1EE233FF300BD7FFC74C /* ParseConfidence.swift */; };
 		484ACAB6CE7B2FC0290EFC93 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D81DBDD348A9876B175608CB /* AppTheme.swift */; };
+		49AEA4B50F1A11CD33C726A7 /* StartupGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7450CD6B703849BF9807B7F /* StartupGuideView.swift */; };
 		4B222622BDA4A2419790E776 /* StringExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8699EC9CDE0A9AA2B6F4ADB2 /* StringExtensionTests.swift */; };
 		4B7C735406A97AC7F154EEC5 /* PythonSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCCB00C6B80E077F43F186D /* PythonSetupView.swift */; };
 		4F27B849517EEE087DBB8AED /* ParsedResumeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C1C4EE86A696223EE749D3 /* ParsedResumeData.swift */; };
@@ -134,6 +135,7 @@
 		9D3F59D5D19B89D855EE2FFC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		A08FE135728E1B77AB45F3DF /* ResumeContentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeContentParser.swift; sourceTree = "<group>"; };
 		A56A64B28570EFBCCC213636 /* DoclingPDFExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoclingPDFExtractor.swift; sourceTree = "<group>"; };
+		A7450CD6B703849BF9807B7F /* StartupGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupGuideView.swift; sourceTree = "<group>"; };
 		AA2B0E1CBA98CE1866A6CCCC /* ResumeForgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeForgeApp.swift; sourceTree = "<group>"; };
 		B52F826C92D4EC19F872EA66 /* Education.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Education.swift; sourceTree = "<group>"; };
 		B60F386D7EAEFE4D91EF8978 /* AIProviderSettingsSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIProviderSettingsSheets.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				71C1ED32A9A57407FB36D3A7 /* ErrorView.swift */,
 				20BCB741DB891206C591361B /* LoadingView.swift */,
 				686AAA7865A2B19504028AAF /* Router.swift */,
+				A7450CD6B703849BF9807B7F /* StartupGuideView.swift */,
 				212634FDCCD2D5BBDF9D4FA4 /* TokenEstimateView.swift */,
 			);
 			path = UI;
@@ -571,6 +574,7 @@
 				5624BFAD75B45A60DE11E388 /* Router.swift in Sources */,
 				AFEF9AFF0B0933DEF3EDDE23 /* SettingsPlaceholder.swift in Sources */,
 				93E7B56BC9D71EBB2980D998 /* SettingsView.swift in Sources */,
+				49AEA4B50F1A11CD33C726A7 /* StartupGuideView.swift in Sources */,
 				8CD742D188ECA57F210C9926 /* String+Extensions.swift in Sources */,
 				B6D1567C3CF9E6CF33C23291 /* TokenCostEstimator.swift in Sources */,
 				57AA3D451083101C5602B1A3 /* TokenEstimateView.swift in Sources */,
