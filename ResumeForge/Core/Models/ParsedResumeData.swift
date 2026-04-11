@@ -1,5 +1,22 @@
 import Foundation
 
+// MARK: - Draft (staging before SwiftData commit)
+
+/// Ephemeral value type that holds parsed resume data before the user confirms.
+/// Never persisted to SwiftData — discarded on cancel, committed on confirm.
+struct DraftProfile: Equatable {
+    var fullName: String = ""
+    var email: String = ""
+    var phone: String = ""
+    var linkedIn: String = ""
+    var github: String = ""
+    var website: String = ""
+    var summary: String = ""
+    var skills: [String] = []
+    var experiences: [ParsedExperience] = []
+    var education: [ParsedEducation] = []
+}
+
 // MARK: - Top-level result
 
 /// Best-effort structured data extracted from a raw resume text.
@@ -50,7 +67,7 @@ struct ParsedResumeData: Sendable {
 
 // MARK: - Nested types
 
-struct ParsedExperience: Sendable, Identifiable {
+struct ParsedExperience: Sendable, Identifiable, Equatable {
     var id: UUID = UUID()
     var company: String
     var title: String
@@ -93,7 +110,7 @@ struct ParsedProject: Sendable, Identifiable {
     }
 }
 
-struct ParsedEducation: Sendable, Identifiable {
+struct ParsedEducation: Sendable, Identifiable, Equatable {
     var id: UUID = UUID()
     var institution: String
     var degree: String

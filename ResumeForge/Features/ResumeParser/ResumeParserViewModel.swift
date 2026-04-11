@@ -21,7 +21,7 @@ final class ResumeParserViewModel {
     var parserState: ResumeParserState = .idle
     var isShowingFilePicker = false
     var extractedText: String = ""
-    var parsedData: ParsedResumeData = ParsedResumeData()
+    var draft: DraftProfile = DraftProfile()
     var error: Error?
     var fileName: String = ""
 
@@ -45,7 +45,8 @@ final class ResumeParserViewModel {
             let file = try FileImportService.load(from: url)
             fileName = file.fileName
             extractedText = try await extractText(from: file)
-            parsedData = await parseWithLocalLLMFallback(extractedText)
+            let parsed = await parseWithLocalLLMFallback(extractedText)
+            draft = makeDraft(from: parsed)
             parserState = .review
         } catch {
             self.error = error
@@ -57,13 +58,18 @@ final class ResumeParserViewModel {
         if parserState == .importing { parserState = .idle }
     }
 
+    func cancelImport() {
+        draft = DraftProfile()
+        parserState = .idle
+    }
+
     // MARK: - Save to profile
 
     func saveToProfile(context: ModelContext) async {
         parserState = .saving
         do {
             let profile = try fetchOrCreateProfile(context: context)
-            apply(parsedData, to: profile)
+            apply(draft, to: profile)
             try context.save()
             parserState = .saved
         } catch {
@@ -110,8 +116,17 @@ final class ResumeParserViewModel {
         return newProfile
     }
 
-    private func apply(_ data: ParsedResumeData, to profile: UserProfile) {
-        if !data.name.isEmpty     { profile.fullName = data.name }
+    private func makeDraft(from data: ParsedResumeData) -> DraftProfile {
+        DraftProfile(
+            fullName: data.name, email: data.email, phone: data.phone,
+            linkedIn: data.linkedIn, github: data.github, website: data.website,
+            summary: data.summary, skills: data.skills,
+            experiences: data.experiences, education: data.education
+        )
+    }
+
+    private func apply(_ data: DraftProfile, to profile: UserProfile) {
+        if !data.fullName.isEmpty { profile.fullName = data.fullName }
         if !data.email.isEmpty    { profile.email    = data.email }
         if !data.phone.isEmpty    { profile.phone    = data.phone }
         if !data.linkedIn.isEmpty { profile.linkedIn = data.linkedIn }

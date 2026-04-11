@@ -135,7 +135,7 @@ private struct ParsedReviewView: View {
             .padding()
 
             if selectedTab == 0 {
-                ParsedDataFormView(data: $viewModel.parsedData)
+                ParsedDataFormView(draft: $viewModel.draft)
             } else {
                 ExtractedTextView(text: viewModel.extractedText)
             }
@@ -149,7 +149,9 @@ private struct ParsedReviewView: View {
         VStack(spacing: 4) {
             Divider()
             HStack {
-                Text("Review the data above, then save to your profile.")
+                Button("Cancel", role: .destructive) { viewModel.cancelImport() }
+                    .buttonStyle(.bordered)
+                Text("Review, then save to your profile.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 Spacer()
@@ -168,7 +170,7 @@ private struct ParsedReviewView: View {
 // MARK: - Parsed data form
 
 private struct ParsedDataFormView: View {
-    @Binding var data: ParsedResumeData
+    @Binding var draft: DraftProfile
 
     var body: some View {
         Form {
@@ -185,40 +187,40 @@ private struct ParsedDataFormView: View {
 
     private var contactSection: some View {
         Section("Contact") {
-            LabeledContent("Name")   { TextField("Name", text: $data.name) }
-            LabeledContent("Email")  { TextField("Email", text: $data.email) }
-            LabeledContent("Phone")  { TextField("Phone", text: $data.phone) }
-            LabeledContent("LinkedIn") { TextField("URL", text: $data.linkedIn) }
-            LabeledContent("GitHub") { TextField("URL", text: $data.github) }
+            LabeledContent("Name")     { TextField("Name", text: $draft.fullName) }
+            LabeledContent("Email")    { TextField("Email", text: $draft.email) }
+            LabeledContent("Phone")    { TextField("Phone", text: $draft.phone) }
+            LabeledContent("LinkedIn") { TextField("URL", text: $draft.linkedIn) }
+            LabeledContent("GitHub")   { TextField("URL", text: $draft.github) }
         }
     }
 
     private var summarySection: some View {
         Section("Summary") {
-            TextEditor(text: $data.summary)
+            TextEditor(text: $draft.summary)
                 .frame(minHeight: 80)
         }
     }
 
     private var experienceSection: some View {
-        Section("Experience (\(data.experiences.count) found)") {
-            ForEach($data.experiences) { $exp in
+        Section("Experience (\(draft.experiences.count) found)") {
+            ForEach($draft.experiences) { $exp in
                 ExperienceRowView(experience: $exp)
             }
         }
     }
 
     private var educationSection: some View {
-        Section("Education (\(data.education.count) found)") {
-            ForEach($data.education) { $edu in
+        Section("Education (\(draft.education.count) found)") {
+            ForEach($draft.education) { $edu in
                 EducationRowView(education: $edu)
             }
         }
     }
 
     private var skillsSection: some View {
-        Section("Skills (\(data.skills.count) found)") {
-            Text(data.skills.joined(separator: ", "))
+        Section("Skills (\(draft.skills.count) found)") {
+            Text(draft.skills.joined(separator: ", "))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }

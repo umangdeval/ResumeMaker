@@ -71,4 +71,12 @@ final class ProfileViewModel {
         profile?.skills.removeAll { $0 == skill }
         save(context: context)
     }
+
+    func clearProfile(context: ModelContext) {
+        guard let profile else { return }
+        context.delete(profile)
+        try? context.save()
+        self.profile = nil
+        load(context: context)
+    }
 }

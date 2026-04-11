@@ -4,6 +4,7 @@ import SwiftData
 struct ProfileView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel = ProfileViewModel()
+    @State private var showClearConfirm = false
 
     var body: some View {
         NavigationStack {
@@ -19,6 +20,16 @@ struct ProfileView: View {
             .appScreenBackground()
             .navigationTitle("Profile")
             .tint(AppTheme.blue)
+            .toolbar {
+                ToolbarItem(placement: .destructiveAction) {
+                    Button("Clear", role: .destructive) { showClearConfirm = true }
+                }
+            }
+            .confirmationDialog("Delete all profile data?", isPresented: $showClearConfirm, titleVisibility: .visible) {
+                Button("Delete Everything", role: .destructive) {
+                    viewModel.clearProfile(context: modelContext)
+                }
+            }
             .onAppear { viewModel.load(context: modelContext) }
             .sheet(isPresented: $viewModel.isAddingExperience) {
                 ExperienceEditView(experience: Experience(), isNew: true) { exp in

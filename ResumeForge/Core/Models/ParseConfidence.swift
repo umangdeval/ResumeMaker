@@ -2,7 +2,7 @@ import Foundation
 
 /// Confidence level assigned to a value produced by the resume parser.
 /// Surfaces in the review UI so users know which fields need attention.
-enum ParseConfidence: Int, Comparable, Sendable {
+enum ParseConfidence: Int, Comparable, Equatable, Sendable {
     /// Field was not found; value is empty or default.
     case missing = 0
     /// Positional guess — no structural signal matched; user should verify.
